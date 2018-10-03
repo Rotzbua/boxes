@@ -72,13 +72,50 @@ a box in one direction</li>
 </ul>
 </div></blockquote>
 <p>and</p>
+<dl class="class">
+<dt id="boxes.ArgparseEdgeType">
+<em class="property">class </em><code class="descclassname">boxes.</code><code class="descname">ArgparseEdgeType</code><span class="sig-paren">(</span><em>edges=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#ArgparseEdgeType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.ArgparseEdgeType" title="Permalink to this definition">¶</a></dt>
+<dd><p>argparse type to select from a set of edge types</p>
+</dd></dl>
+
 <p>For the standard types there is code to create HTML and Inkscape
 extensions. The other types can have <code class="docutils literal notranslate"><span class="pre">.html()</span></code> and <code class="docutils literal notranslate"><span class="pre">.inx()</span></code>
 methods.</p>
 <p>The argument parser need to be built in the <code class="docutils literal notranslate"><span class="pre">.__init__()</span></code> method
 after calling the method of the super class. Have a look at</p>
+<dl class="method">
+<dt id="boxes.generators._template.BOX.__init__">
+<code class="descclassname">BOX.</code><code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/generators/_template.html#BOX.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators._template.BOX.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <p>As many arguments are used over and over there is a function that can
 add the most common ones:</p>
+<dl class="method">
+<dt id="boxes.Boxes.buildArgParser">
+<code class="descclassname">Boxes.</code><code class="descname">buildArgParser</code><span class="sig-paren">(</span><em>*l</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.buildArgParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.buildArgParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add commonly used arguments</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>*l</strong> – parameter names</li>
+<li><strong>**kw</strong> – parameters with new default values</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Supported parameters are</p>
+<ul class="simple">
+<li>floats: x, y, h, hi</li>
+<li>argparseSections: sx, sy</li>
+<li>ArgparseEdgeType: bottom_edge, top_edge</li>
+<li>boolarg: outside</li>
+<li>str (selection): nema_mount</li>
+</ul>
+</dd></dl>
+
 <p>Check the source for details about the single arguments.</p>
 <p>Other arguments can be added with the normal argparser API - namely</p>
 <dl class="method">
@@ -92,7 +129,17 @@ add the most common ones:</p>
 <h3>Edge style arguments<a class="headerlink" href="#edge-style-arguments" title="Permalink to this headline">¶</a></h3>
 <p>Edges that work together share a Settings class (and object). These
 classes can create <code class="docutils literal notranslate"><span class="pre">argparse</span></code> groups:</p>
+<dl class="classmethod">
+<dt id="boxes.edges.Settings.parserArguments">
+<em class="property">classmethod </em><code class="descclassname">Settings.</code><code class="descname">parserArguments</code><span class="sig-paren">(</span><em>parser</em>, <em>prefix=None</em>, <em>**defaults</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/edges.html#Settings.parserArguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.edges.Settings.parserArguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <p>See</p>
+<dl class="method">
+<dt>
+<code class="descclassname">BOX.</code><code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/generators/_template.html#BOX.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
 <p>for a list of possible edge settings. These regular settings are used
 in the standard edge instances used everywhere. For special edge
 instances you can call them with a <code class="docutils literal notranslate"><span class="pre">prefix</span></code> parameter. But you then
@@ -182,12 +229,24 @@ bottom to mount the PBC on.</p>
 <div class="section" id="nemamount">
 <h3>NemaMount<a class="headerlink" href="#nemamount" title="Permalink to this headline">¶</a></h3>
 <p>This is a good non box example to look at.</p>
+<dl class="class">
+<dt id="boxes.generators.nemamount.NemaMount">
+<em class="property">class </em><code class="descclassname">boxes.generators.nemamount.</code><code class="descname">NemaMount</code><a class="reference internal" href="_modules/boxes/generators/nemamount.html#NemaMount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.nemamount.NemaMount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mounting braket for a Nema motor</p>
+</dd></dl>
+
 <p>Note that although it produces a cube like object it uses separate
 variables (<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">h</span></code>) for the different axis. Probably
 because it started as a copy of another generator like <code class="docutils literal notranslate"><span class="pre">ClosedBox</span></code>.</p>
 </div>
 <div class="section" id="displayshelf">
 <h3>DisplayShelf<a class="headerlink" href="#displayshelf" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="boxes.generators.displayshelf.DisplayShelf">
+<em class="property">class </em><code class="descclassname">boxes.generators.displayshelf.</code><code class="descname">DisplayShelf</code><a class="reference internal" href="_modules/boxes/generators/displayshelf.html#DisplayShelf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.displayshelf.DisplayShelf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shelf with forward slanted floors</p>
+</dd></dl>
+
 <p>The DisplayShelf is completely made out of rectangularWalls(). It uses
 a callback to place all the fingerHolesAt() right places on the sides.
 While the use of the Boxes.py API is pretty straight forward the
@@ -199,10 +258,27 @@ with the default FingerJoints.</p>
 </div>
 <div class="section" id="bintray">
 <h3>BinTray<a class="headerlink" href="#bintray" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="boxes.generators.bintray.BinTray">
+<em class="property">class </em><code class="descclassname">boxes.generators.bintray.</code><code class="descname">BinTray</code><a class="reference internal" href="_modules/boxes/generators/bintray.html#BinTray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.bintray.BinTray" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Type tray variant to be used up right with sloped walls in front</p>
+</dd></dl>
+
 <p>The BinTray is based on the TypeTray generator:</p>
+<dl class="class">
+<dt id="boxes.generators.typetray.TypeTray">
+<em class="property">class </em><code class="descclassname">boxes.generators.typetray.</code><code class="descname">TypeTray</code><a class="reference internal" href="_modules/boxes/generators/typetray.html#TypeTray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.typetray.TypeTray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type tray - allows only continuous walls</p>
+</dd></dl>
+
 <p>TypeTray is an already pretty complicated generator.</p>
 <p>BinTray replaces the now vertical front (former top) edges with a
 special purpose one that does add the triangles:</p>
+<dl class="class">
+<dt id="boxes.generators.bintray.BinFrontEdge">
+<em class="property">class </em><code class="descclassname">boxes.generators.bintray.</code><code class="descname">BinFrontEdge</code><span class="sig-paren">(</span><em>boxes</em>, <em>settings</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/generators/bintray.html#BinFrontEdge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.bintray.BinFrontEdge" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <p>The <code class="docutils literal notranslate"><span class="pre">hi</span></code> (height of inner walls) argument was removed although the
 variable is still used internally - out of lazyness.</p>
 <p>To complete the bin the front walls are added. Follow up patches then
@@ -215,6 +291,12 @@ own Edge class. But it uses its own code to generate all the wall needed.</p>
 </div>
 <div class="section" id="stachel">
 <h3>Stachel<a class="headerlink" href="#stachel" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="boxes.generators.stachel.Stachel">
+<em class="property">class </em><code class="descclassname">boxes.generators.stachel.</code><code class="descname">Stachel</code><a class="reference internal" href="_modules/boxes/generators/stachel.html#Stachel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.stachel.Stachel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bass Recorder Endpin</p>
+</dd></dl>
+
 <p>Stachel allows mounting a monopod to a bass recorder. It is basically
 just one part repeated with different parameters. It can’t really make
 use of much of the Boxes.py library. It implements this one part
