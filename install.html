@@ -1,0 +1,204 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Installation &#8212; boxes.py 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using Boxes.py" href="usermanual.html" />
+    <link rel="prev" title="Boxes.py" href="README.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="usermanual.html" title="Using Boxes.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="README.html" title="Boxes.py"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">boxes.py 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Boxes.py is a pure Python project that does support the regular setuptools
+method of shipping with <em>setup.py</em>. <em>setup.py –help-commands</em> and
+<em>setup.py CMD –help</em> provide the necessary documentation for building,
+installing or building binary formats.</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cairo">
+<h3>Cairo<a class="headerlink" href="#cairo" title="Permalink to this headline">¶</a></h3>
+<p>Boxes.py is based on the cairo graphics library. It supports both the PyPi
+version <em>cairocffi</em> and python-cairo that might be shipped with your
+distribution.</p>
+</div>
+<div class="section" id="markdown">
+<h3>Markdown<a class="headerlink" href="#markdown" title="Permalink to this headline">¶</a></h3>
+<p>Markdown (package name may be python-markdown or python3-markdown) is
+used to format the description texts.</p>
+</div>
+<div class="section" id="lxml">
+<h3>LXML<a class="headerlink" href="#lxml" title="Permalink to this headline">¶</a></h3>
+<p>lxml (package name may be python-lxml or python3-lxml) is needed for
+the Inkscape plugin.</p>
+</div>
+<div class="section" id="setuptools">
+<h3>setuptools<a class="headerlink" href="#setuptools" title="Permalink to this headline">¶</a></h3>
+<p>Setup.py uses the setuptools library (package name may be
+python*-setuptools). You only need it if you want to build the
+package.</p>
+</div>
+<div class="section" id="ps2edit">
+<h3>ps2edit<a class="headerlink" href="#ps2edit" title="Permalink to this headline">¶</a></h3>
+<p>While not a hard requirement Boxes.py uses ps2edit to offer formats that are
+not supported by Cairo: DXF, gcode, PLT. Currently the location Boxes.py looks
+for <em>ps2edit</em> is hard coded to <em>/usr/bin/pstoedit</em> in the
+<em>boxes.formats.Formats</em> class.</p>
+</div>
+<div class="section" id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p>Boxes.py - while defaulting to Python3 -  can also run on Python
+2.7. If you encounter any compatibility issues please report them at the
+[<a class="reference external" href="https://github.com/florianfesti/boxes">https://github.com/florianfesti/boxes</a> Git Hub project]</p>
+</div>
+</div>
+<div class="section" id="running-from-working-dir">
+<h2>Running from working dir<a class="headerlink" href="#running-from-working-dir" title="Permalink to this headline">¶</a></h2>
+<p>Due to lazy developer(s) Boxes.py can also run from the git check
+out. The scripts in <em>scripts/</em> are all suppossed to just work right
+after <em>git clone</em>. The Inkscape needs a bit manual work to get
+running. See below.</p>
+</div>
+<div class="section" id="inkscape">
+<h2>Inkscape<a class="headerlink" href="#inkscape" title="Permalink to this headline">¶</a></h2>
+<p>Boxes.py can be used as a set of Inkscape plugins. The package does
+install the necessary .inx files to <em>/usr/share/inkscape/extensions</em>
+on unix operating systems. The .inx files assume that the <em>boxes</em>
+executable is available in the path (which it is when installing the
+binary package)</p>
+<p>On non unix operating systems or when running Boxes.py from git
+checkout the .inx files need to be copied by hand. <em>setup.py build</em>
+creares them in the <em>inkex/</em> directory. They then have to be copied in
+either the global or the per user extension directory of
+Inkscape. These are <em>/usr/share/inkscape/extensions/</em> and
+<em>~/.config/inkscape/extensions/</em> on Unix. On other Operating systems
+you can look up <em>Edit -&gt; Preferences… -&gt; System</em> in the Inkscape
+menu to look up <em>User extensions</em> and <em>Inkscape extensions</em>. It may be
+more convenient to generate the .inx files right in place by executing
+<em>scripts/boxes2inkscape</em> with the taget path as only parameter.</p>
+<p>After placing the .inx files you need to make the <em>boxes</em> script
+available in the path. One way is to create a symlink from a location
+that is in the path or installing the package on the system.</p>
+</div>
+<div class="section" id="boxes-py-on-windows">
+<h2>Boxes.py on Windows<a class="headerlink" href="#boxes-py-on-windows" title="Permalink to this headline">¶</a></h2>
+<p>While there is no known reason why Boxes.py should not run on Windows
+there is no upstream experience with doing so. The tricky part is
+getting the cairo library installed and to run with the Python version
+used. Python version and the architecture (32 or 64 bit) must match.</p>
+<p>Getting the Inkscape plugins to run will likely need manual
+installation (see above). Note that Inkscape may come with its own
+Python. If you run into trouble or have better installation
+instructions please open a ticket on Git Hub.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li><a class="reference internal" href="#cairo">Cairo</a></li>
+<li><a class="reference internal" href="#markdown">Markdown</a></li>
+<li><a class="reference internal" href="#lxml">LXML</a></li>
+<li><a class="reference internal" href="#setuptools">setuptools</a></li>
+<li><a class="reference internal" href="#ps2edit">ps2edit</a></li>
+<li><a class="reference internal" href="#python">Python</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-from-working-dir">Running from working dir</a></li>
+<li><a class="reference internal" href="#inkscape">Inkscape</a></li>
+<li><a class="reference internal" href="#boxes-py-on-windows">Boxes.py on Windows</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="README.html"
+                        title="previous chapter">Boxes.py</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usermanual.html"
+                        title="next chapter">Using Boxes.py</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/install.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="usermanual.html" title="Using Boxes.py"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="README.html" title="Boxes.py"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">boxes.py 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Florian Festi.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+    </div>
+  </body>
+</html>

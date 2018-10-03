@@ -1,0 +1,236 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Edges &#8212; boxes.py 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="The boxes.Boxes main class" href="Boxes.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Boxes.html" title="The boxes.Boxes main class"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">boxes.py 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="edges">
+<h1>Edges<a class="headerlink" href="#edges" title="Permalink to this headline">¶</a></h1>
+<p>Edges are what makes Boxes.py work. They draw a – more or less – straight
+border to the current piece. They are part of the turtle graphics part
+of Boxes.py. This means they start at the current position and current
+direction and move the current position to the end of the edge.</p>
+<p>Edge instances have a Settings object associated with them that keeps
+the details about how the edge should look like. Edges that are
+supposed to work together share the same Settings object to ensure
+they fit together - assuming they have the same length. Most edges are
+symetrical to unsure they fit together even when drawn from different
+directions. Although there are a few exception - mainly edges that
+provide special features like hinges.</p>
+<p>As edges started out as methods of the main Boxes class they still are
+callables. It turned out that the edges need to provide a bit more
+information to allow the surrounding code to handle them
+properly. When drawing an Edge there is a virtual straight line that
+is the border the shape of the part (e.g. an rectangle). But the
+actual Edge has often to be drawn elsewhere. Best example if probably
+the <code class="docutils literal notranslate"><span class="pre">F</span></code> Edge that matches the normal finger joints. It has to start
+one material thickness outside of the virual border of the part so the
+cutouts for the opposing fingers just touch the border. The Edge
+classes have a number of methods to deal with these kind of offsets.</p>
+<p>A set of instances are kept the <code class="docutils literal notranslate"><span class="pre">.edges</span></code> attribute of the
+<code class="docutils literal notranslate"><span class="pre">Boxes</span></code> class. It is a dict with strings of length one as keys:</p>
+<ul class="simple">
+<li>d : DoveTailJoint</li>
+<li>D : DoveTailJointCounterPart</li>
+<li>e : Edge</li>
+<li>E : OutSetEdge</li>
+<li>f : FingerJointEdge</li>
+<li>F : FingerJointEdgeCounterPart</li>
+<li>g : GrippingEdge</li>
+<li>h : FingerHoleEdge</li>
+<li>ijk : Hinge (start, end, both sides)</li>
+<li>IJK : HingePin (start, end, both sides)</li>
+<li>s : StackableEdge</li>
+<li>S : StackableEdgeTop</li>
+</ul>
+<div class="section" id="edge-base-class">
+<h2>Edge base class<a class="headerlink" href="#edge-base-class" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="settings-class">
+<h2>Settings Class<a class="headerlink" href="#settings-class" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="straight-edges">
+<h2>Straight Edges<a class="headerlink" href="#straight-edges" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="grip">
+<h2>Grip<a class="headerlink" href="#grip" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="stackable-edges">
+<h2>Stackable Edges<a class="headerlink" href="#stackable-edges" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="stackable-edge-settings">
+<h3>Stackable Edge Settings<a class="headerlink" href="#stackable-edge-settings" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="finger-joints">
+<h2>Finger joints<a class="headerlink" href="#finger-joints" title="Permalink to this headline">¶</a></h2>
+<p>Finger joints are a simple way of joining two sheets (e.g. of plywood). They
+work best at an 90° angle. There are two different sides matching each
+other. As a third alternative there are holes that the fingers of one
+sheet can plug into. This allows stable T connections especially
+useful for inner walls.</p>
+<p>In addition there is</p>
+<p>which is no Edge but fits <code class="docutils literal notranslate"><span class="pre">FingerJointEdge</span></code>.</p>
+<p>An instance of is accessible as <strong>Boxes.fingerHolesAt</strong>.</p>
+<div class="section" id="finger-joint-settings">
+<h3>Finger Joint Settings<a class="headerlink" href="#finger-joint-settings" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="bed-bolts">
+<h3>Bed Bolts<a class="headerlink" href="#bed-bolts" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="dove-tail-joints">
+<h2>Dove Tail Joints<a class="headerlink" href="#dove-tail-joints" title="Permalink to this headline">¶</a></h2>
+<p>Dovetails joints can only be used to join two pieces flatly. This
+limits their use to closing some round form created with flex areas or
+for joining several parts to a bigger one. For this use case they are
+much stronger than simple finger joints and can also bare pulling forces.</p>
+<div class="section" id="dove-tail-settings">
+<h3>Dove Tail Settings<a class="headerlink" href="#dove-tail-settings" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="flex">
+<h2>Flex<a class="headerlink" href="#flex" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="flex-settings">
+<h3>Flex Settings<a class="headerlink" href="#flex-settings" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="slots">
+<h2>Slots<a class="headerlink" href="#slots" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="compoundedge">
+<h2>CompoundEdge<a class="headerlink" href="#compoundedge" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hinges">
+<h2>Hinges<a class="headerlink" href="#hinges" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hinge-settings">
+<h3>Hinge Settings<a class="headerlink" href="#hinge-settings" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hinge">
+<h3>Hinge<a class="headerlink" href="#hinge" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="hingepin">
+<h3>HingePin<a class="headerlink" href="#hingepin" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Edges</a><ul>
+<li><a class="reference internal" href="#edge-base-class">Edge base class</a></li>
+<li><a class="reference internal" href="#settings-class">Settings Class</a></li>
+<li><a class="reference internal" href="#straight-edges">Straight Edges</a></li>
+<li><a class="reference internal" href="#grip">Grip</a></li>
+<li><a class="reference internal" href="#stackable-edges">Stackable Edges</a><ul>
+<li><a class="reference internal" href="#stackable-edge-settings">Stackable Edge Settings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#finger-joints">Finger joints</a><ul>
+<li><a class="reference internal" href="#finger-joint-settings">Finger Joint Settings</a></li>
+<li><a class="reference internal" href="#bed-bolts">Bed Bolts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dove-tail-joints">Dove Tail Joints</a><ul>
+<li><a class="reference internal" href="#dove-tail-settings">Dove Tail Settings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flex">Flex</a><ul>
+<li><a class="reference internal" href="#flex-settings">Flex Settings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#slots">Slots</a></li>
+<li><a class="reference internal" href="#compoundedge">CompoundEdge</a></li>
+<li><a class="reference internal" href="#hinges">Hinges</a><ul>
+<li><a class="reference internal" href="#hinge-settings">Hinge Settings</a></li>
+<li><a class="reference internal" href="#hinge">Hinge</a></li>
+<li><a class="reference internal" href="#hingepin">HingePin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Boxes.html"
+                        title="previous chapter">The boxes.Boxes main class</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/edges.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Boxes.html" title="The boxes.Boxes main class"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">boxes.py 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Florian Festi.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+    </div>
+  </body>
+</html>
