@@ -1,0 +1,185 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Navigation &#8212; boxes.py 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Parts" href="api_parts.html" />
+    <link rel="prev" title="Generator Arguments" href="api_arguments.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api_parts.html" title="Parts"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api_arguments.html" title="Generator Arguments"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">boxes.py 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="apidoc.html" accesskey="U">Using the Boxes.py API</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="navigation">
+<h1>Navigation<a class="headerlink" href="#navigation" title="Permalink to this headline">¶</a></h1>
+<p>The cairo library can both move the origin and the current point from
+which the next line is going to start. Boxes.py hides this by using
+Turtle Graphics commands that also move the origin to the end of the
+last line. Other drawing commands restore the current position after
+they are finished.</p>
+<p>Moving the origin like this allows ignoring the absolute coordinates
+and do all movement and drawing to be relative to the current
+position. The current positions does not only consist of a point on
+the drawing canvas but also a direction.</p>
+<p>To move the origin to a different location there are these to methods:</p>
+<dl class="method">
+<dt id="boxes.Boxes.moveTo">
+<code class="descclassname">Boxes.</code><code class="descname">moveTo</code><span class="sig-paren">(</span><em>x</em>, <em>y=0.0</em>, <em>degrees=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.moveTo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.moveTo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move coordinate system to given point</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – </li>
+<li><strong>y</strong> – (Default value = 0.0)</li>
+<li><strong>degrees</strong> – (Default value = 0)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="boxes.Boxes.moveArc">
+<code class="descclassname">Boxes.</code><code class="descname">moveArc</code><span class="sig-paren">(</span><em>angle</em>, <em>r=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.moveArc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.moveArc" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>angle</strong> – </li>
+<li><strong>r</strong> – (Default value = 0.0)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Often it is necessary to return to a position e.g. after placing a
+row of parts. This can be done with the following context manager:</p>
+<dl class="method">
+<dt id="boxes.Boxes.saved_context">
+<code class="descclassname">Boxes.</code><code class="descname">saved_context</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.saved_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.saved_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator: for saving and restoring cairo contexts.
+:param cr: cairo context</p>
+</dd></dl>
+
+<p>It can be used with the following code pattern:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">saved_context</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rectangularWall</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">move</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rectangularWall</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">move</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rectangularWall</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">move</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rectangularWall</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">move</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">rectangularWall</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">move</span><span class="o">=</span><span class="s2">&quot;up only&quot;</span><span class="p">)</span>
+
+<span class="c1"># continue above the row</span>
+</pre></div>
+</div>
+<p>Parts of the code still directly use the cairo primitives <strong>Boxes.ctx.save()</strong>
+and <strong>Boxes.ctx.restore()</strong>. But this has several disadvantages and is
+discouraged. For one it requires matchiung calls. It also does not
+reset the starting point of the next line. This is “healed” by a
+follow up <strong>.moveTo()</strong>. Use <strong>.moveTo(0, 0)</strong> if in doubt.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/boxes-logo.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api_arguments.html"
+                        title="previous chapter">Generator Arguments</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api_parts.html"
+                        title="next chapter">Parts</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_navigation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api_parts.html" title="Parts"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="api_arguments.html" title="Generator Arguments"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">boxes.py 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="apidoc.html" >Using the Boxes.py API</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Florian Festi.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

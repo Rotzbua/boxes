@@ -1,0 +1,372 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Existing Parts &#8212; boxes.py 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Edges" href="api_edges.html" />
+    <link rel="prev" title="Parts" href="api_parts.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api_edges.html" title="Edges"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api_parts.html" title="Parts"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">boxes.py 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="apidoc.html" accesskey="U">Using the Boxes.py API</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="existing-parts">
+<h1>Existing Parts<a class="headerlink" href="#existing-parts" title="Permalink to this headline">¶</a></h1>
+<p>A couple of commands can create whole parts like walls. Typically the
+sizes given are the inner dimmensions not including additional space
+needed for burn compensation or joints.</p>
+<p>Currently there are the following parts:</p>
+<dl class="method">
+<dt id="boxes.Boxes.rectangularWall">
+<code class="descclassname">Boxes.</code><code class="descname">rectangularWall</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>edges='eeee'</em>, <em>ignore_widths=[]</em>, <em>holesMargin=None</em>, <em>holesSettings=None</em>, <em>bedBolts=None</em>, <em>bedBoltSettings=None</em>, <em>callback=None</em>, <em>move=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.rectangularWall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.rectangularWall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rectangular wall for all kind of box like objects</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – width</li>
+<li><strong>y</strong> – height</li>
+<li><strong>edges</strong> – (Default value = “eeee”) bottom, right, top, left</li>
+<li><strong>ignore_widths</strong> – list of edge_widths added to adjacent edge</li>
+<li><strong>holesMargin</strong> – (Default value = None)</li>
+<li><strong>holesSettings</strong> – (Default value = None)</li>
+<li><strong>bedBolts</strong> – (Default value = None)</li>
+<li><strong>bedBoltSettings</strong> – (Default value = None)</li>
+<li><strong>callback</strong> – (Default value = None)</li>
+<li><strong>move</strong> – (Default value = None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="boxes.Boxes.flangedWall">
+<code class="descclassname">Boxes.</code><code class="descname">flangedWall</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>edges='FFFF'</em>, <em>flanges=None</em>, <em>r=0.0</em>, <em>callback=None</em>, <em>move=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.flangedWall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.flangedWall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rectangular wall with flanges extending the regular size</p>
+<p>This is similar to the rectangularWall but it may extend to either side
+replacing the F edge with fingerHoles. Use with E and F for edges only.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – width</li>
+<li><strong>y</strong> – height</li>
+<li><strong>edges</strong> – (Default value = “FFFF”) bottom, right, top, left</li>
+<li><strong>flanges</strong> – (Default value = None) list of width of the flanges</li>
+<li><strong>r</strong> – radius of the corners of the flange</li>
+<li><strong>callback</strong> – (Default value = None)</li>
+<li><strong>move</strong> – (Default value = None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="boxes.Boxes.rectangularTriangle">
+<code class="descclassname">Boxes.</code><code class="descname">rectangularTriangle</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>edges='eee'</em>, <em>r=0.0</em>, <em>num=1</em>, <em>bedBolts=None</em>, <em>bedBoltSettings=None</em>, <em>callback=None</em>, <em>move=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.rectangularTriangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.rectangularTriangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rectangular triangular wall</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – width</li>
+<li><strong>y</strong> – height</li>
+<li><strong>edges</strong> – (Default value = “eee”) bottom, right[, diagonal]</li>
+<li><strong>r</strong> – radius towards the hypothenuse</li>
+<li><strong>num</strong> – (Default value = 1) number of triangles</li>
+<li><strong>bedBolts</strong> – (Default value = None)</li>
+<li><strong>bedBoltSettings</strong> – (Default value = None)</li>
+<li><strong>callback</strong> – (Default value = None)</li>
+<li><strong>move</strong> – (Default value = None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="boxes.Boxes.regularPolygonWall">
+<code class="descclassname">Boxes.</code><code class="descname">regularPolygonWall</code><span class="sig-paren">(</span><em>corners=3</em>, <em>r=None</em>, <em>h=None</em>, <em>side=None</em>, <em>edges='e'</em>, <em>hole=None</em>, <em>callback=None</em>, <em>move=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.regularPolygonWall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.regularPolygonWall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create regular polygone as a wall</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>corners</strong> – number of corners of the polygone</li>
+<li><strong>radius</strong> – distance center to one of the corners</li>
+<li><strong>h</strong> – distance center to one of the sides (height of sector)</li>
+<li><strong>side</strong> – length of one side</li>
+<li><strong>edges</strong> – (Default value = “e”, may be string/list of length corners)</li>
+<li><strong>hole</strong> – diameter of central hole (Default value = 0)</li>
+<li><strong>callback</strong> – (Default value = None, middle=0, then sides=1..)</li>
+<li><strong>move</strong> – (Default value = None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="boxes.Boxes.roundedPlate">
+<code class="descclassname">Boxes.</code><code class="descname">roundedPlate</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>r</em>, <em>edge='f'</em>, <em>callback=None</em>, <em>holesMargin=None</em>, <em>holesSettings=None</em>, <em>bedBolts=None</em>, <em>bedBoltSettings=None</em>, <em>wallpieces=1</em>, <em>move=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.roundedPlate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.roundedPlate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plate with rounded corner fitting to .surroundingWall()</p>
+<p>For the callbacks the sides are counted depending on wallpieces</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – width</li>
+<li><strong>y</strong> – hight</li>
+<li><strong>r</strong> – radius of the corners</li>
+<li><strong>callback</strong> – (Default value = None)</li>
+<li><strong>holesMargin</strong> – (Default value = None) set to get hex holes</li>
+<li><strong>holesSettings</strong> – (Default value = None)</li>
+<li><strong>bedBolts</strong> – (Default value = None)</li>
+<li><strong>bedBoltSettings</strong> – (Default value = None)</li>
+<li><strong>wallpieces</strong> – (Default value = 1) # of separate surrounding walls</li>
+<li><strong>move</strong> – (Default value = None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="boxes.Boxes.surroundingWall">
+<code class="descclassname">Boxes.</code><code class="descname">surroundingWall</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>r</em>, <em>h</em>, <em>bottom='e'</em>, <em>top='e'</em>, <em>left='D'</em>, <em>right='d'</em>, <em>pieces=1</em>, <em>callback=None</em>, <em>move=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.surroundingWall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.surroundingWall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wall(s) with flex fiting around a roundedPlate()</p>
+<p>For the callbacks the sides are counted depending on pieces</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – width of matching roundedPlate</li>
+<li><strong>y</strong> – height of matching roundedPlate</li>
+<li><strong>r</strong> – corner radius of matching roundedPlate</li>
+<li><strong>h</strong> – inner height of the wall (without edges)</li>
+<li><strong>bottom</strong> – (Default value = ‘e’) Edge type</li>
+<li><strong>top</strong> – (Default value = ‘e’) Edge type</li>
+<li><strong>left</strong> – (Default value = ‘D’) left edge(s)</li>
+<li><strong>right</strong> – (Default value = ‘d’) right edge(s)</li>
+<li><strong>pieces</strong> – (Default value = 1) number of separate pieces</li>
+<li><strong>callback</strong> – (Default value = None)</li>
+<li><strong>move</strong> – (Default value = None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="parts-class">
+<h2>Parts Class<a class="headerlink" href="#parts-class" title="Permalink to this headline">¶</a></h2>
+<p>More parts are available in a separete class. An instance is available as
+<strong>Boxes.parts</strong></p>
+<dl class="method">
+<dt id="boxes.parts.Parts.disc">
+<code class="descclassname">Parts.</code><code class="descname">disc</code><span class="sig-paren">(</span><em>diameter</em>, <em>hole=0</em>, <em>callback=None</em>, <em>move=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/parts.html#Parts.disc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.parts.Parts.disc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple disc</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> – diameter of the disc</li>
+<li><strong>hole</strong> – (Default value = 0)</li>
+<li><strong>callback</strong> – (Default value = None) called in the center</li>
+<li><strong>move</strong> – (Defaultvalue = None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="boxes.parts.Parts.waivyKnob">
+<code class="descclassname">Parts.</code><code class="descname">waivyKnob</code><span class="sig-paren">(</span><em>diameter</em>, <em>n=20</em>, <em>angle=45</em>, <em>hole=0</em>, <em>callback=None</em>, <em>move=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/parts.html#Parts.waivyKnob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.parts.Parts.waivyKnob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disc with a waivy edge to be easier to be gripped</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> – diameter of the knob</li>
+<li><strong>n</strong> – (Default value = 20) number of waves</li>
+<li><strong>angle</strong> – (Default value = 45) maximum angle of the wave</li>
+<li><strong>hole</strong> – (Default value = 0)</li>
+<li><strong>callback</strong> – (Default value = None) called in the center</li>
+<li><strong>move</strong> – (Defaultvalue = None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="boxes.parts.Parts.concaveKnob">
+<code class="descclassname">Parts.</code><code class="descname">concaveKnob</code><span class="sig-paren">(</span><em>diameter</em>, <em>n=3</em>, <em>rounded=0.2</em>, <em>angle=70</em>, <em>hole=0</em>, <em>callback=None</em>, <em>move=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/parts.html#Parts.concaveKnob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.parts.Parts.concaveKnob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Knob with dents to be easier to be gripped</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> – diameter of the knob</li>
+<li><strong>n</strong> – (Default value = 3) number of dents</li>
+<li><strong>rounded</strong> – (Default value = 0.2) proportion of circumferen remaining</li>
+<li><strong>angle</strong> – (Default value = 70) angle the dents meet the circumference</li>
+<li><strong>hole</strong> – (Default value = 0)</li>
+<li><strong>callback</strong> – (Default value = None) called in the center</li>
+<li><strong>move</strong> – (Defaultvalue = None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="boxes.parts.Parts.ringSegment">
+<code class="descclassname">Parts.</code><code class="descname">ringSegment</code><span class="sig-paren">(</span><em>r_outside</em>, <em>r_inside</em>, <em>angle</em>, <em>n=1</em>, <em>move=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/parts.html#Parts.ringSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.parts.Parts.ringSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ring Segment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>r_outside</strong> – outer radius</li>
+<li><strong>r_inside</strong> – inner radius</li>
+<li><strong>angle</strong> – anlge the segment is spanning</li>
+<li><strong>n</strong> – (Default value = 1) number of segments</li>
+<li><strong>move</strong> – (Defaultvalue = None)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/boxes-logo.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Existing Parts</a><ul>
+<li><a class="reference internal" href="#parts-class">Parts Class</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api_parts.html"
+                        title="previous chapter">Parts</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api_edges.html"
+                        title="next chapter">Edges</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_existing_parts.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api_edges.html" title="Edges"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="api_parts.html" title="Parts"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">boxes.py 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="apidoc.html" >Using the Boxes.py API</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Florian Festi.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

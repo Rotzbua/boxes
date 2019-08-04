@@ -1,0 +1,162 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Burn correction &#8212; boxes.py 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="api_examples.html" />
+    <link rel="prev" title="Drawing commands" href="api_drawing.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api_examples.html" title="Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api_drawing.html" title="Drawing commands"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">boxes.py 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="apidoc.html" accesskey="U">Using the Boxes.py API</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="burn-correction">
+<h1>Burn correction<a class="headerlink" href="#burn-correction" title="Permalink to this headline">¶</a></h1>
+<p>The burn correction – aka kerf – is integrated into the low level
+commands of Boxes.py. So for the most part developer do not need to
+care about it. Nevertheless they need to understand how it works to
+catch the places the do need to care.</p>
+<p>Burn correction is done by increasing the radius of all outer
+corners. This moves all the straight lines outward by the same
+amount. This has he addeed benefit of not needing to change the length
+of the straight lines – making them independent of the adjacent
+angles. An issue arises when it comes to inner corners. If they do
+have a radius reducing it by the burn value does the right thing. But
+for small radii and sharp corners (radius zero) this results in a
+negative values. It turns out flipping over the arc for negative radii
+allows keeping the lengths of the straight lines unchanged. So this is
+what Boxes.py does:</p>
+<img alt="_images/burn.svg" src="_images/burn.svg" /><p>This results in the straight lines touching the piece. This leads to
+overcuts. They are not as nice as proper dog bones as might be used by
+a dedicated CAM software. But as Boxes.py is meant to be used for laser
+cutting this is deemed acceptable:</p>
+<img alt="_images/overcuts.svg" src="_images/overcuts.svg" /><div class="section" id="programmer-s-perspective">
+<h2>Programmer’s perspective<a class="headerlink" href="#programmer-s-perspective" title="Permalink to this headline">¶</a></h2>
+<p>For this to work it is important that outside is drawn in a counter
+clock wise direction while holes are drawn in a clock wise direction.</p>
+<p><a class="reference internal" href="boxes.html#boxes.Boxes.corner" title="boxes.Boxes.corner"><code class="xref py py-meth docutils literal notranslate"><span class="pre">boxes.Boxes.corner()</span></code></a> adjusts the radius automatically
+according to <strong>.burn</strong>. This propagates to higher level
+functions. Parts shipped with Boxes.py do take the
+burn out-set into account and execute callbacks at the correct position.</p>
+<p>In case developers move to a feature inside of a part or executing
+callbacks while implementing a part they need to be aware of the burn
+correction. <a class="reference internal" href="boxes.html#boxes.Boxes.cc" title="boxes.Boxes.cc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">boxes.Boxes.cc()</span></code></a> does correct for the out-set if
+called without an <strong>y</strong> parameter. But if a value is given one has to
+add <strong>self.burn</strong> to compansate. Note that the <strong>x</strong> value typically
+does not have to be corrected as the callbacks are executed from right
+underneeth the part.</p>
+<p>A similar approach is necessary when moving to a feature drawn inside
+the part without the use of callbacks. Here you typically have to
+correct for the out-set at the outside of the part and again for in-set
+of the hole one is about to cut. This can be done in <strong>x</strong> or <strong>y</strong>
+direction depending on whether the cut ist started vertical or
+horizontally.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/boxes-logo.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Burn correction</a><ul>
+<li><a class="reference internal" href="#programmer-s-perspective">Programmer’s perspective</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api_drawing.html"
+                        title="previous chapter">Drawing commands</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api_examples.html"
+                        title="next chapter">Examples</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api_burn.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api_examples.html" title="Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="api_drawing.html" title="Drawing commands"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">boxes.py 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="apidoc.html" >Using the Boxes.py API</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Florian Festi.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>
