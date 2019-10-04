@@ -1,29 +1,41 @@
-# Simple Fedora based Docker container for running Boxes.py
+# Docker container for running a basic webserver of Boxes.py.
+# This is a multi-stage build.
 
 # Note that it downloads Boxes.py from GitHub and does not use your local copy
-# of the repository. Adjust the git command below to get it from somewhere else
+# of the repository. Adjust the git command below to get it from somewhere else.
 
-# Build with
-#  docker build -t boxes.py .
-# Run with 
+# Build with:
+#  docker build --pull -t boxes.py .
+# Run with:
 #  docker run -ti -p 4000:8000 boxes.py
-# to get the web interface at localhost:4000
-# First access may take a while as the Python files need to be complied
+# to get the web interface at http://localhost:4000
+# First access may take a while as the Python files need to be complied.
 
-# Use latest Fedora release as base
-FROM fedora:latest
+# Stage 1. Fetch the code.
+FROM alpine as boxescode
 
-# Install requirements
-RUN dnf install -y git-core python3-markdown python3-setuptools python3-affine python3-shapely python3-pillow python3-qrcode pstoedit && dnf clean all
+RUN apk --no-cache add git
+RUN git clone --depth 1 -b master https://github.com/florianfesti/boxes.git \
+      && rm -rf /boxes/.git
 
-# Get Boxes.py sources to /boxes
-ARG BUILD_BRANCH=master
-ARG BUILD_REPO=https://github.com/florianfesti/boxes.git
-RUN git clone --depth 1 -b ${BUILD_BRANCH} ${BUILD_REPO}
-RUN chmod +x /boxes/scripts/boxesserver
 
-# Internal port used
+# Stage 2. Generate final image.
+FROM python:3.11-slim
+
+# Install system dependencies.
+RUN apt-get update \
+ && apt-get install --no-install-recommends -y \
+      python3-cairo \
+ && rm -rf /var/lib/apt/lists/*
+
+# Install python dependencies.
+RUN pip3 install markdown cairocffi
+
+# Copy boxes code.
+COPY --from=boxescode /boxes /boxes
+
+# Expose port of boxesserver.
 EXPOSE 8000
 
-# Start the boxes web server on container start up
-CMD ["/boxes/scripts/boxesserver"]
+# Start the boxes web server on container start up.
+CMD ["boxes/scripts/boxesserver"]
