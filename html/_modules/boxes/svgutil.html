@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>boxes.svgutil &#8212; boxes.py 0.1 documentation</title>
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -83,14 +81,16 @@
         <span class="k">return</span> <span class="n">res</span>
 
 <div class="viewcode-block" id="Extend.addPoint"><a class="viewcode-back" href="../../boxes.html#boxes.svgutil.Extend.addPoint">[docs]</a>    <span class="k">def</span> <span class="nf">addPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">minx</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">minx</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxx</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">maxx</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">miny</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">miny</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">miny</span> <span class="o">=</span> <span class="n">y</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxy</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">maxy</span> <span class="o">=</span> <span class="n">y</span></div>
+        <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">minx</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">minx</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxx</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxx</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maxx</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">miny</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">miny</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">miny</span> <span class="o">=</span> <span class="n">y</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxy</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maxy</span> <span class="o">=</span> <span class="n">y</span></div>
 
 <div class="viewcode-block" id="Extend.addExtend"><a class="viewcode-back" href="../../boxes.html#boxes.svgutil.Extend.addExtend">[docs]</a>    <span class="k">def</span> <span class="nf">addExtend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extend</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="n">extend</span> <span class="o">=</span> <span class="n">extend</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -208,27 +208,29 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span></div>
 
+    <span class="n">d</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(\-?\d+(\.\d+)?)&quot;</span>
+    <span class="n">optimize_patterns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; (M|L) \1 \3 &quot;</span><span class="p">),</span>
+         <span class="sa">r</span><span class="s2">&quot; \1 \3 &quot;</span><span class="p">),</span> <span class="c1"># remove useless moves</span>
+        <span class="c1"># compress L parts of paths into V and H</span>
+        <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; L &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; \3 &quot;</span><span class="p">),</span>
+         <span class="sa">r</span><span class="s2">&quot; \1 \3 H \5 &quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; L \1 &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="p">),</span>
+         <span class="sa">r</span><span class="s2">&quot; \1 \3 V \5 &quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;H &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; L \1 &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span>  <span class="s2">&quot; &quot;</span><span class="p">),</span>
+         <span class="sa">r</span><span class="s2">&quot;H \1 V \3 &quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;V &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; L &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; </span><span class="se">\1</span><span class="s2"> &quot;</span><span class="p">),</span>
+         <span class="sa">r</span><span class="s2">&quot;V \1 H \3 &quot;</span><span class="p">),</span>
+     <span class="p">]</span>
+
 <div class="viewcode-block" id="SVGFile.optimize"><a class="viewcode-back" href="../../boxes.html#boxes.svgutil.SVGFile.optimize">[docs]</a>    <span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
         <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;}path&quot;</span><span class="p">):</span>
             <span class="n">path</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">d</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(\-?\d+(\.\d+)?)&quot;</span>
             <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">old_number</span> <span class="o">=</span> <span class="n">number</span>
-                <span class="k">for</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">replacement</span> <span class="ow">in</span> <span class="p">(</span>
-                    <span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; (M|L) \1 \3 &quot;</span><span class="p">,</span>
-                     <span class="sa">r</span><span class="s2">&quot; \1 \3 &quot;</span><span class="p">),</span> <span class="c1"># remove useless moves</span>
-                    <span class="c1"># compress L parts of paths into V and H</span>
-                    <span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; L &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; \3 &quot;</span><span class="p">,</span>
-                     <span class="sa">r</span><span class="s2">&quot; \1 \3 H \5 &quot;</span><span class="p">),</span>
-                    <span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; L \1 &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="p">,</span>
-                     <span class="sa">r</span><span class="s2">&quot; \1 \3 V \5 &quot;</span><span class="p">),</span>
-                    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;H &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; L \1 &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span>  <span class="s2">&quot; &quot;</span><span class="p">,</span>
-                     <span class="sa">r</span><span class="s2">&quot;H \1 V \3 &quot;</span><span class="p">),</span>
-                    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;V &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; L &quot;</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="s2">&quot; </span><span class="se">\1</span><span class="s2"> &quot;</span><span class="p">,</span>
-                     <span class="sa">r</span><span class="s2">&quot;V \1 H \3 &quot;</span><span class="p">),</span>
-                <span class="p">):</span>
-                    <span class="n">path</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">subn</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">replacement</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">replacement</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimize_patterns</span><span class="p">:</span>
+                    <span class="n">path</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">subn</span><span class="p">(</span><span class="n">replacement</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
                     <span class="n">number</span> <span class="o">+=</span> <span class="n">n</span>
                 <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="n">old_number</span><span class="p">:</span>
                     <span class="k">break</span>
@@ -332,13 +334,11 @@
               <img class="logo" src="../../_static/boxes-logo.svg" alt="Logo"/>
             </a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -363,7 +363,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Florian Festi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
     </div>
   </body>
 </html>

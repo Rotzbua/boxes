@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Parts &#8212; boxes.py 0.1 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -52,9 +50,9 @@
 <h2>The callback parameter<a class="headerlink" href="#the-callback-parameter" title="Permalink to this headline">¶</a></h2>
 <p>The callback parameter can take on of the following forms:</p>
 <ul class="simple">
-<li>A function (or bound method) that expects one parameter: the number of the side the callback is currently called for.</li>
-<li>A dict with some of the numbers of the sides as keys and functions without parameters as values.</li>
-<li>A list of functions without parameters. The list may contain None as place holder and be shorter than the number of sides.</li>
+<li><p>A function (or bound method) that expects one parameter: the number of the side the callback is currently called for.</p></li>
+<li><p>A dict with some of the numbers of the sides as keys and functions without parameters as values.</p></li>
+<li><p>A list of functions without parameters. The list may contain None as place holder and be shorter than the number of sides.</p></li>
 </ul>
 <p>The callback functions are called with the side of the part at the
 positive x and y axis. If the edge uses up space this space is below
@@ -65,41 +63,33 @@ calling the one building block funtion you need (e.g. fingerHolesAt).</p>
 <p>For your own parts you can use this helper function:</p>
 <dl class="method">
 <dt id="boxes.Boxes.cc">
-<code class="descclassname">Boxes.</code><code class="descname">cc</code><span class="sig-paren">(</span><em>callback</em>, <em>number</em>, <em>x=0.0</em>, <em>y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.cc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.cc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Boxes.</code><code class="sig-name descname">cc</code><span class="sig-paren">(</span><em class="sig-param">callback</em>, <em class="sig-param">number</em>, <em class="sig-param">x=0.0</em>, <em class="sig-param">y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.cc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.cc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call callback from edge of a part</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>callback</strong> – callback (callable or list of callables)</li>
-<li><strong>number</strong> – number of the callback</li>
-<li><strong>x</strong> – (Default value = 0.0) x position to be call on</li>
-<li><strong>y</strong> – (Default value = None) y position to be called on (default does burn correction)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callback</strong> – callback (callable or list of callables)</p></li>
+<li><p><strong>number</strong> – number of the callback</p></li>
+<li><p><strong>x</strong> – (Default value = 0.0) x position to be call on</p></li>
+<li><p><strong>y</strong> – (Default value = None) y position to be called on (default does burn correction)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <p>For finding the right piece to the <em>callback</em> parameter this function is used:</p>
 <dl class="method">
 <dt id="boxes.Boxes.getEntry">
-<code class="descclassname">Boxes.</code><code class="descname">getEntry</code><span class="sig-paren">(</span><em>param</em>, <em>idx</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.getEntry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.getEntry" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Boxes.</code><code class="sig-name descname">getEntry</code><span class="sig-paren">(</span><em class="sig-param">param</em>, <em class="sig-param">idx</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.getEntry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.getEntry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get entry from list or items itself</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>param</strong> – list or item</li>
-<li><strong>idx</strong> – index in list</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>param</strong> – list or item</p></li>
+<li><p><strong>idx</strong> – index in list</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -108,9 +98,9 @@ calling the one building block funtion you need (e.g. fingerHolesAt).</p>
 <p>For placing the parts the <code class="docutils literal notranslate"><span class="pre">move</span></code> parameter can be used. It is string
 with space separated words - at most one of each of those options:</p>
 <ul class="simple">
-<li>left / right</li>
-<li>up / down</li>
-<li>only</li>
+<li><p>left / right</p></li>
+<li><p>up / down</p></li>
+<li><p>only</p></li>
 </ul>
 <p>If “only” is given the part is not drawn but only the move is
 done. This can be useful to go in one direction after having placed
@@ -119,7 +109,7 @@ multiple parts in the other and have returned with <code class="docutils literal
 implement a <code class="docutils literal notranslate"><span class="pre">move</span></code> parameter:</p>
 <dl class="method">
 <dt id="boxes.Boxes.move">
-<code class="descclassname">Boxes.</code><code class="descname">move</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>where</em>, <em>before=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.move" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Boxes.</code><code class="sig-name descname">move</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">where</em>, <em class="sig-param">before=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.move" title="Permalink to this definition">¶</a></dt>
 <dd><p>Intended to be used by parts
 where can be combinations of “up” or “down”, “left” or “right”, “only”,
 “mirror”
@@ -127,20 +117,16 @@ when “only” is included the move is only done when before is True
 “mirror” will flip the part along the y axis
 The function returns whether actual drawing of the part
 should be omited.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>x</strong> – width of part</li>
-<li><strong>y</strong> – height of part</li>
-<li><strong>where</strong> – which direction to move</li>
-<li><strong>before</strong> – (Default value = False) called before or after part being drawn</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – width of part</p></li>
+<li><p><strong>y</strong> – height of part</p></li>
+<li><p><strong>where</strong> – which direction to move</p></li>
+<li><p><strong>before</strong> – (Default value = False) called before or after part being drawn</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <p>It needs to be called before and after drawing the actual part with
@@ -154,11 +140,11 @@ a single character that is looked up in the <code class="docutils literal notran
 allows to pass a string with the desired characters per edge. By
 default the following character are supported:</p>
 <ul class="simple">
-<li>e : straight edge</li>
-<li>E : as above but extended outside by one thickness</li>
-<li>f, F : finger joints</li>
-<li>h : edge with holes for finger joints</li>
-<li>d, D : dove tail joints</li>
+<li><p>e : straight edge</p></li>
+<li><p>E : as above but extended outside by one thickness</p></li>
+<li><p>f, F : finger joints</p></li>
+<li><p>h : edge with holes for finger joints</p></li>
+<li><p>d, D : dove tail joints</p></li>
 </ul>
 <p>Generators can register their own Edges by putting them into the
 <code class="docutils literal notranslate"><span class="pre">.edges</span></code> dictionary.</p>
@@ -170,24 +156,20 @@ denominate single edge (types) only.</p>
 <p>To place many of the same part partMatrix can used:</p>
 <dl class="method">
 <dt id="boxes.Boxes.partsMatrix">
-<code class="descclassname">Boxes.</code><code class="descname">partsMatrix</code><span class="sig-paren">(</span><em>n</em>, <em>width</em>, <em>move</em>, <em>part</em>, <em>*l</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.partsMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.partsMatrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Boxes.</code><code class="sig-name descname">partsMatrix</code><span class="sig-paren">(</span><em class="sig-param">n</em>, <em class="sig-param">width</em>, <em class="sig-param">move</em>, <em class="sig-param">part</em>, <em class="sig-param">*l</em>, <em class="sig-param">**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.partsMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.partsMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>place many of the same part</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>n</strong> – number of parts</li>
-<li><strong>width</strong> – number of parts in a row</li>
-<li><strong>move</strong> – (Default value = None)</li>
-<li><strong>part</strong> – callable that draws a part and knows move param</li>
-<li><strong>*l</strong> – params for part</li>
-<li><strong>**kw</strong> – keyword params for part</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – number of parts</p></li>
+<li><p><strong>width</strong> – number of parts in a row</p></li>
+<li><p><strong>move</strong> – (Default value = None)</p></li>
+<li><p><strong>part</strong> – callable that draws a part and knows move param</p></li>
+<li><p><strong>*l</strong> – params for part</p></li>
+<li><p><strong>**kw</strong> – keyword params for part</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <p>It creates one big block of parts. The move param treat this block like on big
@@ -229,13 +211,11 @@ part.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -265,7 +245,7 @@ part.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Florian Festi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
     </div>
   </body>
 </html>

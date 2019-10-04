@@ -1,12 +1,10 @@
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Index &#8212; boxes.py 0.1 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -160,6 +158,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_edges.html#boxes.edges.BaseEdge">BaseEdge (class in boxes.edges)</a>, <a href="boxes.html#boxes.edges.BaseEdge">[1]</a>
 </li>
+      <li><a href="generators.html#boxes.generators.bayonetbox.BayonetBox">BayonetBox (class in boxes.generators.bayonetbox)</a>
+</li>
       <li><a href="api_drawing.html#boxes.Boxes.bedBoltHole">bedBoltHole() (boxes.Boxes method)</a>, <a href="boxes.html#boxes.Boxes.bedBoltHole">[1]</a>
 </li>
       <li><a href="api_examples.html#boxes.generators.bintray.BinFrontEdge">BinFrontEdge (class in boxes.generators.bintray)</a>
@@ -190,10 +190,10 @@
       </ul></li>
       <li><a href="api_generator.html#boxes.Boxes">Boxes (class in boxes)</a>, <a href="boxes.html#boxes.Boxes">[1]</a>
 </li>
-      <li><a href="boxes.html#module-boxes">boxes (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="boxes.html#module-boxes">boxes (module)</a>
+</li>
       <li><a href="boxes.html#module-boxes.Color">boxes.Color (module)</a>
 </li>
       <li><a href="boxes.html#module-boxes.edges">boxes.edges (module)</a>
@@ -378,6 +378,8 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="boxes.html#boxes.svgutil.SVGFile.d">d (boxes.svgutil.SVGFile attribute)</a>
+</li>
       <li><a href="boxes.html#boxes.Boxes.description">description (boxes.Boxes attribute)</a>
 
       <ul>
@@ -465,6 +467,8 @@
       <li><a href="api_examples.html#boxes.generators.displayshelf.DisplayShelf">DisplayShelf (class in boxes.generators.displayshelf)</a>, <a href="generators.html#boxes.generators.displayshelf.DisplayShelf">[1]</a>
 </li>
       <li><a href="boxes.html#boxes.dist">dist() (in module boxes)</a>
+</li>
+      <li><a href="generators.html#boxes.generators.dividertray.DividerTray">DividerTray (class in boxes.generators.dividertray)</a>
 </li>
       <li><a href="boxes.html#boxes.vectors.dotproduct">dotproduct() (in module boxes.vectors)</a>
 </li>
@@ -926,6 +930,8 @@
 </li>
       <li><a href="boxes.html#boxes.svgutil.SVGFile.optimize">optimize() (boxes.svgutil.SVGFile method)</a>
 </li>
+      <li><a href="boxes.html#boxes.svgutil.SVGFile.optimize_patterns">optimize_patterns (boxes.svgutil.SVGFile attribute)</a>
+</li>
       <li><a href="boxes.html#boxes.gears.OptionParser">OptionParser (class in boxes.gears)</a>
 </li>
       <li><a href="generators.html#boxes.generators.organpipe.OrganPipe">OrganPipe (class in boxes.generators.organpipe)</a>
@@ -1026,6 +1032,8 @@
 </li>
       <li><a href="generators.html#boxes.generators.rack19box.Rack19Box">Rack19Box (class in boxes.generators.rack19box)</a>
 </li>
+      <li><a href="generators.html#boxes.generators.rack19halfwidth.Rack19HalfWidth">Rack19HalfWidth (class in boxes.generators.rack19halfwidth)</a>
+</li>
       <li><a href="generators.html#boxes.generators.rackbox.RackBox">RackBox (class in boxes.generators.rackbox)</a>
 </li>
       <li><a href="boxes.html#boxes.edges.RackEdge">RackEdge (class in boxes.edges)</a>
@@ -1078,10 +1086,10 @@
         <li><a href="boxes.html#boxes.edges.StackableSettings.relative_params">(boxes.edges.StackableSettings attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api_generator.html#boxes.Boxes.render">render() (boxes.Boxes method)</a>, <a href="boxes.html#boxes.Boxes.render">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_generator.html#boxes.Boxes.render">render() (boxes.Boxes method)</a>, <a href="boxes.html#boxes.Boxes.render">[1]</a>
+</li>
       <li><a href="boxes.html#boxes.restore">restore() (in module boxes)</a>
 </li>
       <li><a href="boxes.html#boxes.edges.SlatWallBackEdgeReversed.reversed_">reversed_ (boxes.edges.SlatWallBackEdgeReversed attribute)</a>
@@ -1414,13 +1422,11 @@
               <img class="logo" src="_static/boxes-logo.svg" alt="Logo"/>
             </a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -1443,7 +1449,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Florian Festi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
     </div>
   </body>
 </html>

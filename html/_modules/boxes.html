@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>boxes &#8212; boxes.py 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -562,6 +560,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">addPart</span><span class="p">(</span><span class="n">parts</span><span class="o">.</span><span class="n">Parts</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
 <div class="viewcode-block" id="Boxes.adjustSize"><a class="viewcode-back" href="../boxes.html#boxes.Boxes.adjustSize">[docs]</a>    <span class="k">def</span> <span class="nf">adjustSize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">e1</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">e2</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="c1"># Char to edge object</span>
+        <span class="n">e1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e1</span><span class="p">)</span>
+        <span class="n">e2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">e2</span><span class="p">,</span> <span class="n">e2</span><span class="p">)</span>
+
         <span class="k">try</span><span class="p">:</span>
             <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
             <span class="n">walls</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">thickness</span>
@@ -575,7 +577,7 @@
             <span class="n">walls</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">thickness</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e2</span><span class="p">,</span> <span class="n">edges</span><span class="o">.</span><span class="n">BaseEdge</span><span class="p">):</span>
-            <span class="n">walls</span> <span class="o">+=</span> <span class="n">e2</span><span class="o">.</span><span class="n">startwidth</span> <span class="o">+</span> <span class="n">e2</span><span class="o">.</span><span class="n">margin</span><span class="p">()</span>
+            <span class="n">walls</span> <span class="o">+=</span> <span class="n">e2</span><span class="o">.</span><span class="n">startwidth</span><span class="p">()</span> <span class="o">+</span> <span class="n">e2</span><span class="o">.</span><span class="n">margin</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">e2</span><span class="p">:</span>
             <span class="n">walls</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">thickness</span>
 
@@ -2235,13 +2237,11 @@
               <img class="logo" src="../_static/boxes-logo.svg" alt="Logo"/>
             </a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -2265,7 +2265,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Florian Festi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
     </div>
   </body>
 </html>

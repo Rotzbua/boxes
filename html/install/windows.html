@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Windows &#8212; boxes.py 0.1 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -59,40 +57,38 @@ instructions please open a ticket on GitHub.</p>
 <h2>Native<a class="headerlink" href="#native" title="Permalink to this headline">¶</a></h2>
 <p>Following steps are known to work under Windows 10 (64-bit):</p>
 <ol class="arabic">
-<li><p class="first">Go to <a class="reference external" href="https://www.python.org/downloads/windows/">https://www.python.org/downloads/windows/</a>
+<li><p>Go to <a class="reference external" href="https://www.python.org/downloads/windows/">https://www.python.org/downloads/windows/</a>
 and download the “Windows x86-64 executable installer” for Python 3.7</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/windows_browser_download_python.png"><img alt="Screenshot of python.org with download of Python 3.7 (64-bit)" src="../_images/windows_browser_download_python.png" style="width: 512.0px; height: 384.0px;" /></a>
 </div>
 </li>
-<li><p class="first">Install Python 3.7 and make sure to check “Add Python 3.7 to PATH”
+<li><p>Install Python 3.7 and make sure to check “Add Python 3.7 to PATH”
 while doing so</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/windows_install_python_path.png"><img alt="Screenshot of Python 3.7 (64-bit) installer with PATH checked" src="../_images/windows_install_python_path.png" style="width: 512.0px; height: 384.0px;" /></a>
 </div>
 </li>
-<li><p class="first">Go to <a class="reference external" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#cairocffi">https://www.lfd.uci.edu/~gohlke/pythonlibs/#cairocffi</a>
+<li><p>Go to <a class="reference external" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#cairocffi">https://www.lfd.uci.edu/~gohlke/pythonlibs/#cairocffi</a>
 and download <code class="code docutils literal notranslate"><span class="pre">cairocffi‑1.0.2‑cp37‑cp37m‑win_amd64.whl</span></code></p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/windows_browser_download_pycairo.png"><img alt="Screenshot of download for Python wheel of pycairo" src="../_images/windows_browser_download_pycairo.png" style="width: 512.0px; height: 384.0px;" /></a>
 </div>
 </li>
-<li><p class="first">Go to <a class="reference external" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo</a>
+<li><p>Go to <a class="reference external" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo</a>
 and download <cite>pycairo‑1.18.0‑cp37‑cp37m‑win_amd64.whl</cite></p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/windows_browser_download_cairocffi.png"><img alt="Screenshot of download for Python wheel of cairocffi" src="../_images/windows_browser_download_cairocffi.png" style="width: 512.0px; height: 384.0px;" /></a>
 </div>
 </li>
-<li><p class="first">Open the Command Prompt
+<li><p>Open the Command Prompt
 (i.e. via the shortcut Windows + R and then typing “cmd”
-and pressing Enter)</p>
-</li>
-<li><p class="first">Change to the folder where the .whl files from step 3 and 4 are located
+and pressing Enter)</p></li>
+<li><p>Change to the folder where the .whl files from step 3 and 4 are located
 (e.g. with the command <code class="code docutils literal notranslate"><span class="pre">cd</span> <span class="pre">\Users\[USERNAME]\Downloads</span></code>
 where <cite>[USERNAME]</cite> is your username and <cite>Downloads</cite> the folder where
-the .whl files are located)</p>
-</li>
-<li><p class="first">Run the command <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cairocffi‑1.0.2‑cp37‑cp37m‑win_amd64.whl</span>
+the .whl files are located)</p></li>
+<li><p>Run the command <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cairocffi‑1.0.2‑cp37‑cp37m‑win_amd64.whl</span>
 <span class="pre">pycairo‑1.18.0‑cp37‑cp37m‑win_amd64.whl</span> <span class="pre">Markdown</span> <span class="pre">lxml</span></code>
 (Note: If the command pip is not found, you probably forgot to add the
 Python installation to the PATH environment variable in step 2)</p>
@@ -100,21 +96,20 @@ Python installation to the PATH environment variable in step 2)</p>
 <a class="reference internal image-reference" href="../_images/windows_cmd_pip_install_dependencies.png"><img alt="Command Prompt with pip installing dependencies" src="../_images/windows_cmd_pip_install_dependencies.png" style="width: 512.0px; height: 384.0px;" /></a>
 </div>
 </li>
-<li><p class="first">Download Boxes.py as ZIP archive from GitHub</p>
+<li><p>Download Boxes.py as ZIP archive from GitHub</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/windows_browser_download_boxespy.png"><img alt="Screenshot of download from Boxes.py project on GitHub" src="../_images/windows_browser_download_boxespy.png" style="width: 512.0px; height: 384.0px;" /></a>
 </div>
 </li>
-<li><p class="first">Extract the ZIP archive
+<li><p>Extract the ZIP archive
 (e.g. via the built-in Windows feature or other tools like 7-Zip)</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/windows_boxespy_zip_extract.png"><img alt="Screenshot of Windows tools to extract the ZIP archive" src="../_images/windows_boxespy_zip_extract.png" style="width: 512.0px; height: 384.0px;" /></a>
 </div>
 </li>
-<li><p class="first">Change into the folder for Boxes.py,
-e.g. with the command <code class="code docutils literal notranslate"><span class="pre">cd</span> <span class="pre">\Users\[USERNAME]\Downloads\boxes-master</span></code></p>
-</li>
-<li><p class="first">Run the development server with the command
+<li><p>Change into the folder for Boxes.py,
+e.g. with the command <code class="code docutils literal notranslate"><span class="pre">cd</span> <span class="pre">\Users\[USERNAME]\Downloads\boxes-master</span></code></p></li>
+<li><p>Run the development server with the command
 <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">scripts\boxesserver</span></code>
 Note: You likely will be notified by your firewall that it blocked network
 access. If you want to use boxesserver you need to allow connections.</p>
@@ -122,7 +117,7 @@ access. If you want to use boxesserver you need to allow connections.</p>
 <a class="reference internal image-reference" href="../_images/windows_cmd_python_boxesserver_firewall.png"><img alt="Screenshot of command for running boxesserver and firewall notice" src="../_images/windows_cmd_python_boxesserver_firewall.png" style="width: 512.0px; height: 384.0px;" /></a>
 </div>
 </li>
-<li><p class="first">Open the address <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> in your browser and have fun :)</p>
+<li><p>Open the address <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> in your browser and have fun :)</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/windows_browser_boxespy.png"><img alt="Screenshot of a browser window running Boxes.py locally" src="../_images/windows_browser_boxespy.png" style="width: 512.0px; height: 384.0px;" /></a>
 </div>
@@ -172,13 +167,11 @@ is identical to the installation on Linux systems.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -208,7 +201,7 @@ is identical to the installation on Linux systems.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Florian Festi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
     </div>
   </body>
 </html>

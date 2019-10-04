@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Generators &#8212; boxes.py 0.1 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -50,7 +48,7 @@
 <p>Generators are sub classes of</p>
 <dl class="class">
 <dt id="boxes.Boxes">
-<em class="property">class </em><code class="descclassname">boxes.</code><code class="descname">Boxes</code><a class="reference internal" href="_modules/boxes.html#Boxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">boxes.</code><code class="sig-name descname">Boxes</code><a class="reference internal" href="_modules/boxes.html#Boxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main class – Generator should sub class this</p>
 </dd></dl>
 
@@ -68,33 +66,31 @@ methods are the interface for the user interfaces to interact with the
 generators:</p>
 <dl class="method">
 <dt id="boxes.Boxes.__init__">
-<code class="descclassname">Boxes.</code><code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">Boxes.</code><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="boxes.Boxes.parseArgs">
-<code class="descclassname">Boxes.</code><code class="descname">parseArgs</code><span class="sig-paren">(</span><em>args=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.parseArgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.parseArgs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Boxes.</code><code class="sig-name descname">parseArgs</code><span class="sig-paren">(</span><em class="sig-param">args=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.parseArgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.parseArgs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse command line parameters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> – (Default value = None) parameters, None for using sys.argv</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – (Default value = None) parameters, None for using sys.argv</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="boxes.Boxes.render">
-<code class="descclassname">Boxes.</code><code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.render" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Boxes.</code><code class="sig-name descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implement this method in your sub class.</p>
 <p>You will typically need to call .parseArgs() before calling this one</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="boxes.Boxes.open">
-<code class="descclassname">Boxes.</code><code class="descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.open" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Boxes.</code><code class="sig-name descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.open" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prepare for rendering</p>
 <p>Create canvas and edge and other objects
 Call this before .render()</p>
@@ -102,7 +98,7 @@ Call this before .render()</p>
 
 <dl class="method">
 <dt id="boxes.Boxes.close">
-<code class="descclassname">Boxes.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.close" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Boxes.</code><code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes.html#Boxes.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.Boxes.close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finish rendering</p>
 <p>Flush canvas to disk and convert output to requested format if needed.
 Call after .render()</p>
@@ -114,22 +110,22 @@ Call after .render()</p>
 package.</p>
 <span class="target" id="module-boxes.generators"></span><dl class="class">
 <dt id="boxes.generators.UIGroup">
-<em class="property">class </em><code class="descclassname">boxes.generators.</code><code class="descname">UIGroup</code><span class="sig-paren">(</span><em>name</em>, <em>title=None</em>, <em>description=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/generators.html#UIGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.UIGroup" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">boxes.generators.</code><code class="sig-name descname">UIGroup</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">title=None</em>, <em class="sig-param">description=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/generators.html#UIGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.UIGroup" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="boxes.generators.UIGroup.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>box</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/generators.html#UIGroup.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.UIGroup.add" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">box</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/generators.html#UIGroup.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.UIGroup.add" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="boxes.generators.getAllBoxGenerators">
-<code class="descclassname">boxes.generators.</code><code class="descname">getAllBoxGenerators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/generators.html#getAllBoxGenerators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.getAllBoxGenerators" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">boxes.generators.</code><code class="sig-name descname">getAllBoxGenerators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/generators.html#getAllBoxGenerators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.getAllBoxGenerators" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="boxes.generators.getAllGeneratorModules">
-<code class="descclassname">boxes.generators.</code><code class="descname">getAllGeneratorModules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/generators.html#getAllGeneratorModules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.getAllGeneratorModules" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">boxes.generators.</code><code class="sig-name descname">getAllGeneratorModules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/boxes/generators.html#getAllGeneratorModules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#boxes.generators.getAllGeneratorModules" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p>This adds generators to the user interfaces automatically. For this to
@@ -169,13 +165,11 @@ start a new generator please change the class name right away.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -205,7 +199,7 @@ start a new generator please change the class name right away.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Florian Festi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
     </div>
   </body>
 </html>

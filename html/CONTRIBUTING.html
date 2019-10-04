@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Contributing to Boxes.py &#8212; boxes.py 0.1 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -68,21 +66,24 @@ patches that are not quite ready yet. But please state in the pull
 request message what you think the status is and whether you want help
 or are going to finish it on your own.</p>
 <ul class="simple">
-<li>Please fork the repository at GitHub before getting started</li>
-<li>Start with creating separate branches for each of your new  generators or features<ul>
-<li>You can merge them into your master branch to have them all in one place</li>
-<li>Please continue your work in the branches and repeatedly merge them to master</li>
+<li><p>Please fork the repository at GitHub before getting started</p></li>
+<li><p>Start with creating separate branches for each of your new  generators or features</p>
+<ul>
+<li><p>You can merge them into your master branch to have them all in one place</p></li>
+<li><p>Please continue your work in the branches and repeatedly merge them to master</p></li>
 </ul>
 </li>
-<li>Before submitting a pull request intened to go upstream have clean patches that are self contained and error free<ul>
-<li>Re-order and squash patches with <em>git rebase -i</em></li>
-<li>The patches should contaning meaningful changes and not (nessesarily) reflect how the code was created</li>
-<li>Rebase your branch to the current master branch</li>
-<li>Be prepared that you code may get reworked before being merged upstream</li>
+<li><p>Before submitting a pull request intened to go upstream have clean patches that are self contained and error free</p>
+<ul>
+<li><p>Re-order and squash patches with <em>git rebase -i</em></p></li>
+<li><p>The patches should contaning meaningful changes and not (nessesarily) reflect how the code was created</p></li>
+<li><p>Rebase your branch to the current master branch</p></li>
+<li><p>Be prepared that you code may get reworked before being merged upstream</p></li>
 </ul>
 </li>
-<li>Submit a pull request in GitHub based on your feature branch<ul>
-<li>Describe the status of the patch set and your intentions with it in the pull request message</li>
+<li><p>Submit a pull request in GitHub based on your feature branch</p>
+<ul>
+<li><p>Describe the status of the patch set and your intentions with it in the pull request message</p></li>
 </ul>
 </li>
 </ul>
@@ -98,12 +99,12 @@ follow the guide lines (yet).</p>
 <p>Writing new generators is the most straight forward thing to do with
 Boxes.py. Here are some guidelines that make it easier to get them added:</p>
 <ul class="simple">
-<li>Start with a copy of another generator or <em>boxes/generators/_template.py</em></li>
-<li>Commit changes to the library in separate patches</li>
-<li>Use parameters with sane defaults instead of hard coding dimmensions</li>
-<li>Simple generators can end up as one single commit</li>
-<li>For more complicated generators there can be multiple patches -
-each adding another feature</li>
+<li><p>Start with a copy of another generator or <em>boxes/generators/_template.py</em></p></li>
+<li><p>Commit changes to the library in separate patches</p></li>
+<li><p>Use parameters with sane defaults instead of hard coding dimmensions</p></li>
+<li><p>Simple generators can end up as one single commit</p></li>
+<li><p>For more complicated generators there can be multiple patches -
+each adding another feature</p></li>
 </ul>
 </div>
 </div>
@@ -193,13 +194,11 @@ easier it is to implement. You can add an “enhancement” tag.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -228,7 +227,7 @@ easier it is to implement. You can add an “enhancement” tag.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Florian Festi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
     </div>
   </body>
 </html>
