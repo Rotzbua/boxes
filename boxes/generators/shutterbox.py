@@ -153,7 +153,7 @@ class ShutterBox(Boxes):
             help="Number of rounded top corners")
 
 
-    def render(self):
+    def render(self) -> None:
         x, y, h, r = self.x, self.y, self.h, self.radius
         style = self.style
 

@@ -58,7 +58,7 @@ class UniversalBox(_TopEdge, _ChestLid):
             self.corner(-90)
             if top_edge == "F": self.edge(t)
 
-    def render(self):
+    def render(self) -> None:
         x, y, h = self.x, self.y, self.h
         t = self.thickness
 

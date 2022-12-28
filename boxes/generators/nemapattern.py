@@ -32,7 +32,7 @@ class NemaPattern(Boxes):
             "--screwholes", action="store", type=float, default=0.0,
             help="Size of the screw holes in mm - 0 for default size")
 
-    def render(self):
+    def render(self) -> None:
         motor, flange, holes, screws = self.nema_sizes.get(
             self.size, self.nema_sizes[8])
 

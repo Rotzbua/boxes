@@ -74,7 +74,7 @@ class CoinDisplay(Boxes):
         """
         self.hole(self.coin_plate/2, self.coin_plate/2, self.coin_d/2)
 
-    def render(self):
+    def render(self) -> None:
 
         x, y, h = self.x, self.y, self.h
 

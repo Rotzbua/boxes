@@ -32,7 +32,7 @@ class IntegratedHingeBox(Boxes):
             help="height of lid in mm")
         
 
-    def render(self):
+    def render(self) -> None:
 
         x, y, h, hl = self.x, self.y, self.h, self.lidheight
 

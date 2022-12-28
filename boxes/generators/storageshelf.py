@@ -66,7 +66,7 @@ class StorageShelf(_TopEdge):
             posh += h + self.thickness
             self.fingerHolesAt(posh, 0, self.x)
 
-    def render(self):
+    def render(self) -> None:
         if self.outside:
             self.sy = self.adjustSize(self.sy)
             self.sh = self.adjustSize(self.sh, self.top_edge, self.bottom_edge)

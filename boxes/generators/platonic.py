@@ -110,7 +110,7 @@ class Platonic(Boxes):
             help="type of platonic solid")
 
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         e = self.x
         t = self.thickness

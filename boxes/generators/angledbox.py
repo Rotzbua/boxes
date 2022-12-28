@@ -72,7 +72,7 @@ class AngledBox(Boxes):
 
         self.move(tx, ty, move, label=label)
 
-    def render(self):
+    def render(self) -> None:
 
         x, y, h, n = self.x, self.y, self.h, self.n
         b = self.bottom_edge

@@ -30,7 +30,7 @@ class Folder(Boxes):
             help="radius of the corners")
         self.argparser.set_defaults(h=20)
 
-    def render(self):
+    def render(self) -> None:
         x, y, r, h = self.x, self.y, self.r, self.h
         c2 = math.pi * h
         self.moveTo(r + self.thickness, self.thickness)

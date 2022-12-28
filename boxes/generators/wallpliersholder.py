@@ -70,7 +70,7 @@ class WallPliersHolder(_WallMountedBox):
             posx += dx + t
             self.wallHolesAt(posx, 0, self.h_t, 90)
 
-    def render(self):
+    def render(self) -> None:
         self.generateWallEdges()
 
         if self.outside:

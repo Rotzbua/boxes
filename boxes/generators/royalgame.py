@@ -161,7 +161,7 @@ class RoyalGame(Boxes):
             for dy in (-1, 1):
                 self.hole(x+dx*.2*s, y+dy*.2*s, 0.07*s)
                       
-    def render(self):
+    def render(self) -> None:
 
         x = self.x
         t = self.thickness

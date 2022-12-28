@@ -24,7 +24,7 @@ class Edges(Boxes):
     def __init__(self):
         Boxes.__init__(self)        
 
-    def render(self):
+    def render(self) -> None:
         self.ctx = None
         self._buildObjects()
         chars = self.edges.keys()

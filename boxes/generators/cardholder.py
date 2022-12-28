@@ -72,7 +72,7 @@ class CardHolder(Boxes):
 
         self.move(tw, th, move)
 
-    def render(self):
+    def render(self) -> None:
         sx, y = self.sx, self.y
         t = self.thickness
 

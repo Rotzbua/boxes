@@ -35,7 +35,7 @@ class Console(Boxes):
             "--angle",  action="store", type=float, default=50,
             help="angle of the front panel (90°=upright)")
 
-    def render(self):
+    def render(self) -> None:
         x, y, h, hf = self.x, self.y, self.h, self.front_height
         t = self.thickness
 

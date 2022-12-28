@@ -131,7 +131,7 @@ class SpicesRack(Boxes):
                     j*(self.diameter+self.space),
                     (i+1)*self.h-t-dy, (self.h-t)/2, -90)
 
-    def render(self):
+    def render(self) -> None:
         self.feet_done = False
         t = self.thickness
         self.x = x = self.numx * (self.diameter+self.space)

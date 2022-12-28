@@ -55,7 +55,7 @@ class DisplayShelf(Boxes): # change class name here and below
             pos_y += math.sin(-a) * (self.sl+0.5*t) + math.cos(a)*0.5*t
             self.fingerHolesAt(pos_x, pos_y, self.front, 90-self.angle)
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         x, y, h = self.x, self.y, self.h
         f = self.front

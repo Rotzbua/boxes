@@ -39,7 +39,7 @@ Set *hi* larger than *h* to leave gap between the inner and outer shell. This ca
             "--play",  action="store", type=float, default=0.15,
             help="play between the two parts as multipleof the wall thickness")
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         x, y, h = self.x, self.y, self.h
         hi = self.hi or self.h

@@ -31,7 +31,7 @@ class WallDrillBox(DrillStand, _WallMountedBox):
             "--extra_height",  action="store", type=float, default=15.0,
             help="height difference left to right")
 
-    def render(self):
+    def render(self) -> None:
         self.generateWallEdges()
 
         t = self.thickness

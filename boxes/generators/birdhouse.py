@@ -57,7 +57,7 @@ class BirdHouse(Boxes):
                              0.75*width, 0.75*self.h,
                              r=self.thickness)
 
-    def render(self):
+    def render(self) -> None:
         x, y, h = self.x, self.y, self.h
 
         roof = 2**0.5 * x / 2

@@ -108,7 +108,7 @@ To allow powering by laptop power supply: flip switch, Lenovo round socket (or a
             for y in [3.5, 65]:
                 self.hole(x, y, 1.0)
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         t = self.thickness
 

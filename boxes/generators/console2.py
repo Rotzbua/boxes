@@ -232,7 +232,7 @@ To remove the panel you have to press in the four tabs at the side. It is easies
         
         self.move(tw, th, move, label=label)
         
-    def render(self):
+    def render(self) -> None:
         x, y, h = self.x, self.y, self.h
         t = self.thickness
         bottom = self.edges.get(self.bottom_edge)

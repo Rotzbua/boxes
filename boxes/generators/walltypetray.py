@@ -63,7 +63,7 @@ class WallTypeTray(_WallMountedBox, _TopEdge):
             posy += y + self.thickness
             self.fingerHolesAt(posy, 0, self.hi)
 
-    def render(self):
+    def render(self) -> None:
 
         self.generateWallEdges()
         b = self.bottom_edge

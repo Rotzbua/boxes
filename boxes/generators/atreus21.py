@@ -21,7 +21,7 @@ class Atreus21(Boxes, Keyboard):
             default_columns_definition='4@3/4@6/4@11/4@5/4@0/1@{}'.format(self.btn_size * 0.5)
         )
 
-    def render(self):
+    def render(self) -> None:
         """Renders the keyboard."""
 
         self.moveTo(10, 30)

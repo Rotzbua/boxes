@@ -44,7 +44,7 @@ class WallConsole(_WallMountedBox):
             posx += x + self.thickness
             self.fingerHolesAt(posx, 0, self.front, 90)
 
-    def render(self):
+    def render(self) -> None:
 
         self.generateWallEdges()
 

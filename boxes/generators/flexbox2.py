@@ -92,7 +92,7 @@ class FlexBox2(Boxes):
 
         self.move(tw, th, move)
 
-    def render(self):
+    def render(self) -> None:
 
         if self.outside:
             self.y = self.adjustSize(self.y)

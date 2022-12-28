@@ -74,7 +74,7 @@ class PaintStorage(Boxes):
                           j * (self.candiameter+spacing_x) + (self.candiameter+spacing_x)/2,
                           self.candiameter/2)
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         x, y = self.x, self.y
         t = self.thickness

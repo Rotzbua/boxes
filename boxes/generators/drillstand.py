@@ -212,7 +212,7 @@ Start with putting the slots of the inner walls together. Be especially careful 
                 self.fingerHolesAt(posx, posy, fa*sx[j], 0)
                 posx += fa*sx[j] + fa*t
 
-    def render(self):
+    def render(self) -> None:
         t = self.thickness
         sx, sy, sh = self.sx, self.sy, self.sh
         self.x = x = sum(sx) + len(sx)*t - t

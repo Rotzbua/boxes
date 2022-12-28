@@ -35,7 +35,7 @@ class HolePattern(Boxes):
             choices=["rectangle", "ellipse", "oval", "hexagon", "octagon"],
             help="Shape of the hole pattern")
 
-    def render(self):
+    def render(self) -> None:
         x, y = self.x, self.y
 
         if self.shape == "ellipse":

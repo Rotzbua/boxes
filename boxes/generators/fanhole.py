@@ -88,7 +88,7 @@ class FanHole(Boxes):
             
             self.moveArc(-360./n, r)        
 
-    def render(self):
+    def render(self) -> None:
         r_h = self.mounting_holes / 2
         d = self.diameter
         inset = self.mounting_holes_inset

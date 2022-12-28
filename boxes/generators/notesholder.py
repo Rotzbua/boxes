@@ -66,7 +66,7 @@ class NotesHolder(Boxes):
             "--opening",  action="store", type=float, default=40,
             help="percent of front that's open")
 
-    def render(self):
+    def render(self) -> None:
         x, y, h = self.x, self.y, self.h
         t = self.thickness
 

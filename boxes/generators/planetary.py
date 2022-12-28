@@ -47,7 +47,7 @@ class Planetary(Boxes):
         #    "--stages",  action="store", type=int, default=4,
         #    help="number of stages in the gear reduction")
 
-    def render(self):
+    def render(self) -> None:
 
         ringteeth = self.sunteeth + 2 * self.planetteeth
         spoke_width = 3 * self.shaft

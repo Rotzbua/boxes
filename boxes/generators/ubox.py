@@ -88,7 +88,7 @@ class UBox(_TopEdge, _ChestLid):
         
         self.move(tw, th, move, label=label)
 
-    def render(self):
+    def render(self) -> None:
         x, y, h, r = self.x, self.y, self.h, self.radius
 
         self.radius = r = min(r, x/2.0, y)

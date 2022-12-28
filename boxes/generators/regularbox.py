@@ -48,7 +48,7 @@ The lids needs to be glued. For the bayonet lid all outside rings attach to the 
 
         self.lugs=6
 
-    def render(self):
+    def render(self) -> None:
 
         r, h, n = self.radius, self.h, self.n
 

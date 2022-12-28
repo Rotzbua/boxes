@@ -120,7 +120,7 @@ You will likely need to cut each of the dividers you want multiple times.
             "--handle", type=boolarg, default=False, help="add handle to the bottom",
         )
 
-    def render(self):
+    def render(self) -> None:
 
         side_walls_number = len(self.sx) - 1 + sum([self.left_wall, self.right_wall])
         if side_walls_number == 0:

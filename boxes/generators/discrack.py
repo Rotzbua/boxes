@@ -263,7 +263,7 @@ class DiscRack(Boxes):
 
         self._draw_slits(inset, self.rear_halfslit)
 
-    def render(self):
+    def render(self) -> None:
         o = self.outer
 
         self.lower_factor = min(self.lower_factor, 0.99)

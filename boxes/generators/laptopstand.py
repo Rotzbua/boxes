@@ -62,7 +62,7 @@ class LaptopStand(Boxes):  # Change class name!
             help="desired thickness of the supporting edge",
         )
 
-    def render(self):
+    def render(self) -> None:
         calcs = self.perform_calculations()
 
         self.laptopstand_triangles(calcs, move="up")

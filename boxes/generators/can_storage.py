@@ -288,7 +288,7 @@ for canned tomatos:
                 max_random=self.fillHoles_max_random,
                 )
         
-    def render(self):
+    def render(self) -> None:
         self.chuteAngle = self.chuteAngle
         
         self.pusherAngle = 30 # angle of pusher

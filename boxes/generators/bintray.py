@@ -111,7 +111,7 @@ class BinTray(Boxes):
             posy += y + self.thickness
             self.fingerHolesAt(posy, 0, self.hi)
 
-    def render(self):
+    def render(self) -> None:
         if self.outside:
             self.sx = self.adjustSize(self.sx)
             self.sy = self.adjustSize(self.sy)

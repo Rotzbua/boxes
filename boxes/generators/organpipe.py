@@ -85,7 +85,7 @@ class OrganPipe(Boxes): # Change class name!
             help="pipe is closed at the top")
 
 
-    def render(self):
+    def render(self) -> None:
         t = self.thickness
         f = self.getFrequency(self.pitch, self.octave, 440)
 

@@ -27,7 +27,7 @@ class FlexTest(Boxes):
         self.addSettingsArgs(edges.FlexSettings)
         self.buildArgParser("x", "y")
 
-    def render(self):
+    def render(self) -> None:
         x, y = self.x, self.y
 
         self.moveTo(5, 5)

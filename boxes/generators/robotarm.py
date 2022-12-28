@@ -43,7 +43,7 @@ class RobotArm(Boxes): # change class name here and below
                 "--length%i" % i,  action="store", type=float, default=50.,
                 help="length of segment axle to axle")
 
-    def render(self):
+    def render(self) -> None:
 
         for i in range(5, 0,-1):
             armtype = getattr(self, "type%i" % i)

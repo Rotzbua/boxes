@@ -91,7 +91,7 @@ class DrillBox(_TopEdge):
                 x += dx
             y += dy
 
-    def render(self):
+    def render(self) -> None:
         x = sum(self.sx)
         y = sum(self.sy)
 

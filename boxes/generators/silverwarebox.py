@@ -86,7 +86,7 @@ class Silverware(Boxes):
     ### main
     ##################################################
 
-    def render(self):
+    def render(self) -> None:
         x = self.x
         y = self.y
         h = self.h

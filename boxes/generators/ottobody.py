@@ -104,7 +104,7 @@ class OttoBody(Boxes):
                       (h+t, 2))
         self.move(w+4, h+8+t, move)
 
-    def render(self):
+    def render(self) -> None:
 
         self.x = x = 60.
         self.y = y = 60.

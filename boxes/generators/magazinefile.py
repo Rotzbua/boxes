@@ -65,7 +65,7 @@ class MagazinFile(Boxes):
         self.edge(e_w)
         self.corner(90)
 
-    def render(self):
+    def render(self) -> None:
 
         if self.outside:
             self.x = self.adjustSize(self.x)

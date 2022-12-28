@@ -36,7 +36,7 @@ class OttoSoles(Boxes):
             help="number of soles")
 
 
-    def render(self):
+    def render(self) -> None:
         x, y = self.x, self.y
         c = self.chamfer
         c2 = c * 2**0.5

@@ -77,7 +77,7 @@ class Planetary2(Boxes):
             self.moveTo(0, 0, -a)
 
 
-    def render(self):
+    def render(self) -> None:
 
         ringteeth = self.sunteeth + 2 * self.planetteeth
         t = self.thickness

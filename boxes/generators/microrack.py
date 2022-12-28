@@ -151,7 +151,7 @@ class SBCMicroRack(Boxes):
         for i in range(self.sbcs):
             self.fingerHolesAt((height_per) * i + +height_per/2 + 1.5, self.hole_dist_edge, self.x, 90)
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         x, y = self.x, self.y
         t = self.thickness

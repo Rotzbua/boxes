@@ -59,7 +59,7 @@ class Keypad(Boxes, Keyboard):
         y = max(offset + keys * spacing for (offset, keys) in self.columns_definition) + border
         return x, y
 
-    def render(self):
+    def render(self) -> None:
         """Renders the keypad."""
         # deeper edge for top to add multiple layers
         deep_edge = deepcopy(self.edges['f'].settings)

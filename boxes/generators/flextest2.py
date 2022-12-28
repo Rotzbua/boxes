@@ -29,7 +29,7 @@ class FlexTest2(Boxes):
             "--fw", action="store", type=float, default=1,
             help="distance of flex cuts in multiples of thickness")
 
-    def render(self):
+    def render(self) -> None:
         x, y = self.x, self.y
 
         self.rectangularWall(x, y, callback=[lambda: self.flex2D(x, y, self.fw)])

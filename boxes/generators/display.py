@@ -35,7 +35,7 @@ class Display(Boxes):
             help="greater zero for top wider as bottom")
 
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         x, h, r = self.x, self.h, self.radius
         a = self.angle

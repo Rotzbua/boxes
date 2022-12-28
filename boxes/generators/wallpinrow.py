@@ -153,7 +153,7 @@ class WallPinRow(_WallMountedBox):
         self.move(tw, th, move)
         
             
-    def render(self):
+    def render(self) -> None:
         self.generateWallEdges()
 
         p = PinEdge(self, self)

@@ -110,7 +110,7 @@ class WallChiselHolder(_WallMountedBox):
             if self.brace(i):
                 self.fingerHolesAt(i*wt, 0, l, 90)
 
-    def render(self):
+    def render(self) -> None:
         self.generateWallEdges()
 
         t = self.thickness

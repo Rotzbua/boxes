@@ -91,7 +91,7 @@ A paper creaser (or bone folder) is also useful.
             help="Diameter of the hole to help catch the lid",
         )
 
-    def render(self):
+    def render(self) -> None:
         if self.design == "automatic":
             self.design = "tuckbox" if self.h > self.y else "widebox"
 

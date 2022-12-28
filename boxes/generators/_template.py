@@ -41,7 +41,7 @@ class BOX(Boxes): # Change class name!
             help="DESCRIPTION")
 
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         x, y, h = self.x, self.y, self.h
         t = self.thickness

@@ -66,7 +66,7 @@ class Pulley(Boxes):
         self.corner(360, diameter / 2)
         self.move(w, w, move)
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         t = self.thickness
 

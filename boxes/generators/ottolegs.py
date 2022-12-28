@@ -101,7 +101,7 @@ class OttoLegs(Boxes):
         self.hole(6, 6, 11.6/2)
         self.hole(6, 12, 5.5/2)
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         t = self.thickness
 

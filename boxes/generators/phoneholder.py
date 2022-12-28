@@ -89,7 +89,7 @@ class PhoneHolder(Boxes):
 
         self.addSettingsArgs(edges.FingerJointSettings)
 
-    def render(self):
+    def render(self) -> None:
         self.h = self.phone_height + self.bottom_margin
         tab_start = self.bottom_margin
         tab_length = self.tab_size

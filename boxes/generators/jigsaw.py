@@ -77,7 +77,7 @@ class JigsawPuzzle(Boxes):  # change class name here and below
         #     self.corner(parity*-90)
         #     self.edge(self.size/2**self.depth)
 
-    def render(self):
+    def render(self) -> None:
         size = self.size
         t = self.thickness
         self.burn = 0.0

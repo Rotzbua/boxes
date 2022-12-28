@@ -65,7 +65,7 @@ Drawers are not included:
                 self.fingerHolesAt(0, posh, self.rail, 0)
                 self.fingerHolesAt(self.x, posh, self.rail, 180)
 
-    def render(self):
+    def render(self) -> None:
         if self.outside:
             self.depth = self.adjustSize(self.depth, e2=False)
             self.sh = self.adjustSize(self.sh, self.top_edge, self.bottom_edge)

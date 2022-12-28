@@ -29,7 +29,7 @@ class NemaMount(Boxes):
             choices=list(sorted(self.nema_sizes.keys())),
             help="Nema size of the motor")
 
-    def render(self):
+    def render(self) -> None:
         motor, flange, holes, screws = self.nema_sizes.get(
             self.size, self.nema_sizes[8])
         t = self.thickness

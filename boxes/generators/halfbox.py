@@ -83,7 +83,7 @@ and many more...
             posy += y + self.thickness
             self.fingerHolesAt(posy, 0, self.h)
         
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
             
         x, h = self.x, self.h

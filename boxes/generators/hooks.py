@@ -42,7 +42,7 @@ class Hook(Boxes):
             type=float, default=45.,
             help="angle of the support underneeth")
 
-    def render(self):
+    def render(self) -> None:
 
         self.angle = min(self.angle, 80)
         t = self.thickness

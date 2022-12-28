@@ -62,7 +62,7 @@ sh gives height of the stairs from front to back. Note that the overall width an
             self.fingerHolesAt(posx, 0, width, 90)
             
 
-    def render(self):
+    def render(self) -> None:
         self.generateWallEdges()
 
         self.extra_height = 20

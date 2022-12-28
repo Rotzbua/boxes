@@ -34,7 +34,7 @@ class AllEdges(Boxes):
 
         self.buildArgParser(x=100)
 
-    def render(self):
+    def render(self) -> None:
         x = self.x
         t = self.thickness
 

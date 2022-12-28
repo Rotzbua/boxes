@@ -61,7 +61,7 @@ Please add mounting holes yourself."""
             help="edges used for holding the front panels and back")
 
 
-    def render(self):
+    def render(self) -> None:
         x, y, h, hs = self.x, self.y, self.h, self.slotheight
         hb = self.bottomheight
         t = self.thickness

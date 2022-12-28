@@ -53,7 +53,7 @@ class Gears(Boxes):
             "--profile_shift",  action="store", type=float, default=20,
             help="in precent of the modulus")
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         t = self.thickness
 

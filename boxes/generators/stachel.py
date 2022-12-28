@@ -85,7 +85,7 @@ class Stachel(Boxes):
         
         
 
-    def render(self):
+    def render(self) -> None:
 
         ri = self.flutediameter / 2.0
         ro = ri + self.wall

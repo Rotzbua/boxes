@@ -32,7 +32,7 @@ class LaserHoldfast(Boxes):
             "--shaftwidth",  action="store", type=float, default=5.0,
             help="width of the shaft")
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         x, hh, h, sw = self.x, self.hookheight, self.h, self.shaftwidth 
         t = self.thickness

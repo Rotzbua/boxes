@@ -23,7 +23,7 @@ class Rack19HalfWidth(Boxes):
             '--deepz', action="store", type=float, default=124,
             help='depth of the longer (screwed to another half sized thing) side')
 
-    def render(self):
+    def render(self) -> None:
         """Render box."""
         # pylint: disable=invalid-name
         t = self.thickness

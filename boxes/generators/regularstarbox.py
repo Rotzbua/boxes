@@ -62,7 +62,7 @@ class RegularStarBox(Boxes):
             choices=(3, 4, 5),
             help="number of sides")
 
-    def render(self):
+    def render(self) -> None:
 
         r, h, n = self.radius, self.h, self.n
 

@@ -42,7 +42,7 @@ class EuroRackSkiff(Boxes):
         for i in range(0, self.hp):
             self.hole(i*5.08 + 2.54, 3, d=3.0)
         
-    def render(self):
+    def render(self) -> None:
 
         t = self.thickness
         h = self.h

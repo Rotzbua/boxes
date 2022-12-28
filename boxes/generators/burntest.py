@@ -47,7 +47,7 @@ See also LBeam that can serve as compact BurnTest and FlexTest for testing flex 
             help="number of pairs (each testing four burn values)")
 
 
-    def render(self):
+    def render(self) -> None:
         x, s = self.x, self.step
         t = self.thickness
         

@@ -48,10 +48,10 @@ of sizes in x and y direction. Choose how many distances you need in both direct
     # Use empty open and close methods to avoid initializing the whole
     # drawing infrastructure
 
-    def open(self):
+    def open(self) -> None:
         pass
 
-    def close(self):
+    def close(self) -> None:
         pass
 
     def fillDefault(self, x, y):
@@ -76,7 +76,7 @@ of sizes in x and y direction. Choose how many distances you need in both direct
 
         return "".join(r)
 
-    def render(self):
+    def render(self) -> None:
         self.fillDefault(self.x, self.y)
         with open(self.output, 'w') as f:
             f.write(str(self))
@@ -149,7 +149,7 @@ You can replace the space characters representing the floor by a "X" to remove t
         edge = self.edges.get(edge, edge)
         edge(length)
 
-    def render(self):
+    def render(self) -> None:
 
         if self.layout:
             self.parse(self.layout.split('\n'))

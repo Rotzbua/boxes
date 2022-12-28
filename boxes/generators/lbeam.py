@@ -26,7 +26,7 @@ class LBeam(Boxes):
         self.buildArgParser("x", "y", "h", "outside")
         self.addSettingsArgs(edges.FingerJointSettings)
 
-    def render(self):
+    def render(self) -> None:
         x, y, h = self.x, self.y, self.h
         t = self.thickness
 

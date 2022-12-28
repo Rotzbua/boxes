@@ -35,7 +35,7 @@ See ClosedBox for variant without a base.
         self.addSettingsArgs(edges.FingerJointSettings)
         self.buildArgParser("x", "y", "h", "outside")
 
-    def render(self):
+    def render(self) -> None:
 
         x, y, h = self.x, self.y, self.h
 

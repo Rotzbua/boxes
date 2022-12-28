@@ -95,7 +95,7 @@ class PoleHook(Boxes): # change class name here and below
         self.moveTo(0, -8, -180)
         self.edge(d)
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         d = self.diameter
         t = self.thickness

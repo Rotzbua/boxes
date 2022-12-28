@@ -49,7 +49,7 @@ class UnevenHeightBox(Boxes):
             "--edge_types", action="store", type=str, default="eeee",
             help="which edges are flat (e) or grooved (z,Z), counter-clockwise from the front")
 
-    def render(self):
+    def render(self) -> None:
 
         x, y = self.x, self.y
         heights = [self.height0, self.height1, self.height2, self.height3]

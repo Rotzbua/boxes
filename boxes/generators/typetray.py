@@ -82,7 +82,7 @@ class TypeTray(_TopEdge):
         r = min(self.gw, self.gh) / 2.0
         self.rectangularHole(x / 2.0, self.gh * 1.5, self.gw, self.gh, r)
 
-    def render(self):
+    def render(self) -> None:
         if self.outside:
             self.sx = self.adjustSize(self.sx)
             self.sy = self.adjustSize(self.sy)

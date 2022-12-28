@@ -75,7 +75,7 @@ class Arcade(Boxes):
         self.hole(self.width/4., 50, 40)
         self.hole(self.width*3/4., 50, 40)
         
-    def render(self):
+    def render(self) -> None:
         width = self.width
         t = self.thickness
 

@@ -35,7 +35,7 @@ class DisplayCase(Boxes):
             help="overhang for joints in mm",
         )
 
-    def render(self):
+    def render(self) -> None:
 
         x, y, h = self.x, self.y, self.h
 

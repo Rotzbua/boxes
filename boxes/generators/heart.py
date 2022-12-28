@@ -53,7 +53,7 @@ class HeartBox(Boxes):
             if self.top == "hole":
                 return
 
-    def render(self):
+    def render(self) -> None:
         x, h = self.x, self.h
         t = self.thickness
 

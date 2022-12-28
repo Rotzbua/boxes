@@ -112,7 +112,7 @@ class BayonetBox(Boxes):
             self.polyline(0, (-1.3*a, r-1.5*t+p), 0, 90, 0.5*t, -90, 0, (-0.7*a, r-t+p), 0, -90, 0.5*t, 90)        
 
 
-    def render(self):
+    def render(self) -> None:
         d = self.diameter
         t = self.thickness
         p = 0.05*t

@@ -98,7 +98,7 @@ class WineRack(Boxes):
                     self.hexFingerHoles(j*2*dx+dx, (2*r+2*dy)*i, r, 30)
 
         
-    def render(self):
+    def render(self) -> None:
         x, y, h, radius = self.x, self.y, self.h, self.radius
 
         t = self.thickness

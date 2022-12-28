@@ -32,7 +32,7 @@ class ABox(Boxes):
         #    choices=("default (none)", "chest", "flat"),
         #    help="additional lid (for straight top_edge only)")
 
-    def render(self):
+    def render(self) -> None:
         x, y, h = self.x, self.y, self.h
         t = self.thickness
 

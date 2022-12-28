@@ -75,7 +75,7 @@ class WallWrenchHolder(_WallMountedBox):
             help="additional distance between wrenches (in mm)")
 
 
-    def render(self):
+    def render(self) -> None:
         self.generateWallEdges()
 
         h = ((self.min_strength + self.max_strength) * self.number * 2**0.5

@@ -339,7 +339,7 @@ class Context:
         self._xy = (0, 0)
         raise NotImplementedError()
 
-    def set_font(self, style, bold=False, italic=False):
+    def set_font(self, style: str, bold: bool = False, italic: bool = False) -> None:
         if style not in ("serif", "sans-serif", "monospaced"):
             raise ValueError("Unknown font style")
         self._ff = (style, bold, italic)

@@ -147,7 +147,7 @@ Without the "double" option the stand is a bit more narrow.
 
         self.move(tw, th, move)
 
-    def render(self):
+    def render(self) -> None:
         t = self.thickness
         d = self.depth
         nr = self.number

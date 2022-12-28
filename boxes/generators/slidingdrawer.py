@@ -15,7 +15,7 @@ class SlidingDrawer(Boxes):
             "--play",  action="store", type=float, default=0.15,
             help="play between the two parts as multipleof the wall thickness")
 
-    def render(self):
+    def render(self) -> None:
 
         x, y, h = self.x, self.y, self.h
         x = self.adjustSize(x)

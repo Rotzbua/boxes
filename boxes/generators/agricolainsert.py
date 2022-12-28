@@ -130,7 +130,7 @@ protruding underneath.
         Boxes.__init__(self)
         self.addSettingsArgs(edges.FingerJointSettings, surroundingspaces=1.0)
 
-    def render(self):
+    def render(self) -> None:
         player_box_height = 34.5
         player_box_inner_width = 50.5
         bigger_box_inner_height = 36.7

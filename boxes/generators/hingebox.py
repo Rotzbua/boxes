@@ -40,7 +40,7 @@ Then attach the hinges on the inside of the box and then connect them to lid.
             "--splitlid",  action="store", type=float, default=0.0,
             help="split the lid in y direction (mm)")
 
-    def render(self):
+    def render(self) -> None:
 
         x, y, h, hl = self.x, self.y, self.h, self.lidheight
         s = self.splitlid

@@ -81,7 +81,7 @@ class Lamp(Boxes):
         self.edges["f"](h)
         self.corner(90)
 
-    def render(self):
+    def render(self) -> None:
         """
         r : radius of lamp
         w : width of surrounding ring

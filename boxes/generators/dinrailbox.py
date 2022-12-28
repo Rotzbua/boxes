@@ -103,7 +103,7 @@ class DinRailBox(Boxes):
         self.rectangularHole(0.55*t, 7, 1.1*t, 1.6)
         self.rectangularHole(self.x-0.55*t, 7, 1.1*t, 1.6)
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         x, y, h = self.x, self.y, self.h
         w = self.rail_width

@@ -60,7 +60,7 @@ class RectangularWall(Boxes):
         if self.edgetypes[nr] == "f":
             self.fingerHolesAt(0, -2.5*t, self.h if nr % 2 else self.x, 0)
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         t = self.thickness
 

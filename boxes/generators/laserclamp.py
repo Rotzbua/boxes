@@ -82,7 +82,7 @@ parts sliding on each other to reduce friction.
 
         self.move(tw, th, move)
 
-    def render(self):
+    def render(self) -> None:
         t = self. thickness
         h_max, h_min, h_extra = self.maxheight, self.minheight,self.extraheight
 

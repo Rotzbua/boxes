@@ -40,7 +40,7 @@ class AngledCutJig(Boxes): # Change class name!
         self.fingerHolesAt(10-t, self.y-4.5*t, 20, 0)
         self.fingerHolesAt(30+t, self.y-4.5*t, self.x, 0)
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         x, y = self.x, self.y
         t = self.thickness

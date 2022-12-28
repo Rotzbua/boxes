@@ -86,7 +86,7 @@ With lid:
             h += dh
             self.fingerHolesAt(0, h, l, 0)
 
-    def render(self):
+    def render(self) -> None:
 
         x, y, sh, r = self.x, self.y, self.sh, self.radius
 

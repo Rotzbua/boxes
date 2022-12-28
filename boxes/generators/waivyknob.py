@@ -44,7 +44,7 @@ class WaivyKnob(Boxes):
             "--hexhead",  action="store", type=float, default=10.,
             help="Width of the hex bolt head (mm)")
 
-    def render(self):
+    def render(self) -> None:
         t = self.thickness
         angle = self.serrationangle
         self.parts.waivyKnob(self.diameter, self.serrations, angle,

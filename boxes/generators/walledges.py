@@ -24,7 +24,7 @@ class WallEdges(_WallMountedBox):
         super().__init__()
         self.buildArgParser(h=120)
 
-    def render(self):
+    def render(self) -> None:
         self.generateWallEdges()
 
         h = self.h

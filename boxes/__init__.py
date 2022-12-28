@@ -351,7 +351,7 @@ class Boxes:
         """
         self.ctx.set_source_rgb(*color)
 
-    def set_font(self, style, bold=False, italic=False):
+    def set_font(self, style: str, bold: bool = False, italic: bool = False) -> None:
         """
         Set font style used
         :param style: "serif", "sans-serif" or "monospaced"
@@ -360,7 +360,7 @@ class Boxes:
         """
         self.ctx.set_font(style, bold, italic)
 
-    def open(self):
+    def open(self) -> None:
         """
         Prepare for rendering
 
@@ -643,7 +643,7 @@ class Boxes:
         except TypeError:
             return l - walls
 
-    def render(self):
+    def render(self) -> None:
         """Implement this method in your sub class.
 
         You will typically need to call .parseArgs() before calling this one
@@ -695,7 +695,7 @@ class Boxes:
         else:
             return param
 
-    def close(self):
+    def close(self) -> None:
         """Finish rendering
 
         Flush canvas to disk and convert output to requested format if needed.

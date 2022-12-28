@@ -49,7 +49,7 @@ The latches lock in place when closed. To open them they need to be pressed in a
             help="allow removing the backwall, too")
 
         
-    def render(self):
+    def render(self) -> None:
         x, y, h = self.x, self.y, self.h
         t = self.thickness
         bottom = self.edges.get(self.bottom_edge)

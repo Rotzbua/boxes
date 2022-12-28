@@ -181,7 +181,7 @@ class Rotary(Boxes):
         self.hole(self.hl / 2 + d, y, self.diameter / 2.0)
         self.hole(self.hl / 2 - d, y, self.diameter / 2.0)
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         t = self.thickness
         d = self.diameter

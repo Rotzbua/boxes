@@ -93,5 +93,5 @@ class Rack19Box(Boxes):
             callback=[None, lambda: self.hole(trh, trh, d=d1)])
 
 
-    def render(self):
+    def render(self) -> None:
         self._render(type=19)

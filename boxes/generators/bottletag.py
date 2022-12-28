@@ -46,7 +46,7 @@ class BottleTag(Boxes):
             "--segment_width", action="store", type=int, default=3,
             help="inner segment width")
 
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         width = self.width
         height = self.height

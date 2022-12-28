@@ -107,7 +107,7 @@ class DoubleFlexDoorBox(boxes.Boxes):
 
         self.move(tw, th, move)
 
-    def render(self):
+    def render(self) -> None:
 
         if self.outside:
             self.x = self.adjustSize(self.x)

@@ -47,7 +47,7 @@ class ConcaveKnob(Boxes):
             "--hexhead",  action="store", type=float, default=10.,
             help="Width of the hex bolt head (mm)")
 
-    def render(self):
+    def render(self) -> None:
         t = self.thickness
         self.parts.concaveKnob(self.diameter, self.serrations,
                                self.rounded, self.angle,

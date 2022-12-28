@@ -26,7 +26,7 @@ class TrayInsert(Boxes):
         Boxes.__init__(self)
         self.buildArgParser("sx", "sy", "h", "outside")
 
-    def render(self):
+    def render(self) -> None:
 
         if self.outside:
             self.sx = self.adjustSize(self.sx, False, False)

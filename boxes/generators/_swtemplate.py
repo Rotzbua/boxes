@@ -34,7 +34,7 @@ class SlatwallXXX(Boxes): # Change class name!
             "--XX",  action="store", type=float, default=0.5,
             help="DESCRIPTION")
 
-    def render(self):
+    def render(self) -> None:
         # Add slat wall edges
         s = edges.SlatWallSettings(self.thickness, True,
                                    **self.edgesettings.get("SlatWall", {}))

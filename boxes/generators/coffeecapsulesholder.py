@@ -50,7 +50,7 @@ class CoffeeCapsuleHolder(Boxes):
             help="True if a backplate should be generated.",
         )
 
-    def render(self):
+    def render(self) -> None:
         self.lid_size = 37
         self.lid_size_with_margin = 39
         self.body_size = 30

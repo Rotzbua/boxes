@@ -45,7 +45,7 @@ class WallPlaneHolder(_WallMountedBox):
         self.fingerHolesAt(2.5*t+h, 2*t+l-hl, hl, 90)
         self.fingerHolesAt(2*t, 1.5*t, h+2*t, 0)
 
-    def render(self):
+    def render(self) -> None:
         self.generateWallEdges()
 
         l, w, h = self.length, self.width, self.height

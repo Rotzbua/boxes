@@ -41,7 +41,7 @@ class GearBox(Boxes):
             "--stages", action="store", type=int, default=4,
             help="number of stages in the gear reduction")
 
-    def render(self):
+    def render(self) -> None:
 
         if self.teeth2 < self.teeth1:
             self.teeth2, self.teeth1 = self.teeth1, self.teeth2

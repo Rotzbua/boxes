@@ -151,7 +151,7 @@ When turned by 90°, it can be also used to create a bottle holder."""
         self.mountingHole(x, y1, ds, dh, 180)
         self.mountingHole(x, y2, ds, dh, 180)
     
-    def render(self):
+    def render(self) -> None:
         # adjust to the variables you want in the local scope
         d, h, n = self.depth, self.h, self.n
         s = self.shades

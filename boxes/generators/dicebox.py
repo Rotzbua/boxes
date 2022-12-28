@@ -81,7 +81,7 @@ class DiceBox(Boxes):
         self.hole(mo, mo, d=d)
         self.hole(xi-mo, mo, d=d)
 
-    def render(self):
+    def render(self) -> None:
         x, y, h, hl = self.x, self.y, self.h, self.lidheight
 
         if self.outside:

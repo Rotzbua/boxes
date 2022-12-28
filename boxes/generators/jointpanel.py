@@ -41,7 +41,7 @@ For plywood this method works well with a very stiff press fit. Aim for needing 
             "--separate",  action="store", type=boolarg, default=False,
             help="draw pieces apart so they can be cut to form a large sheet")
 
-    def render(self):
+    def render(self) -> None:
         sx, sy = self.sx, self.sy
         t = self.thickness
 

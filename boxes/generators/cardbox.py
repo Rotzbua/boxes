@@ -109,7 +109,7 @@ Whole box (early version still missing grip rail on the lid):
         for i in range(1, self.num):
             self.fingerHolesAt(0.5*t + (c+t)*i, 0, y, 90)
 
-    def render(self):
+    def render(self) -> None:
         h = self.h
         t = self.thickness
 

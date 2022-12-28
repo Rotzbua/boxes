@@ -104,7 +104,7 @@ class BreadBox(Boxes):
             "--radius",  action="store", type=float, default=40.0,
             help="radius of the corners")
 
-    def render(self):
+    def render(self) -> None:
         x, y, h, r = self.x, self.y, self.h, self.radius
         self.n = n = 3
         
