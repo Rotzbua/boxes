@@ -1081,7 +1081,7 @@ class Boxes:
 
     ### Navigation
 
-    def moveTo(self, x, y=0.0, degrees=0):
+    def moveTo(self, x: float, y: float = 0.0, degrees: float = 0.0) -> None:
         """
         Move coordinate system to given point
 
