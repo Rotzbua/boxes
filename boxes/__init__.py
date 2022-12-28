@@ -43,16 +43,15 @@ def dist(dx, dy):
     Return distance
 
     :param dx: delta x
-    :param dy: delat y
+    :param dy: delay y
     """
     return (dx * dx + dy * dy) ** 0.5
 
 def restore(func):
     """
-    Wrapper: Restore coordiantes after function
+    Wrapper: Restore coordinates after function
 
     :param func: function to wrap
-
     """
 
     @wraps(func)
@@ -70,7 +69,6 @@ def holeCol(func):
     Wrapper: color holes differently
 
     :param func: function to wrap
-
     """
 
     @wraps(func)
@@ -147,7 +145,6 @@ def argparseSections(s):
     Parse sections parameter
 
     :param s: string to parse
-
     """
 
     result = []
@@ -402,8 +399,8 @@ class Boxes:
         """
         Add commonly used arguments
 
-        :param \*l: parameter names
-        :param \*\*kw: parameters with new default values
+        :param l: parameter names
+        :param kw: parameters with new default values
 
         Supported parameters are
 
@@ -506,7 +503,6 @@ class Boxes:
         Parse command line parameters
 
         :param args:  (Default value = None) parameters, None for using sys.argv
-
         """
         if args is None:
             args = sys.argv[1:]
@@ -540,7 +536,6 @@ class Boxes:
 
         :param part: Callable
         :param name:  (Default value = None) attribute name (__name__ as default)
-
         """
         if name is None:
             name = part.__class__.__name__
@@ -556,7 +551,7 @@ class Boxes:
             self.addPart(part)
 
     def _buildObjects(self):
-        """Add default edges and parts """
+        """Add default edges and parts"""
         self.edges = {}
         self.addPart(edges.Edge(self, None))
         self.addPart(edges.OutSetEdge(self, None))
@@ -651,7 +646,8 @@ class Boxes:
     def render(self):
         """Implement this method in your sub class.
 
-        You will typically need to call .parseArgs() before calling this one"""
+        You will typically need to call .parseArgs() before calling this one
+        """
         self.open()
         # Change settings and create new Edges and part classes here
         raise NotImplementedError
@@ -664,7 +660,6 @@ class Boxes:
         :param number: number of the callback
         :param x:  (Default value = 0.0) x position to be call on
         :param y:  (Default value = None) y position to be called on (default does burn correction)
-
         """
         if y is None:
             y = self.burn
@@ -691,7 +686,6 @@ class Boxes:
 
         :param param: list or item
         :param idx: index in list
-
         """
         if isinstance(param, list):
             if len(param) > idx:
@@ -737,7 +731,6 @@ class Boxes:
 
         :param degrees: angle
         :param radius:  (Default value = 0)
-
         """
 
         try:
@@ -795,7 +788,6 @@ class Boxes:
         """
         Simple line
         :param length: length in mm
-
         """
         self.ctx.move_to(0, 0)
         if tabs and self.tabs:
@@ -820,7 +812,7 @@ class Boxes:
 
     def step(self, out):
         """
-        Create a parallel step prependicular to the current direction
+        Create a parallel step perpendicular to the current direction
         Positive values move to the outside of the part
         """
         if out > 1E-5:
@@ -841,7 +833,6 @@ class Boxes:
         :param y2:
         :param x3:
         :param y3:
-
         """
         self.ctx.curve_to(x1, y1, x2, y2, x3, y3)
         dx = x3 - x2
@@ -853,7 +844,7 @@ class Boxes:
         """
         Draw multiple connected lines
 
-        :param \*args: Alternating length in mm and angle in degrees.
+        :param args: Alternating length in mm and angle in degrees.
 
         lengths may be a tuple (length, #tabs)
         angles may be tuple (angle, radius)
@@ -875,8 +866,7 @@ class Boxes:
         Draw an edge with slot for a bed bolt
 
         :param length: length of the edge in mm
-        :param bedBoltSettings:  (Default value = None) Dimmensions of the slot
-
+        :param bedBoltSettings:  (Default value = None) Dimensions of the slot
         """
         d, d_nut, h_nut, l, l1 = bedBoltSettings or self.bedBoltSettings
         self.edge((length - d) / 2.0, tabs=tabs//2)
@@ -950,7 +940,7 @@ class Boxes:
         """Create regular polygon as a wall
 
         :param corners: number of corners of the polygon
-        :param radius: distance center to one of the corners
+        :param r: radius distance center to one of the corners
         :param h: distance center to one of the sides (height of sector)
         :param side: length of one side
         :param edges:  (Default value = "e", may be string/list of length corners)
@@ -999,11 +989,10 @@ class Boxes:
         self.move(tw, th, move)
 
     def grip(self, length, depth):
-        """Corrugated edge useful as an gipping area
+        """Corrugated edge useful as a gipping area
 
         :param length: length
         :param depth: depth of the grooves
-
         """
         grooves = max(int(length // (depth * 2.0)) + 1, 1)
         depth = length / grooves / 4.0
@@ -1014,9 +1003,7 @@ class Boxes:
 
     def _latchHole(self, length):
         """
-
         :param length:
-
         """
         self.edge(1.1 * self.thickness)
         self.corner(-90)
@@ -1026,9 +1013,7 @@ class Boxes:
 
     def _latchGrip(self, length):
         """
-
         :param length:
-
         """
         self.corner(90, self.thickness / 4.0)
         self.grip(length / 2.0 - self.thickness / 2.0 - 0.2 * self.thickness, self.thickness / 2.0)
@@ -1040,7 +1025,6 @@ class Boxes:
         :param length: length in mm
         :param positive:  (Default value = True) False: Door side; True: Box side
         :param reverse:  (Default value = False) True when running away from the latch
-
         """
         if positive:
             if reverse:
@@ -1072,7 +1056,6 @@ class Boxes:
         :param h: height in mm
         :param hl: height if th grip hole
         :param r:  (Default value = 30) radius of the corners
-
         """
         d = (x - hl - 2 * r) / 2.0
 
@@ -1105,7 +1088,6 @@ class Boxes:
         :param x:
         :param y:  (Default value = 0.0)
         :param degrees:  (Default value = 0)
-
         """
         self.ctx.move_to(0, 0)
         self.ctx.translate(x, y)
@@ -1134,7 +1116,6 @@ class Boxes:
         Set coordinate system to current position (end point)
 
         :param angle:  (Default value = 0) heading
-
         """
         self.ctx.translate(*self.ctx.get_current_point())
         self.ctx.rotate(angle)
@@ -1153,7 +1134,6 @@ class Boxes:
         :param y: height of part
         :param where: which direction to move
         :param before:  (Default value = False) called before or after part being drawn
-
         """
         if not where:
             where = ""
@@ -1218,9 +1198,8 @@ class Boxes:
         Draw a round disc
 
         :param x: position
-        :param y: postion
+        :param y: position
         :param r: radius
-
         """
         r += self.burn
         self.moveTo(x + r, y)
@@ -1239,11 +1218,10 @@ class Boxes:
         Draw a hole in shape of an n-edged regular polygon
 
         :param x: position
-        :param y: postion
+        :param y: position
         :param r: radius
         :param n: number of edges
         :param a: rotation angle
-
         """
 
         if not r:
@@ -1284,9 +1262,8 @@ class Boxes:
         Draw a round hole
 
         :param x: position
-        :param y: postion
+        :param y: position
         :param r: radius
-
         """
 
         if not r:
@@ -1310,7 +1287,6 @@ class Boxes:
         :param r:  (Default value = 0) radius of the corners
         :param center_x:  (Default value = True) if True, x position is the center, else the start
         :param center_y:  (Default value = True) if True, y position is the center, else the start
-
         """
         r = min(r, dx/2., dy/2.)
         x_start = x if center_x else x + dx / 2.0
@@ -1333,8 +1309,7 @@ class Boxes:
         :param d: diameter
         :param w: width measured against flat side in mm
         :param rel_w: width in percent
-        :param angle: orentation (rotation) of the flat side
-
+        :param angle: orientation (rotation) of the flat side
         """
 
         if r is None:
@@ -1367,7 +1342,6 @@ class Boxes:
         :param w: width measured against flat side in mm
         :param rel_w: width in percent
         :param angle: orientation (rotation) of the flat sides
-
         """
 
         if r is None:
@@ -1398,11 +1372,10 @@ class Boxes:
         Draw a pear shaped mounting hole for sliding over a screw head. Total height = 1.5* d_shaft + d_head
 
         :param x: position
-        :param y: postion
+        :param y: position
         :param d_shaft: diameter of the screw shaft
         :param d_head: diameter of the screw head
         :param angle: rotation angle of the hole
-
         """
 
         if d_shaft < (2 * self.burn):
@@ -1435,7 +1408,6 @@ class Boxes:
         :param y:  (Default value = 0)
         :param angle:  (Default value = 0)
         :param align:  (Default value = "") string with combinations of (top|middle|bottom) and (left|center|right) separated by a space
-
         """
         self.moveTo(x, y, angle)
         text = text.split("\n")
@@ -1534,7 +1506,7 @@ class Boxes:
         :param x:  (Default value = 0)
         :param y:  (Default value = 0)
         :param angle:  (Default value = 0)
-
+        :param screwholes:
         """
         width, flange, holedistance, diameter = self.nema_sizes[size]
         if screwholes:
@@ -1555,7 +1527,7 @@ class Boxes:
         draw border polygon (for debugging only)
 
         :param border:     array with coordinate [(x0,y0), (x1,y1),...] of the border polygon
-
+        :param color:
         """
         self.set_source_color(color)
         self.ctx.save()
@@ -1588,7 +1560,6 @@ class Boxes:
         :param style:       defines hole style - currently one of "round", "triangle", "square", "hexagon" or "octagon"
         :param bar_length:  maximum bar length
         :param max_random:  maximum number of random holes
-
         """
         if pattern not in ["random", "hex", "square", "hbar", "vbar"]:
             return
@@ -1924,8 +1895,6 @@ class Boxes:
         :param settings:  (Default value = None)
         :param skip:  (Default value = None) function to check if hole should be present
                gets x, y, r, b, posx, posy
-
-
         """
 
         if settings is None:
@@ -1963,7 +1932,6 @@ class Boxes:
 
         :param d: diameter of the circle
         :param settings:  (Default value = None)
-
         """
         d2 = d / 2.0
         self.hexHolesRectangle(d, d, settings=settings, skip=self.__skipcircle)
@@ -1976,7 +1944,6 @@ class Boxes:
         :param y: height
         :param rc: radius of the corners
         :param settings:  (Default value = None)
-
         """
 
         def skip(x, y, r, b, posx, posy):
@@ -2009,7 +1976,6 @@ class Boxes:
         :param h: height
         :param settings:  (Default value = None)
         :param grow:  (Default value = None)
-
         """
         if settings is None:
             settings = self.hexHolesSettings
@@ -2125,6 +2091,7 @@ class Boxes:
         :param x: width
         :param y: height
         :param r: radius of the corners
+        :param edge:
         :param callback:  (Default value = None)
         :param holesMargin:  (Default value = None) set to get hex holes
         :param holesSettings:  (Default value = None)
@@ -2133,7 +2100,6 @@ class Boxes:
         :param wallpieces: (Default value = 1) # of separate surrounding walls
         :param extend_corners: (Default value = True) have corners outset with the edges
         :param move:  (Default value = None)
-
         """
         corner_holes = True
 
@@ -2242,7 +2208,7 @@ class Boxes:
                         callback=None,
                         move=None):
         """
-        Wall(s) with flex fiting around a roundedPlate()
+        Wall(s) with flex filing around a roundedPlate()
 
         For the callbacks the sides are counted depending on pieces
 
@@ -2257,7 +2223,6 @@ class Boxes:
         :param pieces: (Default value = 1) number of separate pieces
         :param callback:  (Default value = None)
         :param move:  (Default value = None)
-
         """
         t = self.thickness
         c4 = (r + self.burn) * math.pi * 0.5  # circumference of quarter circle
@@ -2361,7 +2326,6 @@ class Boxes:
         :param callback:  (Default value = None)
         :param move:  (Default value = None)
         :param label: rendered to identify parts, it is not ment to be cut or etched (Default value = "")
-
         """
         if len(edges) != 4:
             raise ValueError("four edges required")
@@ -2702,7 +2666,6 @@ class Boxes:
         :param callback:  (Default value = None)
         :param move:  (Default value = None)
         :param label: rendered to identify parts, it is not ment to be cut or etched (Default value = "")
-
         """
         try:
             edges = [self.edges.get(e, e) for e in edge]
@@ -2831,10 +2794,10 @@ class Boxes:
 
         :param n: number of parts
         :param width: number of parts in a row (0 for same as n)
-        :param move: (Default value = None)
+        :param move: (Default value = "")
         :param part: callable that draws a part and knows move param
-        :param \*l: params for part
-        :param \*\*kw: keyword params for part
+        :param l: params for part
+        :param kw: keyword params for part
         """
         if n <= 0:
             return

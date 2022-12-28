@@ -115,7 +115,6 @@ class Keyboard:
         Spaces are not important.
         For example '3x2 / 4@11' means we want 3 columns, the two first with
         3 rows without offset, and the last with 4 rows starting at 11mm high
-
         """
         result = []
         try:

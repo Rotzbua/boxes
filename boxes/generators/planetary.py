@@ -19,7 +19,6 @@ import math
 
 
 class Planetary(Boxes):
-
     """Planetary Gear with possibly multiple identical stages"""
 
     ui_group = "Part"

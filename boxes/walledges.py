@@ -52,7 +52,7 @@ class _WallMountedBox(Boxes):
 class WallEdge(BaseEdge):
 
     _reversed = False
-    
+
     def lengths(self, length):
         return [length]
 
@@ -110,7 +110,7 @@ class WallHoles(WallEdge):
     def _joint(self, length):
         self.fingerHolesAt(0, 0, length, 0)
         self.moveTo(length, 0)
-                
+
     def __call__(self, x, y, length, angle, **kw):
         """
         Draw holes for a matching WallJoinedEdge
@@ -155,9 +155,8 @@ class WallHoleEdge(WallHoles):
 
     def margin(self):
         return 0.0
-        
-class WallSettings(Settings):
 
+class WallSettings(Settings):
     """Settings for plain WallEdges
 Values:
 
@@ -180,7 +179,7 @@ Values:
         bc = self.base_class
         bn = bc.__name__
         wallholes = type(bn+"Hole", (WallHoles, bc), {})(boxes, self)
-        
+
         edges = [bc(boxes, self),
                  type(bn+"Reversed", (bc,), {'_reversed' : True})(boxes, self),
                  type(bn+"Joined", (WallJoinedEdge, bc), {})(boxes, self),
@@ -260,7 +259,6 @@ class SlatWallEdge(WallEdge):
         return self.settings.hook_depth + self.settings.hook_distance
 
 class SlatWallSettings(WallSettings):
-
     """Settings for SlatWallEdges
 Values:
 
@@ -336,7 +334,6 @@ class DinRailEdge(WallEdge):
         return self.settings.depth
 
 class DinRailSettings(WallSettings):
-
     """Settings for DinRailEdges
 Values:
 
@@ -414,7 +411,6 @@ class FrenchCleatEdge(WallEdge):
         return self.settings.depth
 
 class FrenchCleatSettings(WallSettings):
-
     """Settings for FrenchCleatEdges
 Values:
 

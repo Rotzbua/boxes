@@ -27,7 +27,6 @@ def argparseSections(s):
     Parse sections parameter
 
     :param s: string to parse
-
     """
 
     result = []
@@ -76,14 +75,12 @@ class BoltPolicy(object):
 
     Distributes (bed) bolts on a number of segments
     (fingers of a finger joint)
-
     """
 
     def drawbolt(self, pos):
         """Add a bolt to this segment?
 
         :param pos: number of the finger
-
         """
         return False
 
@@ -91,7 +88,6 @@ class BoltPolicy(object):
         """Return next smaller, possible number of fingers
 
         :param numfingers: number of fingers to aim for
-
         """
         return numfingers
 
@@ -100,7 +96,6 @@ class BoltPolicy(object):
         Return same or next smaller even number
 
         :param numFingers:
-
         """
         return (numFingers // 2) * 2
 
@@ -109,7 +104,6 @@ class BoltPolicy(object):
         Return same or next smaller odd number
 
         :param numFingers:
-
         """
         if numFingers % 2:
             return numFingers
@@ -136,7 +130,6 @@ class Bolts(BoltPolicy):
         Return if this finger needs a bolt
 
         :param pos: number of this finger
-
         """
         if pos > self.fingers // 2:
             pos = self.fingers - pos
@@ -240,7 +233,6 @@ class Settings(object):
         :param boxes: Boxes object
         :param chars: sequence of chars to be used by Edge objects
         :param add: add the resulting Edge objects to the Boxes object's edges
-
         """
         edges = []
         return self._edgeObjects(edges, boxes, chars, add)
@@ -263,9 +255,8 @@ class Settings(object):
         Set values
 
         :param thickness: thickness of the material used
-        :param relative:  (Default value = True) Do scale by thickness
-        :param \*\*kw: parameters to set
-
+        :param relative: Do scale by thickness (Default value = True)
+        :param kw: parameters to set
         """
         factor = 1.0
         if relative:
@@ -1039,7 +1030,6 @@ class FingerHoles(FingerJointBase):
         :param angle:  (Default value = 90)
         :param bedBolts:  (Default value = None)
         :param bedBoltSettings:  (Default value = None)
-
         """
         with self.boxes.saved_context():
             self.boxes.moveTo(x, y, angle)
@@ -1608,8 +1598,7 @@ class ChestHinge(BaseEdge):
         return self.settings.pin_height+self.settings.hinge_strength
 
 class ChestHingeTop(ChestHinge):
-
-    "Edge above a chest hinge"
+    """Edge above a chest hinge"""
 
     char = "p"
 
@@ -1891,7 +1880,6 @@ class CabinetHingeEdge(BaseEdge):
 #############################################################################
 
 class LidSettings(FingerJointSettings):
-
     """Settings for Slide-on Lids
 
 Note that edge_width below also determines how much the sides extend above the lid.
@@ -1903,8 +1891,6 @@ Values:
  * second_pin : True : additional pin for better positioning
  * spring : "both" : position(s) of the extra locking springs in the lid
  * hole_width : 0 : width of the "finger hole" in mm
-
-
     """
     __doc__ += FingerJointSettings.__doc__
 
@@ -2392,7 +2378,6 @@ class FlexEdge(BaseEdge):
         self.ctx.translate(*self.ctx.get_current_point())
 
 class GearSettings(Settings):
-
     """Settings for rack (and pinion) edge
 Values:
 * absolute_params
@@ -2520,7 +2505,6 @@ class RoundedTriangleFingerHolesEdge(RoundedTriangleEdge):
 
 
 class HandleEdgeSettings(Settings):
-
     """Settings for HandleEdge
 Values:
 

@@ -56,12 +56,11 @@ def linspace(a,b,n):
     return [a+x*(b-a)/(n-1) for x in range(0,n)]
 
 def involute_intersect_angle(Rb, R):
-    " "
     Rb, R = float(Rb), float(R)
     return (sqrt(R**2 - Rb**2) / (Rb)) - (acos(Rb / R))
 
 def point_on_circle(radius, angle):
-    " return xy coord of the point at distance radius from origin at angle "
+    """ return xy coord of the point at distance radius from origin at angle """
     x = radius * cos(angle)
     y = radius * sin(angle)
     return (x, y)
@@ -408,8 +407,7 @@ class Gears():
         self.boxes.ctx.restore()
 
     def calc_circular_pitch(self):
-        """ We use math based on circular pitch.
-        """
+        """We use math based on circular pitch."""
         dimension = self.options.dimension
         if   self.options.system == 'CP': # circular pitch
             circular_pitch = dimension * 25.4

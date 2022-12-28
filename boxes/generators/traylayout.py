@@ -114,7 +114,7 @@ You can replace the space characters representing the floor by a "X" to remove t
     close = Boxes.close
 
     def vWalls(self, x, y):
-        "Number of vertical walls at a crossing"
+        """Number of vertical walls at a crossing"""
         result = 0
         if y > 0 and self.vwalls[y - 1][x]:
             result += 1
@@ -125,7 +125,7 @@ You can replace the space characters representing the floor by a "X" to remove t
         return result
 
     def hWalls(self, x, y):
-        "Number of horizontal walls at a crossing"
+        """Number of horizontal walls at a crossing"""
         result = 0
         if x > 0 and self.hwalls[y][x - 1]:
             result += 1
@@ -134,12 +134,12 @@ You can replace the space characters representing the floor by a "X" to remove t
         return result
 
     def vFloor(self, x, y):
-        "Is there floor under vertical wall"
+        """Is there floor under vertical wall"""
         return ((x > 0 and self.floors[y][x - 1]) or
                 (x < len(self.x) and self.floors[y][x]))
 
     def hFloor(self, x, y):
-        "Is there foor under horizontal wall"
+        """Is there foor under horizontal wall"""
         return ((y > 0 and self.floors[y - 1][x]) or
                 (y < len(self.y) and self.floors[y][x]))
 

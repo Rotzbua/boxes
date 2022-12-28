@@ -494,7 +494,7 @@ class SlotDescription:
 
     def corrected_start_depth(self):
         """
-        Returns the depth of the straigth part of the slot starting side
+        Returns the depth of the straight part of the slot starting side
         """
         extra_depth = self._depth_angle_correction()
         return self.depth + max(0, extra_depth) - self.round_edge_start_correction()
