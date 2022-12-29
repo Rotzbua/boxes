@@ -5,13 +5,13 @@ from boxes.extents import Extents
 from boxes.Color import Color as bColor
 from xml.etree import ElementTree as ET
 
-EPS = 1e-4
-PADDING = 10
+EPS: float = 1e-4
+PADDING: float = 10.
 
-RANDOMIZE_COLORS = False  # enable to ease check for continuity of pathes
+RANDOMIZE_COLORS: bool = False  # enable to ease check for continuity of pathes
 
 
-def points_equal(x1, y1, x2, y2):
+def points_equal(x1: float, y1: float, x2: float, y2: float) -> bool:
     return abs(x1 - x2) < EPS and abs(y1 - y2) < EPS
 
 
@@ -23,10 +23,10 @@ def pdiff(p1, p2):
 
 class Surface:
 
-    scale = 1.0
-    invert_y = False
+    scale: float = 1.0
+    invert_y: bool = False
 
-    def __init__(self, fname):
+    def __init__(self, fname: str):
         self._fname = fname
         self.parts = []
         self._p = self.new_part("default")
@@ -58,17 +58,17 @@ class Surface:
 
         return Extents(0, 0, extents.width * self.scale, extents.height * self.scale)
 
-    def render(self, renderer):
+    def render(self, renderer) -> None:
         renderer.init(**self.args)
         for p in self.parts:
             p.render(renderer)
         renderer.finish()
 
-    def transform(self, f, m, invert_y=False):
+    def transform(self, f, m, invert_y: bool = False) -> None:
         for p in self.parts:
             p.transform(f, m, invert_y)
 
-    def new_part(self, name="part"):
+    def new_part(self, name: str = "part"):
         if self.parts and len(self.parts[-1].pathes) == 0:
             return self._p
         p = Part(name)
@@ -101,7 +101,7 @@ class Part:
             return Extents()
         return sum([p.extents() for p in self.pathes])
 
-    def transform(self, f, m, invert_y=False):
+    def transform(self, f, m, invert_y: bool = False) -> None:
         assert(not self.path)
         for p in self.pathes:
             p.transform(f, m, invert_y)
@@ -127,7 +127,7 @@ class Part:
         self.path = []
         return p
 
-    def move_to(self, *xy):
+    def move_to(self, *xy) -> None:
         if len(self.path) == 0:
             self.path.append(["M", *xy])
         elif self.path[-1][0] == "M":
@@ -143,7 +143,7 @@ class Path:
         self.path = path
         self.params = params
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         l = len(self.path)
         # x1,y1 = self.path[0][1:3]
         if l>0:
@@ -171,7 +171,7 @@ class Path:
                         e.add(x_, y_)
         return e
 
-    def transform(self, f, m, invert_y=False):
+    def transform(self, f, m, invert_y: bool = False) -> None:
         self.params["lw"] *= f
         for c in self.path:
             C = c[0]
@@ -184,7 +184,7 @@ class Path:
                 if invert_y:
                     c[3] *= Affine.scale(1, -1)
 
-    def faster_edges(self, inner_corners):
+    def faster_edges(self, inner_corners: str) -> None:
         if inner_corners == "backarc":
             return
 
@@ -226,16 +226,16 @@ class Context:
         self._fs = 10
         self._last_path = None
 
-    def _update_bounds_(self, mx, my):
+    def _update_bounds_(self, mx, my) -> None:
         self._bounds.update(mx, my)
 
-    def save(self):
+    def save(self) -> None:
         self._stack.append(
             (self._m, self._xy, self._lw, self._rgb, self._mxy, self._last_path)
         )
         self._xy = (0, 0)
 
-    def restore(self):
+    def restore(self) -> None:
         (
             self._m,
             self._xy,
@@ -247,25 +247,25 @@ class Context:
 
     ## transformations
 
-    def translate(self, x, y):
+    def translate(self, x: float, y: float) -> None:
         self._m *= Affine.translation(x, y)
         self._xy = (0, 0)
 
-    def scale(self, sx, sy):
+    def scale(self, sx: float, sy: float) -> None:
         self._m *= Affine.scale(sx, sy)
 
-    def rotate(self, r):
+    def rotate(self, r: float) -> None:
         self._m *= Affine.rotation(180 * r / math.pi)
 
-    def set_line_width(self, lw):
+    def set_line_width(self, lw) -> None:
         self._lw = lw
 
-    def set_source_rgb(self, r, g, b):
+    def set_source_rgb(self, r: float, g: float, b: float) -> None:
         self._rgb = (r, g, b)
 
     ## path methods
 
-    def _line_to(self, x, y):
+    def _line_to(self, x: float, y: float) -> None:
         self._add_move()
         x1, y1 = self._mxy
         self._xy = x, y
@@ -273,17 +273,17 @@ class Context:
         if not points_equal(x1, y1, x2, y2):
             self._dwg.append("L", x2, y2)
 
-    def _add_move(self):
+    def _add_move(self) -> None:
         self._dwg.move_to(*self._mxy)
 
-    def move_to(self, x, y):
+    def move_to(self, x: float, y: float) -> None:
         self._xy = (x, y)
         self._mxy = self._m * self._xy
 
-    def line_to(self, x, y):
+    def line_to(self, x: float, y: float) -> None:
         self._line_to(x, y)
 
-    def _arc(self, xc, yc, radius, angle1, angle2, direction):
+    def _arc(self, xc: float, yc: float, radius: float, angle1: float, angle2: float, direction: any) -> None:
         if abs(angle1 - angle2) < EPS or radius < EPS:
             return
         x1, y1 = radius * math.cos(angle1) + xc, radius * math.sin(angle1) + yc
@@ -314,13 +314,13 @@ class Context:
         self._xy = (x4, y4)
         self._mxy = (mx4, my4)
 
-    def arc(self, xc, yc, radius, angle1, angle2):
+    def arc(self, xc: float, yc: float, radius: float, angle1: float, angle2: float) -> None:
         self._arc(xc, yc, radius, angle1, angle2, 1)
 
-    def arc_negative(self, xc, yc, radius, angle1, angle2):
+    def arc_negative(self, xc: float, yc: float, radius: float, angle1: float, angle2: float) -> None:
         self._arc(xc, yc, radius, angle1, angle2, -1)
 
-    def curve_to(self, x1, y1, x2, y2, x3, y3):
+    def curve_to(self, x1: float, y1: float, x2: float, y2: float, x3: float, y3: float) -> None:
         # mx0,my0 = self._m*self._xy
         mx1, my1 = self._m * (x1, y1)
         mx2, my2 = self._m * (x2, y2)
@@ -330,12 +330,12 @@ class Context:
         self._xy = (x3, y3)
         self._mxy = (mx3, my3)
 
-    def stroke(self):
+    def stroke(self) -> None:
         # print('stroke stack-level=',len(self._stack),'lastpath=',self._last_path,)
         self._last_path = self._dwg.stroke(rgb=self._rgb, lw=self._lw)
         self._xy = (0, 0)
 
-    def fill(self):
+    def fill(self) -> None:
         self._xy = (0, 0)
         raise NotImplementedError()
 
@@ -344,22 +344,22 @@ class Context:
             raise ValueError("Unknown font style")
         self._ff = (style, bold, italic)
 
-    def set_font_size(self, fs):
+    def set_font_size(self, fs) -> None:
         self._fs = fs
 
-    def show_text(self, text, **args):
+    def show_text(self, text: str, **args) -> None:
         params = {"ff": self._ff, "fs": self._fs, "lw": self._lw, "rgb": self._rgb}
         params.update(args)
         mx0, my0 = self._m * self._xy
         m = self._m
         self._dwg.append("T", mx0, my0, m, text, params)
 
-    def text_extents(self, text):
+    def text_extents(self, text: str):
         fs = self._fs
         # XXX ugly hack! Fix Boxes.text() !
         return (0, 0, 0.6 * fs * len(text), 0.65 * fs, fs * 0.1, 0)
 
-    def rectangle(self, x, y, width, height):
+    def rectangle(self, x: float, y: float, width: float, height: float) -> None:
 
         # todo: better check for empty path?
         self.stroke()
@@ -374,13 +374,13 @@ class Context:
     def get_current_point(self):
         return self._xy
 
-    def flush(self):
+    def flush(self) -> None:
         pass
         # todo: check, if needed
         # self.stroke()
 
     ## additional methods
-    def new_part(self):
+    def new_part(self) -> None:
         self._dwg.new_part()
 
 
@@ -394,7 +394,7 @@ class SVGSurface(Surface):
         'monospaced' : '"Courier New", Courier, "Lucida Sans Typewriter"'
     }
 
-    def _addTag(self, parent, tag, text, first=False):
+    def _addTag(self, parent, tag: str, text: str, first: bool = False):
         if first:
             t = ET.Element(tag)
         else:
@@ -405,7 +405,7 @@ class SVGSurface(Surface):
             parent.insert(0, t)
         return t
 
-    def _add_metadata(self, root):
+    def _add_metadata(self, root) -> None:
         md = self.metadata
 
         # Add Inkscape style rdf meta data
@@ -466,7 +466,7 @@ Creation date: {date}
         m.tail = '\n'
         root.insert(0, m)
 
-    def finish(self, inner_corners="loop"):
+    def finish(self, inner_corners: str = "loop") -> None:
         extents = self._adjust_coordinates()
         w = extents.width * self.scale
         h = extents.height * self.scale
@@ -491,7 +491,7 @@ Creation date: {date}
         tree = ET.ElementTree(svg)
 
         self._add_metadata(svg)
-        
+
         for i, part in enumerate(self.parts):
             if not part.pathes:
                 continue
@@ -584,7 +584,7 @@ class PSSurface(Surface):
         ('monospaced', True, True) : 'Courier-BoldOblique',
         }
 
-    def _metadata(self):
+    def _metadata(self) -> str:
         md = self.metadata
 
         desc = ""
@@ -608,7 +608,7 @@ class PSSurface(Surface):
             desc += f'%%SettingsUrl: {md["url"].replace("&render=1", "")}\n'
         return desc
 
-    def finish(self, inner_corners="loop"):
+    def finish(self, inner_corners: str = "loop") -> None:
 
         extents = self._adjust_coordinates()
         w = extents.width
@@ -740,7 +740,7 @@ class LBRN2Surface(Surface):
         8,  # Colors.OUTER_CUT    (WHITE)   --> Lightburn C08 (grey)
         ]
 
-    def finish(self, inner_corners="loop"):
+    def finish(self, inner_corners: str = "loop") -> None:
         if self.dbg: print("LBRN2 save")
         extents = self._adjust_coordinates()
         w = extents.width * self.scale
@@ -753,7 +753,7 @@ class LBRN2Surface(Surface):
 
         tree = ET.ElementTree(svg)
         if self.dbg: print ("8", num)
-        
+
         cs = ET.SubElement(svg, "CutSetting", Type="Cut")
         index    = ET.SubElement(cs, "index",    Value="3")         # green layer (ETCHING)
         name     = ET.SubElement(cs, "name",     Value="Etch")
@@ -793,7 +793,7 @@ class LBRN2Surface(Surface):
         index    = ET.SubElement(cs, "index",    Value="30")        # T1 layer (ANNOTATIONS)
         name     = ET.SubElement(cs, "name",     Value="T1")        # tool layer do not support names
         priority = ET.SubElement(cs, "priority", Value="7")         # is not cut at all
-                
+
         for i, part in enumerate(self.parts):
             if self.dbg: print ("7", num)
             if not part.pathes:
@@ -804,7 +804,7 @@ class LBRN2Surface(Surface):
             children = ET.SubElement(gp, "Children")
             children.text = "\n  "
             children.tail = "\n"
-            
+
             for j, path in enumerate(part.pathes):
                 myColor = self.lbrn2_colors[4*int(path.params["rgb"][0])+2*int(path.params["rgb"][1])+int(path.params["rgb"][2])]
 
@@ -817,12 +817,12 @@ class LBRN2Surface(Surface):
                 num = 0
                 cnt = 1
                 ende = len(path.path)-1
-                if self.dbg: 
+                if self.dbg:
                     for c in path.path:
                         print ("6",num, c)
                         num += 1
                     num = 0
-                    
+
                 c = path.path[num]
                 C, x, y = c[0:3]
                 if self.dbg: print("ende:" ,ende)
@@ -879,7 +879,7 @@ class LBRN2Surface(Surface):
                                     print("unknown", c)
                             if done == False:
                                 x0, y0 = x, y
-                
+
                         if start and points_equal(start[1], start[2], x0, y0):
                                 if bspline == False:
                                     pl.text = "LineClosed"
@@ -909,7 +909,7 @@ class LBRN2Surface(Surface):
                             else:
                                 hor = '0'
                         ver = 1 # vertical is always bottom, text is shifted in box class
-                        
+
                         pos = text.find('%')
                         offs = 0
                         if pos >- 1:
@@ -959,7 +959,7 @@ class LBRN2Surface(Surface):
                         num += 1
 
         url = self.metadata["url"].replace("&render=1", "") # remove render argument to get web form again
-        
+
         pl = ET.SubElement(svg, "Notes", ShowOnLoad="1", Notes="File created by Boxes.py script, programmed by Florian Festi.\nLightburn output by Klaus Steinhammer.\n\nURL with settings:\n" + str(url))
         pl.text = ""
         pl.tail = "\n"
@@ -969,12 +969,12 @@ class LBRN2Surface(Surface):
 from random import random
 
 
-def random_svg_color():
+def random_svg_color() -> str:
     r, g, b = random(), random(), random()
     return f"rgb({r*255:.0f},{g*255:.0f},{b*255:.0f})"
 
 
-def rgb_to_svg_color(r, g, b):
+def rgb_to_svg_color(r: float, g: float, b: float) -> str:
     return f"rgb({r*255:.0f},{g*255:.0f},{b*255:.0f})"
 
 
@@ -988,7 +988,7 @@ def line_intersection(line1, line2):
 
     div = det(xdiff, ydiff)
     if div == 0:
-        # todo: deal with paralel line intersection / overlay
+        # todo: deal with parallel line intersection / overlay
         return False, None, None
 
     d = (det(*line1), det(*line2))

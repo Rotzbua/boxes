@@ -22,7 +22,7 @@ import abc
 
 from boxes import gears
 
-def argparseSections(s):
+def argparseSections(s: str):
     """
     Parse sections parameter
 
@@ -114,7 +114,7 @@ class BoltPolicy(object):
 class Bolts(BoltPolicy):
     """Distribute a fixed number of bolts evenly"""
 
-    def __init__(self, bolts=1):
+    def __init__(self, bolts: int = 1):
         self.bolts = bolts
 
     def numFingers(self, numFingers):
@@ -289,8 +289,8 @@ class Settings(object):
 
 class BaseEdge(object):
     """Abstract base class for all Edges"""
-    char = None
-    description = "Abstract Edge Class"
+    char: str = None
+    description: str = "Abstract Edge Class"
 
     def __init__(self, boxes, settings):
         self.boxes = boxes
@@ -305,26 +305,26 @@ class BaseEdge(object):
     def __call__(self, length, **kw):
         pass
 
-    def startwidth(self):
+    def startwidth(self) -> float:
         """Amount of space the beginning of the edge is set below the inner space of the part """
         return 0.0
 
-    def endwidth(self):
+    def endwidth(self) -> float:
         return self.startwidth()
 
-    def margin(self):
+    def margin(self) -> float:
         """Space needed right of the starting point"""
         return 0.0
 
-    def spacing(self):
+    def spacing(self) -> float:
         """Space the edge needs outside of the inner space of the part"""
         return self.startwidth() + self.margin()
 
-    def startAngle(self):
+    def startAngle(self) -> float:
         """Not yet supported"""
         return 0.0
 
-    def endAngle(self):
+    def endAngle(self) -> float:
         """Not yet supported"""
         return 0.0
 
@@ -408,13 +408,13 @@ class MountingEdge(BaseEdge):
     description = """Edge with pear shaped mounting holes""" # for slide-on mounting using flat-head screws"""
     char = 'G'
 
-    def margin(self):
+    def margin(self) -> float:
         if self.settings.style == MountingSettings.PARAM_TAB:
             return 2.75 * self.boxes.thickness + self.settings.d_head
         else:
             return 0
     
-    def startwidth(self):
+    def startwidth(self) -> float:
         if self.settings.style == MountingSettings.PARAM_EXT:
             return 2.5 * self.boxes.thickness + self.settings.d_head
         else:
@@ -757,7 +757,7 @@ class CompoundEdge(BaseEdge):
 #############################################################################
 
 class Slot(BaseEdge):
-    """Edge with an slot to slid another pice through """
+    """Edge with a slot to slide another piece through """
 
     description = "Slot"
 

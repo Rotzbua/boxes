@@ -9,7 +9,7 @@ class _WallMountedBox(Boxes):
         super().__init__()
         self.addWallSettingsArgs()
 
-    def addWallSettingsArgs(self):
+    def addWallSettingsArgs(self) -> None:
         self.addSettingsArgs(edges.FingerJointSettings)
         self.addSettingsArgs(WallSettings)
         self.addSettingsArgs(SlatWallSettings)
@@ -21,7 +21,7 @@ class _WallMountedBox(Boxes):
                      "french cleat"],
             help="Type of wall system to attach to")
 
-    def generateWallEdges(self):
+    def generateWallEdges(self) -> None:
         if self.walltype.startswith("plain"):
             s = WallSettings(
                 self.thickness, True,
@@ -51,7 +51,7 @@ class _WallMountedBox(Boxes):
 
 class WallEdge(BaseEdge):
 
-    _reversed = False
+    _reversed: bool = False
 
     def lengths(self, length):
         return [length]
