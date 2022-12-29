@@ -2050,7 +2050,7 @@ class Boxes:
         :param x: x position of the center
         :param y: y position of the center
         :param angle: angle in which the rectangle is placed
-        :param outside: meassure size from the outside of the walls - not the inside
+        :param outside: measure size from the outside of the walls - not the inside
         """
         self.moveTo(x, y, angle)
         d = 0.5*self.thickness
