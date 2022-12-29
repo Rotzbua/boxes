@@ -35,7 +35,7 @@ class AngledBox(Boxes):
             choices=["none", "angled hole", "angled lid", "angled lid2"],
             help="style of the top and lid")
 
-    def floor(self, x, y, n, edge='e', hole=None, move=None, callback=None, label=""):
+    def floor(self, x, y, n, edge='e', hole=None, move=None, callback=None, label: str = ""):
         r, h, side  = self.regularPolygon(2*n+2, h=y/2.0)
         t = self.thickness
         

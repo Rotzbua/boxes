@@ -24,7 +24,7 @@ class _ChestLid(Boxes):
         r = d / 2.0 / math.cos(math.radians(angle))
         return r
 
-    def side(self, x, angle=0, move="", label=""):
+    def side(self, x, angle=0, move="", label: str = ""):
         if "a" not in self.edges:
             s = edges.FingerJointSettings(self.thickness, True,
                                           finger=1.0, space=1.0)
@@ -45,7 +45,7 @@ class _ChestLid(Boxes):
 
         self.move(x+2*t, 0.5*x+3*t, move, False, label=label)
 
-    def top(self, x, y, angle=0, move=None, label=""):
+    def top(self, x, y, angle=0, move=None, label: str = ""):
         if "a" not in self.edges:
             s = edges.FingerJointSettings(self.thickness, True,
                                           finger=1.0, space=1.0)

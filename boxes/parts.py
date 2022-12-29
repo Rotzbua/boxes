@@ -25,7 +25,7 @@ class Parts:
     def __getattr__(self, name):
         return getattr(self.boxes, name)
 
-    def disc(self, diameter, hole=0, callback=None, move="", label=""):
+    def disc(self, diameter, hole=0, callback=None, move="", label: str = ""):
         """Simple disc
 
         :param diameter: diameter of the disc

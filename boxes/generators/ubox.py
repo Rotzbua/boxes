@@ -37,7 +37,7 @@ class UBox(_TopEdge, _ChestLid):
             help="additional lid")
         self.angle = 0
 
-    def U(self, x, y, r, edge="e", move=None, label=""):
+    def U(self, x, y, r, edge="e", move=None, label: str = ""):
 
         e = self.edges.get(edge, edge)
 
@@ -59,7 +59,7 @@ class UBox(_TopEdge, _ChestLid):
 
         self.move(tw, th, move, label=label)
 
-    def Uwall(self, x, y, h, r, edges="ee", move=None, label=""):
+    def Uwall(self, x, y, h, r, edges="ee", move=None, label: str = ""):
 
         e = [self.edges.get(edge, edge) for edge in edges]
 

@@ -1120,7 +1120,7 @@ class Boxes:
         self.ctx.translate(*self.ctx.get_current_point())
         self.ctx.rotate(angle)
 
-    def move(self, x, y, where, before=False, label=""):
+    def move(self, x, y, where, before=False, label: str = ""):
         """Intended to be used by parts
         where can be combinations of "up" or "down", "left" or "right", "only",
         "mirror" and "rotated"
@@ -2311,7 +2311,7 @@ class Boxes:
                         bedBolts=None, bedBoltSettings=None,
                         callback=None,
                         move=None,
-                        label=""):
+                        label: str = ""):
         """
         Rectangular wall for all kind of box like objects
 
@@ -2365,7 +2365,7 @@ class Boxes:
         self.move(overallwidth, overallheight, move, label=label)
 
     def flangedWall(self, x, y, edges="FFFF", flanges=None, r=0.0,
-               callback=None, move=None, label=""):
+               callback=None, move=None, label: str = ""):
         """Rectangular wall with flanges extending the regular size
 
         This is similar to the rectangularWall but it may extend to either
@@ -2426,7 +2426,7 @@ class Boxes:
                         bedBolts=None, bedBoltSettings=None,
                         callback=None,
                         move=None,
-                        label=""):
+                        label: str = ""):
         """
         Rectangular triangular wall
 
@@ -2499,7 +2499,7 @@ class Boxes:
 
     def trapezoidWall(self, w, h0, h1, edges="eeee",
                            callback=None, move=None,
-                           label=""):
+                           label: str = ""):
         """
         Rectangular trapezoidal wall
 
@@ -2543,7 +2543,7 @@ class Boxes:
 
     def trapezoidSideWall(self, w, h0, h1, edges="eeee",
                           radius=0.0, callback=None, move=None,
-                          label=""):
+                          label: str = ""):
         """
         Rectangular trapezoidal wall
 
@@ -2656,7 +2656,7 @@ class Boxes:
         return ext
 
     def polygonWall(self, borders, edge="f", turtle=False,
-                    callback=None, move=None, label=""):
+                    callback=None, move=None, label: str = ""):
         """
         Polygon wall for all kind of multi-edged objects
 

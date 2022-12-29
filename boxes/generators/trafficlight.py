@@ -84,7 +84,7 @@ When turned by 90°, it can be also used to create a bottle holder."""
     def frontCB(self):
         self.hole(self.h/2, self.h/2, self.h/2-self.thickness)
 
-    def wall(self, h1, h2, w, edges="ffef", callback=None, move="", label=""):
+    def wall(self, h1, h2, w, edges="ffef", callback=None, move="", label: str = ""):
         edges = [self.edges.get(e, e) for e in edges]
         edges += edges  # append for wrapping around
         overallwidth = w + edges[-1].spacing() + edges[1].spacing()

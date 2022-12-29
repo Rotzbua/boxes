@@ -190,7 +190,7 @@ To remove the panel you have to press in the four tabs at the side. It is easies
 
         self.move(tw, th, move)
 
-    def side(self, borders, bottom="s", move=None, label=""):
+    def side(self, borders, bottom="s", move=None, label: str = ""):
 
         t = self.thickness
         bottom = self.edges.get(bottom, bottom)
