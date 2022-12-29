@@ -2041,7 +2041,7 @@ class Boxes:
         self.ctx.stroke()
 
     @restore
-    def fingerHoleRectangle(self, dx, dy, x=0., y=0., angle=0., outside=False):
+    def fingerHoleRectangle(self, dx, dy, x=0., y=0., angle=0., outside: bool = False):
         """
         Place finger holes for four walls - attaching a box on this plane
 

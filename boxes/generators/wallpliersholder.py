@@ -29,7 +29,7 @@ class WallPliersHolder(_WallMountedBox):
             "--angle",  action="store", type=float, default=45,
             help="bracing angle - less for more bracing")
 
-    def brace(self, h, d, a, outside=False, move=None):
+    def brace(self, h, d, a, outside: bool = False, move=None):
         t = self.thickness
         
         tw = d + self.edges["b"].spacing() + self.edges["f"].spacing()
