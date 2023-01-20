@@ -1,0 +1,71 @@
+# Documentation: https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata
+# Sample: https://github.com/pypa/sampleproject/blob/main/pyproject.toml
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]  # PEP 508 specifications.
+build-backend = "setuptools.build_meta"
+#requires = ["flit_core >=3.8,<4"]
+#build-backend = "flit_core.buildapi"
+
+#[tool.flit.external-data]
+#directory = "src"
+#[tool.flit.metadata]
+#[tool.flit.module]
+#name = "boxes"
+[project]
+#module = "boxes"
+name = "boxes"
+version = "1.0.0"
+description = 'Boxes generator for laser cutters'
+authors = [{ name = "Florian Festi", email = "florian@festi.info" }]
+readme = "README.rst"
+keywords = ["boxes", "box", "generator", "svg", "laser cutter"]
+license = { file = "LICENSE.txt" }
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: Web Environment",
+    "Intended Audience :: Manufacturing",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Graphics :: Editors :: Vector-Based",
+    "Topic :: Scientific/Engineering",
+]
+#dynamic = ["version"]
+requires-python = ">=3.7"
+dependencies = [
+    "affine>=2.0",
+    "markdown",
+    "shapely>=1.8.2",
+]
+
+[project.optional-dependencies]
+doc = ["sphinx"]
+type = ["mypy"]
+modern = ["pyupgrade"]
+
+[project.urls]
+homepage = "https://github.com/florianfesti/boxes"
+documentation = "https://florianfesti.github.io/boxes/html/index.html"
+
+#[project.entry-points]
+#[project.scripts]
+#boxes = "boxes:main"
+##boxes = 'scripts/boxes'
+#boxes = 'scripts.main:main'
+#[project.scripts]
+#boxes = 'boxes:boxes'
+
+#boxesserver = 'scripts/boxesserver'
+#build_py = 'CustomBuildExtCommand'
+
+[tool.pylint]
+max-line-length = 88
+disable = [
+    "C0103", # (invalid-name)
+    "C0114", # (missing-module-docstring)
+    "C0115", # (missing-class-docstring)
+    "C0116", # (missing-function-docstring)
+    "R0903", # (too-few-public-methods)
+    "R0913", # (too-many-arguments)
+    "W0105", # (pointless-string-statement)
+]
