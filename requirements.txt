@@ -1,6 +1,0 @@
-affine>=2.0
-markdown
-setuptools
-sphinx
-shapely>=1.8.2
-qrcode==7.3.1
