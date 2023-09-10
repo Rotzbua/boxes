@@ -1,0 +1,61 @@
+[project]
+name = "boxes"
+version = "0.9.0"
+description = "Boxes generator for laser cutters"
+authors = [{ name = "Florian Festi", email = "florian@festi.info" }]
+readme = "README.rst"
+keywords = ["boxes", "box", "generator", "svg", "laser cutter"]
+license = { file = "LICENSE.txt" }
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: Web Environment",
+    "Intended Audience :: Manufacturing",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Graphics :: Editors :: Vector-Based",
+    "Topic :: Scientific/Engineering",
+]
+#dynamic = ["version"]
+requires-python = ">=3.8"
+dependencies = [
+    "affine>=2.0",
+    "markdown",
+    "shapely>=1.8.2",
+    "qrcode==7.3.1",
+]
+
+[project.optional-dependencies]
+doc = ["sphinx"]
+lint = [
+    "types-Markdown",
+    "mypy",
+    "pyupgrade",
+]
+
+[project.urls]
+homepage = "https://github.com/florianfesti/boxes"
+documentation = "https://florianfesti.github.io/boxes/"
+
+[project.scripts]
+boxes = "scripts.boxes:main"
+boxes2inkscape = "scripts.boxes2inkscape:main"
+boxes2pot = "scripts.boxes2pot:main"
+boxesserver = "scripts.boxesserver:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+packages = [
+    "boxes",
+    "boxes.generators",
+]
+
+[tool.mypy]
+#disallow_untyped_defs = true
+ignore_missing_imports = true
+#warn_return_any = false
+warn_unused_configs = true
