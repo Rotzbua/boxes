@@ -12,11 +12,11 @@ class CustomBuildExtCommand(build_py):
     """Customized setuptools install command - prints a friendly greeting."""
 
     def buildInkscapeExt(self):
-        os.system("{} {} {}".format(sys.executable, os.path.join("scripts", "boxes2inkscape"), "inkex"))
+        os.system("{} {} {}".format(sys.executable, os.path.join("scripts", "boxes2inkscape.py"), "inkex"))
 
     def updatePOT(self):
-        os.system("{} {} {}".format(sys.executable, os.path.join("scripts", "boxes2pot"), "po/boxes.py.pot"))
-        os.system("{} {}".format("xgettext -L Python -j --from-code=utf-8 -o po/boxes.py.pot", "boxes/*.py scripts/boxesserver scripts/boxes"))
+        os.system("{} {} {}".format(sys.executable, os.path.join("scripts", "boxes2pot.py"), "po/boxes.py.pot"))
+        os.system("{} {}".format("xgettext -L Python -j --from-code=utf-8 -o po/boxes.py.pot", "boxes/*.py scripts/boxesserver.py scripts/boxes.py"))
 
     def generate_mo_files(self):
         pos = glob.glob("po/*.po")
@@ -44,7 +44,7 @@ class CustomBuildExtCommand(build_py):
             # let us define a simple path!
             path="/usr/share/inkscape/extensions"
             self.distribution.data_files.append((path, [i for i in glob.glob(os.path.join("inkex", "*.inx"))]))
-            self.distribution.data_files.append((path, ['scripts/boxes']))
+            self.distribution.data_files.append((path, ['scripts/boxes.py']))
             self.distribution.data_files.append((path, ['scripts/boxes_proxy.py']))
         else:
             # we are surely not building a Debian package
@@ -56,7 +56,7 @@ class CustomBuildExtCommand(build_py):
                     # Not tested on Windows and Mac
                     path = os.path.expanduser("~/.config/inkscape/extensions")
                 self.distribution.data_files.append((path, [i for i in glob.glob(os.path.join("inkex", "*.inx"))]))
-                self.distribution.data_files.append((path, ['scripts/boxes']))
+                self.distribution.data_files.append((path, ['scripts/boxes.py']))
                 self.distribution.data_files.append((path, ['scripts/boxes_proxy.py']))
             except CalledProcessError:
                 pass # Inkscape is not installed
@@ -73,7 +73,7 @@ setup(
     packages=find_packages(),
     python_requires='>=3.8',
     install_requires=['affine>=2.0', 'markdown', 'shapely>=1.8.2', 'qrcode==7.3.1'],
-    scripts=['scripts/boxes', 'scripts/boxesserver'],
+    scripts=['scripts/boxes.py', 'scripts/boxesserver.py'],
     cmdclass={
         'build_py': CustomBuildExtCommand,
     },

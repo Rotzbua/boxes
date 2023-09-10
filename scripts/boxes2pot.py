@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# type: ignore
+
 # Copyright (C) 2019 Florian Festi
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -139,7 +141,7 @@ msgstr ""
 
 def main() -> None:
     if len(sys.argv) != 2:
-        print("Usage: boxes2pot TARGETPATH")
+        print("Usage: boxes2pot.py TARGETPATH")
         return
     b = Boxes2pot()
     b.readBoxes()

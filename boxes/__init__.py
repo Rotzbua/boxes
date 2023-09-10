@@ -337,7 +337,7 @@ class Boxes:
             help="Add a QR Code with link or command line to the generated output")
         defaultgroup.add_argument(
             "--debug", action="store", type=boolarg, default=False,
-            help="print surrounding boxes for some structures [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#debug)")
+            help="print surrounding boxes.py for some structures [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#debug)")
         defaultgroup.add_argument(
             "--labels", action="store", type=boolarg, default=True,
             help="label the parts (where available)")
@@ -546,7 +546,7 @@ class Boxes:
             s = s.replace('\n', "\\n")
             return quote(s)
 
-        self.metadata["cli"] = "boxes " + self.__class__.__name__ + " " + " ".join(cliquote(arg) for arg in args)
+        self.metadata["cli"] = "boxes.py " + self.__class__.__name__ + " " + " ".join(cliquote(arg) for arg in args)
 
         for key, value in vars(self.argparser.parse_args(args=args)).items():
             default = self.argparser.get_default(key)
@@ -565,7 +565,7 @@ class Boxes:
         if getattr(self, 'output', None) == 'box.svg':
             self.output = 'box.' + format.split("_")[0]
 
-        self.metadata["cli_short"] = "boxes " + self.__class__.__name__ + " " + " ".join(cliquote(arg) for arg in args if (arg.split("=")[0][2:] in self.non_default_args))
+        self.metadata["cli_short"] = "boxes.py " + self.__class__.__name__ + " " + " ".join(cliquote(arg) for arg in args if (arg.split("=")[0][2:] in self.non_default_args))
 
     def addPart(self, part, name=None):
         """

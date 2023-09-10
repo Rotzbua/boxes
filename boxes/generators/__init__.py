@@ -48,7 +48,7 @@ ui_groups: list[UIGroup] = [
 ]
 
 
-def getAllBoxGenerators() -> dict[str, type[boxes.Boxes]]:
+def getAllBoxGenerators():
     generators = {}
     for importer, modname, ispkg in pkgutil.walk_packages(path=__path__, prefix=__name__ + '.'):
         module = importlib.import_module(modname)

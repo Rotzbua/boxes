@@ -4,10 +4,10 @@
 Generate stencils for wooden boxes.
 
 Usage:
-  boxes <generator> [<args>...]
-  boxes --list
-  boxes (-h | --help)
-  boxes --version
+  boxes.py <generator> [<args>...]
+  boxes.py --list
+  boxes.py (-h | --help)
+  boxes.py --version
 
 Options:
   -h --help     Show this screen.
@@ -63,7 +63,7 @@ def run_generator(name, args):
         box.render()
         box.close()
     else:
-        msg = f'Unknown generator \'{name}\'. Use boxes --list to get a list of available commands.\n'
+        msg = f'Unknown generator \'{name}\'. Use boxes.py --list to get a list of available commands.\n'
         sys.stderr.write(msg)
 
 
