@@ -44,21 +44,23 @@ boxes2pot = "scripts.boxes2pot:main"
 boxesserver = "scripts.boxesserver:main"
 
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 include-package-data = true
-py-modules = ["_setup"]
+#py-modules = ["_setup"]
 packages = [
     "boxes",
     "boxes.generators",
-    "scripts"
+    "scripts",
+#    "_setup"
 ]
 
 [tool.setuptools.cmdclass]
-build_py = "_setup.CustomBuildExtCommand"
-
+build_py = "scripts.setup.CustomBuildExtCommand"
+#build_py = "_setup.CustomBuildExtCommand"
+#build_py = "_setup.build_py"
 [tool.mypy]
 #disallow_untyped_defs = true
 ignore_missing_imports = true
