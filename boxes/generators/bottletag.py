@@ -86,4 +86,3 @@ class BottleTag(Boxes):
                 with self.saved_context():
                     self.moveTo(0, 0, -90)
                     self.edge(0.5)
-

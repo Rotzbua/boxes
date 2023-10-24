@@ -69,8 +69,8 @@ Use small nails to properly align the pieces of the bayonet latch. Glue the part
         self.rectangularHole(
             (self.outer_diameter + self.inner_diameter) / 4, 0,
             (self.outer_diameter - self.inner_diameter) / 2 - 4*t, t, r=t/2)
-            
-            
+
+
     def render(self):
         t = self.thickness
 

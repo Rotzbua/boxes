@@ -87,6 +87,3 @@ class MagazineFile(Boxes):
         self.side(y, h, hi, t1)
         self.moveTo(y + 15, h + hi + 15, 180)
         self.side(y, h, hi, t3)
-
-
-

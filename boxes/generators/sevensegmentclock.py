@@ -20,7 +20,7 @@ from .sevensegment import SevenSegmentPattern
 class SevenSegmentClock(SevenSegmentPattern):
     """Seven segment clock build with LED stripe"""
 
-    description = """You need a LED stripe that is wound through alls segments in an S pattern and then continuing to the next digit while the stripe being upright on its side. Selecting *debug* gives a better idea how things fit together. 
+    description = """You need a LED stripe that is wound through alls segments in an S pattern and then continuing to the next digit while the stripe being upright on its side. Selecting *debug* gives a better idea how things fit together.
 
 Adding a defusor on top or at the bottom of the segment holes will probably enhance the visuals. Just using paper may be enough.
 

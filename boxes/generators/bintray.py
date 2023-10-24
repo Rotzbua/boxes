@@ -26,7 +26,7 @@ class BinFrontEdge(edges.BaseEdge):
         self.corner(-a1)
         for i, l in enumerate(self.settings.sy):
             self.edges["e"](l* (f**2+(1-f)**2)**0.5)
-            self.corner(a2)            
+            self.corner(a2)
             self.edges["f"](l*f*2**0.5)
             if i < len(self.settings.sy)-1:
                 if self.char == "B":
@@ -55,7 +55,7 @@ class BinTray(Boxes):
         self.argparser.add_argument(
             "--front", action="store", type=float, default=0.4,
             help="fraction of bin height covert with slope")
-        
+
     def xSlots(self):
         posx = -0.5 * self.thickness
         for x in self.sx[:-1]:
@@ -73,7 +73,7 @@ class BinTray(Boxes):
             for x in self.sx:
                 self.fingerHolesAt(posy, posx, x)
                 posx += x + self.thickness
-                
+
     def addMount(self):
         ds = self.hole_dD[0]
 
@@ -96,7 +96,7 @@ class BinTray(Boxes):
         for x in self.sx[:-1]:
             posx += x + self.thickness
             self.fingerHolesAt(posx, 0, self.hi)
-            
+
     def frontHoles(self, i):
         def CB():
             posx = -0.5 * self.thickness
@@ -119,7 +119,7 @@ class BinTray(Boxes):
 
         x = sum(self.sx) + self.thickness * (len(self.sx) - 1)
         y = sum(self.sy) + self.thickness * (len(self.sy) - 1)
-            
+
         h = self.h
         hi = self.hi = h
         t = self.thickness

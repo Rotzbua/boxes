@@ -415,7 +415,7 @@ class Boxes:
             if self.qr_code:
                 self.renderQrCode()
             self.ctx.stroke()
-            
+
     def renderQrCode(self):
         content = self.metadata['url_short'] or self.metadata["cli_short"]
         size = 1.5

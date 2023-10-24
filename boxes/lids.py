@@ -168,7 +168,7 @@ class Lid:
         poly = [(90, t/2), t/2, 90, t/2, -90]
 
         poly += [hh - 2*t, (90, 3*t)]
-        
+
         for bottom, top  in (([3*t, 90, 2*t + hh/2, -90, t, -90, hh/2 + 2*t, 90, 3*t], [t]),
                              ([7*t], [0, 90, hh/2, -90, t, -90, hh/2, 90, 0])) :
             self.moveTo(0.5*t)
@@ -335,4 +335,3 @@ class _TopEdge(Boxes):
         else:
             return False
         return True
-

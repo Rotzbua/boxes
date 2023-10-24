@@ -102,5 +102,3 @@ class UniversalBox(_TopEdge):
         self.rectangularWall(y, h, [b, "f", tr, "f"],
                              ignore_widths=[1, 6],
                              bedBolts=[d3], move="up", label="right")
-
-

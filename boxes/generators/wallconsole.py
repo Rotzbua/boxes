@@ -57,7 +57,7 @@ class WallConsole(_WallMountedBox):
         bd = self.bottom_depth
 
         self.front = (h**2 + (td-bd)**2)**0.5
-            
+
         self.rectangularWall(x, h, "eCec", callback=[self.backHoles],
                              move="up")
         self.rectangularWall(x, self.front, "eFeF",

@@ -19,10 +19,10 @@ from boxes import *
 class PirateChest(Boxes):
     """Box with polygon lid with chest hinges."""
 
-    description = """Do not assemble sides before attaching the lid! 
-    Hinge of the lid has to be placed first because it is impossible 
-    to get it in position without removing the side wall. The lid can 
-    be a bit tricky to assemble. Keep track of how the parts fit together. 
+    description = """Do not assemble sides before attaching the lid!
+    Hinge of the lid has to be placed first because it is impossible
+    to get it in position without removing the side wall. The lid can
+    be a bit tricky to assemble. Keep track of how the parts fit together.
     Part with label "lid back" is placed in the hinges"""
 
     ui_group = "Box"
@@ -50,7 +50,7 @@ class PirateChest(Boxes):
 
         if (n < 3):
             raise ValueError("number of sides on the lid must be greater or equal to 3 (got %i)" % n)
-        
+
         hy = self.edges["O"].startwidth()
         h -= hy
         if (h < 0):
@@ -103,7 +103,7 @@ class PirateChest(Boxes):
         tx = y + 2 * self.edges.get('f').spacing()
         lidheight = hp if n % 2 else radius
         ty = lidheight + self.edges.get('f').spacing() + self.edges.get(bottem).spacing()
-        
+
         if self.move(tx, ty, move, before=True):
             return side/2 + self.edges.get(bottem).spacing(), side, side/2
 
@@ -116,7 +116,7 @@ class PirateChest(Boxes):
             self.edges.get('f')(side/2 + self.edges.get(bottem).spacing())
         else:
             self.edges.get('f')(side/2)
-        
+
         self.corner(180 / (n - 1))
         for _ in range(n-2):
             self.edges.get('f')(side)
@@ -126,7 +126,7 @@ class PirateChest(Boxes):
             self.edges.get('f')(side/2 + self.edges.get(bottem).spacing())
         else:
             self.edges.get('f')(side/2)
-        
+
         self.corner(90)
 
         self.move(tx, ty, move, label=label)

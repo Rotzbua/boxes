@@ -55,4 +55,3 @@ class BOX(Boxes): # Change class name!
         self.addPart(p)
 
         # render your parts here
-

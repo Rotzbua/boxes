@@ -34,7 +34,7 @@ class LaserHoldfast(Boxes):
 
     def render(self):
         # adjust to the variables you want in the local scope
-        x, hh, h, sw = self.x, self.hookheight, self.h, self.shaftwidth 
+        x, hh, h, sw = self.x, self.hookheight, self.h, self.shaftwidth
         t = self.thickness
 
         a = 30

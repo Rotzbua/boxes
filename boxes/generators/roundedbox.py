@@ -36,7 +36,7 @@ With lid:
         boxes.Boxes.__init__(self)
         self.addSettingsArgs(boxes.edges.FingerJointSettings)
         self.addSettingsArgs(boxes.edges.DoveTailSettings)
-        self.addSettingsArgs(boxes.edges.FlexSettings)            
+        self.addSettingsArgs(boxes.edges.FlexSettings)
         self.buildArgParser("x", "y", "outside", sh="100.0")
         self.argparser.add_argument(
             "--radius", action="store", type=float, default=15,
@@ -135,5 +135,3 @@ With lid:
 
         self.surroundingWall(x, y, r, h, pe, pe, pieces=self.wallpieces,
                              callback=self.cb)
-
-

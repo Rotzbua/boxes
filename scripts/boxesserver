@@ -335,10 +335,10 @@ class BServer:
 <h3 id="h-{nr}"
     data-id="{nr}"
     data-thumbnail="{self.static_url}/samples/{group.thumbnail}"
-    role="button" 
-    aria-expanded="false" 
-    class="toggle thumbnail open" 
-    tabindex="0" 
+    role="button"
+    aria-expanded="false"
+    class="toggle thumbnail open"
+    tabindex="0"
 >
     {_(group.title)}
 </h3>

@@ -49,8 +49,8 @@ class BirdHouse(Boxes):
         for i in range(7):
             self.cc(callback, i, y=self.burn+edges[i].startwidth())
             edges[i](lengths[i])
-            self.edgeCorner(edges[i], edges[i+1], angles[i])            
-        
+            self.edgeCorner(edges[i], edges[i+1], angles[i])
+
         self.move(tw, th, move)
 
     def roof(self, x, h, overhang, edges="eefe", move=None):
@@ -87,10 +87,10 @@ class BirdHouse(Boxes):
 
         roof = 2**0.5 * x / 2
         overhang = roof * self.roof_overhang
-        
+
         cbx = [lambda: self.side_hole(x)]
         cby = [lambda: self.side_hole(y)]
-        
+
         self.side(x, h, callback=cbx, move="right")
         self.side(x, h, callback=cbx, move="right")
         self.rectangularWall(y, h, "hFeF", callback=cby, move="right")

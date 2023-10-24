@@ -138,7 +138,7 @@ class SBCMicroRack(Boxes):
         t = self.thickness
         x = self.x
         w = x + self.hole_dist_edge * 2
-        height_per = self.clearance_z + t 
+        height_per = self.clearance_z + t
         usb_height = self.netusb_z
         usb_width = self.netusb_x
         for i in range(self.sbcs):
@@ -198,4 +198,3 @@ class SBCMicroRack(Boxes):
                                  "efef",
                                  callback=[self.paint_mounting_holes],
                                  move="up")
-

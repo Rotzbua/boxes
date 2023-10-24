@@ -74,5 +74,3 @@ class FillTest(Boxes): # Change class name!
 
     def render(self):
         self.rectangularWall(self.x, self.y, "eeee", callback=[self.xHoles, None, None, None],)
-
-

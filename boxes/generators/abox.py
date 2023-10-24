@@ -21,7 +21,7 @@ class ABox(Boxes):
     """A simple Box"""
 
     description = "This box is kept simple on purpose. If you need more features have a look at the UniversalBox."
-    
+
     ui_group = "Box"
 
     def __init__(self) -> None:
@@ -59,5 +59,3 @@ class ABox(Boxes):
                              ignore_widths=[1, 6], move="up")
         self.rectangularWall(y, h, [b, "f", t4, "f"],
                              ignore_widths=[1, 6], move="up")
-
-

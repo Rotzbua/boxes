@@ -19,7 +19,7 @@ from boxes import *
 
 class Stachel(Boxes):
     """Bass Recorder Endpin"""
-    
+
     ui_group = "Misc"
 
     def __init__(self) -> None:
@@ -45,7 +45,7 @@ class Stachel(Boxes):
 
         tw = 2*ro + 2*rp
         th = 2*ro + l
-        
+
         if self.move(tw, th, move, True):
             return
 
@@ -80,10 +80,10 @@ class Stachel(Boxes):
         else:
             self.polyline(l+l1-r)
         self.polyline(0, (90, r), w-2*r, (90, r))
-        
+
         self.move(tw, th, move)
-        
-        
+
+
 
     def render(self):
 
@@ -94,5 +94,3 @@ class Stachel(Boxes):
         self.layer(ri-20, ro, rp, move="up")
         self.layer(ri, ro, rp, True, move="up")
         self.layer(ri, ro, rp, move="up")
-
-

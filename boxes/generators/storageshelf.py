@@ -35,8 +35,8 @@ class StorageShelf(_TopEdge):
         self.argparser.add_argument(
             "--retainer_hole_edge",  action="store", type=boolarg, default=False,
             help="use finger hole edge for retainer walls")
-        
-        
+
+
 
     def ySlots(self):
         posy = -0.5 * self.thickness

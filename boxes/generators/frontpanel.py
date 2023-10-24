@@ -40,7 +40,7 @@ install
     circles and mounting holes.  The default shows an example layout with all
     currently supported objects.
 
-#### 
+####
 `rect x y w h [cr=0] [cx=True] [cy=True]`
 
      x: x position
@@ -58,7 +58,7 @@ install
     w: width
     h: height
 
-`outline` has a special meaning: You can create multiple panel outlines with one command.  
+`outline` has a special meaning: You can create multiple panel outlines with one command.
 This has the effect of making it easy to manage all the holes on all the sides of
 your boxes.
 
@@ -145,7 +145,7 @@ nema 20 20 17
 
     def applyOffset(self, x, y):
         return (x+self.offset[0], y+self.offset[1])
-    
+
     def drawRect(self, x, y, w, h, r=0, center_x="True", center_y="True"):
         x, y, w, h, r = (float(i) for i in [x, y, w, h, r])
         x, y = self.applyOffset(x, y)
@@ -183,13 +183,13 @@ nema 20 20 17
         x, y = self.applyOffset(x, y)
         align = align.replace("|", " ")
         self.text(text=text, x=x, y=y, fontsize=size, angle=angle, align=align)
-        
+
     def drawNema(self, x, y, size, screwhole_size=0):
         x, y, size, screwhole_size = (float(i) for i in [x, y, size, screwhole_size])
         if size in self.nema_sizes:
             x, y = self.applyOffset(x, y)
             self.NEMA(size, x, y, screwholes=screwhole_size)
-        
+
     def parse_layout(self, layout):
         f = io.StringIO(layout)
         line = 0

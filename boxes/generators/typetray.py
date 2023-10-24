@@ -194,7 +194,3 @@ class TypeTray(_TopEdge):
                 e = [edges.SlottedEdge(self, self.sy, be, slots=0.5 * hi),"f",
                      edges.SlottedEdge(self, self.sy[::-1], "f"), "f"]
             self.rectangularWall(y, hi, e, move="up", label=f"inner y {i+1}")
-
-
-
-

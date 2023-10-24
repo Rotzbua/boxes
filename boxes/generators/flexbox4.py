@@ -114,6 +114,3 @@ class FlexBox4(Boxes):
         self.flexBoxSide(self.x, self.y, self.radius, move="right")
         self.flexBoxSide(self.x, self.y, self.radius, move="mirror right")
         self.rectangularWall(self.x, self.h, edges="FeFF")
-
-
-

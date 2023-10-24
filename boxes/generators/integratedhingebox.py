@@ -30,7 +30,7 @@ class IntegratedHingeBox(Boxes):
         self.argparser.add_argument(
             "--lidheight",  action="store", type=float, default=20.0,
             help="height of lid in mm")
-        
+
 
     def render(self):
 
@@ -61,6 +61,3 @@ class IntegratedHingeBox(Boxes):
 
         self.rectangularWall(y, x, "ffff", move="up")
         self.rectangularWall(y, x, "ffff")
-
-
-

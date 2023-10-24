@@ -82,7 +82,7 @@ class UBox(_TopEdge):
             self.edgeCorner("F", e[nr])
             e[nr](h)
             self.edgeCorner(e[nr], "F")
-        
+
         self.move(tw, th, move, label=label)
 
     def render(self):
@@ -100,5 +100,3 @@ class UBox(_TopEdge):
 
         self.drawLid(x, h, self.top_edge)
         self.lid(x, h, self.top_edge)
-
-

@@ -518,7 +518,7 @@ Creation date: {date}
         tree = ET.ElementTree(svg)
 
         self._add_metadata(svg)
-        
+
         for i, part in enumerate(self.parts):
             if not part.pathes:
                 continue
@@ -784,7 +784,7 @@ class LBRN2Surface(Surface):
 
         tree = ET.ElementTree(svg)
         if self.dbg: print ("8", num)
-        
+
         cs = ET.SubElement(svg, "CutSetting", Type="Cut")
         index    = ET.SubElement(cs, "index",    Value="3")         # green layer (ETCHING)
         name     = ET.SubElement(cs, "name",     Value="Etch")
@@ -824,7 +824,7 @@ class LBRN2Surface(Surface):
         index    = ET.SubElement(cs, "index",    Value="30")        # T1 layer (ANNOTATIONS)
         name     = ET.SubElement(cs, "name",     Value="T1")        # tool layer do not support names
         priority = ET.SubElement(cs, "priority", Value="7")         # is not cut at all
-                
+
         for i, part in enumerate(self.parts):
             if self.dbg: print ("7", num)
             if not part.pathes:
@@ -835,7 +835,7 @@ class LBRN2Surface(Surface):
             children = ET.SubElement(gp, "Children")
             children.text = "\n  "
             children.tail = "\n"
-            
+
             for j, path in enumerate(part.pathes):
                 myColor = self.lbrn2_colors[4*int(path.params["rgb"][0])+2*int(path.params["rgb"][1])+int(path.params["rgb"][2])]
 
@@ -848,12 +848,12 @@ class LBRN2Surface(Surface):
                 num = 0
                 cnt = 1
                 ende = len(path.path)-1
-                if self.dbg: 
+                if self.dbg:
                     for c in path.path:
                         print ("6",num, c)
                         num += 1
                     num = 0
-                    
+
                 c = path.path[num]
                 C, x, y = c[0:3]
                 if self.dbg: print("ende:" ,ende)
@@ -910,7 +910,7 @@ class LBRN2Surface(Surface):
                                     print("unknown", c)
                             if done == False:
                                 x0, y0 = x, y
-                
+
                         if start and points_equal(start[1], start[2], x0, y0):
                                 if bspline == False:
                                     pl.text = "LineClosed"
@@ -940,7 +940,7 @@ class LBRN2Surface(Surface):
                             else:
                                 hor = '0'
                         ver = 1 # vertical is always bottom, text is shifted in box class
-                        
+
                         pos = text.find('%')
                         offs = 0
                         if pos >- 1:
@@ -990,7 +990,7 @@ class LBRN2Surface(Surface):
                         num += 1
 
         url = self.metadata["url"].replace("&render=1", "") # remove render argument to get web form again
-        
+
         pl = ET.SubElement(svg, "Notes", ShowOnLoad="1", Notes="File created by Boxes.py script, programmed by Florian Festi.\nLightburn output by Klaus Steinhammer.\n\nURL with settings:\n" + str(url))
         pl.text = ""
         pl.tail = "\n"

@@ -47,7 +47,7 @@ class FlexBox5(boxes.Boxes):
         l = self.l
 
         tw , th = l+r1+r2, 2*max(r1, r2)+2*t
-        
+
         if self.move(tw, th, move, True):
             return
 
@@ -108,7 +108,7 @@ class FlexBox5(boxes.Boxes):
             self.h = self.adjustSize(self.h)
             self.top_diameter = self.adjustSize(self.top_diameter)
             self.bottom_diameter = self.adjustSize(self.bottom_diameter)
-            
+
         t = self.thickness
         self.latchsize *= self.thickness
         d_t, d_b = self.top_diameter, self.bottom_diameter
