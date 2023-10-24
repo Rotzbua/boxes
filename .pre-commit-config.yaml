@@ -1,0 +1,54 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+      - id: requirements-txt-fixer
+      - id: check-case-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0  # Use the ref you want to point at
+    hooks:
+      - id: python-use-type-annotations
+      - id: python-no-eval
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.0
+    hooks:
+      - id: pyupgrade
+        args: [ --py38-plus ]
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+
+  #  - repo: https://github.com/PyCQA/flake8
+  #    rev: 6.1.0
+  #    hooks:
+  #      - id: flake8
+  #        additional_dependencies: [ flake8-bugbear ]
+  #        args: [ '--extend-ignore=E402,E501,E201,E202,E203,E221,E225,E231,E261,E266,E302,E305' ]
+  #        # additional_dependencies: [ flake8-bugbear, flake8-docstrings ]
+  - repo: https://github.com/psf/black
+    rev: 23.10.0
+    hooks:
+      - id: black
+
+  #  - repo: https://github.com/codespell-project/codespell
+  #    rev: v2.2.4
+  #    hooks:
+
+  #      - id: codespell
+
+#  - repo: https://github.com/pre-commit/mirrors-jshint
+#    rev: v2.13.6  # Use the sha / tag you want to point at
+#    hooks:
+#      - id: jshint
