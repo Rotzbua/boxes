@@ -21,10 +21,21 @@ from boxes import *
 
 
 def str_to_bool(s):
-    if (s.lower() in ['true', '1', 't', 'y', 'yes', 'yeah', 'yup', 'certainly', 'uh-huh']):
+    if s.lower() in [
+        "true",
+        "1",
+        "t",
+        "y",
+        "yes",
+        "yeah",
+        "yup",
+        "certainly",
+        "uh-huh",
+    ]:
         return True
     else:
         return False
+
 
 class FrontPanel(Boxes):
     """Mounting Holes and cutouts for all your holy needs."""
@@ -108,7 +119,9 @@ mountinghole x y d_shaft [d_head=0] [angle=0]
     def __init__(self) -> None:
         Boxes.__init__(self)
         self.argparser.add_argument(
-            "--layout", action="store", type=str,
+            "--layout",
+            action="store",
+            type=str,
             default="""
 outline 100 100
 rect 50 60 80 30 3 True False
@@ -143,10 +156,11 @@ text 3  10 2 "Another panel, for fun" 0 top|left
 # Let's create another panel with a nema motor on it
 outline 40 40
 nema 20 20 17
-""")
+""",
+        )
 
     def applyOffset(self, x, y):
-        return (x+self.offset[0], y+self.offset[1])
+        return (x + self.offset[0], y + self.offset[1])
 
     def drawRect(self, x, y, w, h, r=0, center_x="True", center_y="True"):
         x, y, w, h, r = (float(i) for i in [x, y, w, h, r])
@@ -163,7 +177,9 @@ nema 20 20 17
         return
 
     def drawMountingHole(self, x, y, d_shaft, d_head=0.0, angle=0):
-        x, y, d_shaft, d_head, angle = (float(i) for i in [x, y, d_shaft, d_head, angle])
+        x, y, d_shaft, d_head, angle = (
+            float(i) for i in [x, y, d_shaft, d_head, angle]
+        )
         x, y = self.applyOffset(x, y)
         self.mountingHole(x, y, d_shaft, d_head, angle)
         return
@@ -171,16 +187,16 @@ nema 20 20 17
     def drawOutline(self, w, h):
         w, h = (float(i) for i in [w, h])
         if self.outline is not None:
-            self.offset = self.applyOffset(self.outline[0]+10, 0)
-        self.outline = (w, h) # store away for next time
+            self.offset = self.applyOffset(self.outline[0] + 10, 0)
+        self.outline = (w, h)  # store away for next time
         x = 0
         y = 0
         x, y = self.applyOffset(x, y)
-        border = [(x, y), (x+w, y), (x+w, y+h), (x, y+h), (x, y)]
-        self.showBorderPoly( border )
+        border = [(x, y), (x + w, y), (x + w, y + h), (x, y + h), (x, y)]
+        self.showBorderPoly(border)
         return
 
-    def drawText(self, x, y, size, text, angle=0, align='bottom|left'):
+    def drawText(self, x, y, size, text, angle=0, align="bottom|left"):
         x, y, size, angle = (float(i) for i in [x, y, size, angle])
         x, y = self.applyOffset(x, y)
         align = align.replace("|", " ")
@@ -196,17 +212,17 @@ nema 20 20 17
         f = io.StringIO(layout)
         line = 0
         objects = {
-            'outline': self.drawOutline,
-            'rect': self.drawRect,
-            'circle': self.drawCircle,
-            'mountinghole': self.drawMountingHole,
-            'text': self.drawText,
-            'nema': self.drawNema,
+            "outline": self.drawOutline,
+            "rect": self.drawRect,
+            "circle": self.drawCircle,
+            "mountinghole": self.drawMountingHole,
+            "text": self.drawText,
+            "nema": self.drawNema,
         }
 
         for l in f.readlines():
             line += 1
-            l = re.sub('#.*$', '', l) # remove comments
+            l = re.sub("#.*$", "", l)  # remove comments
             l = l.strip()
             la = shlex.split(l, comments=True, posix=True)
             if len(la) > 0 and la[0].lower() in objects:
@@ -215,5 +231,5 @@ nema 20 20 17
 
     def render(self):
         self.offset = (0.0, 0.0)
-        self.outline = None # No outline yet
+        self.outline = None  # No outline yet
         self.parse_layout(self.layout)

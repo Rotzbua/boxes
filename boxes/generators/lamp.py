@@ -65,11 +65,19 @@ class Lamp(Boxes):
         self.addSettingsArgs(edges.FingerJointSettings)
         self.buildArgParser(x=220, y=75, h=70)
         self.argparser.add_argument(
-            "--radius", action="store", type=float, default="105",
-            help="radius of the lamp")
+            "--radius",
+            action="store",
+            type=float,
+            default="105",
+            help="radius of the lamp",
+        )
         self.argparser.add_argument(
-            "--width", action="store", type=float, default="10",
-            help="width of the ring")
+            "--width",
+            action="store",
+            type=float,
+            default="10",
+            help="width of the ring",
+        )
 
     def side(self, y, h):
         return
@@ -89,7 +97,6 @@ class Lamp(Boxes):
         h : height box
         """
 
-
         # self.edges["f"].settings = (5, 5) # XXX
 
         x, y, h = self.x, self.y, self.h
@@ -100,11 +107,20 @@ class Lamp(Boxes):
 
         self.flexSettings = (3, 5.0, 20.0)
 
-        self.edges["f"].settings.setValues(self.thickness, finger=5, space=5, relative=False)
+        self.edges["f"].settings.setValues(
+            self.thickness, finger=5, space=5, relative=False
+        )
         d = 2 * (r + w)
 
-        self.roundedPlate(d, d, r, move="right", callback=[
-            lambda: self.hole(w, r + w, r), ])
+        self.roundedPlate(
+            d,
+            d,
+            r,
+            move="right",
+            callback=[
+                lambda: self.hole(w, r + w, r),
+            ],
+        )
 
         # dist = ((2**0.5)*r-r) / (2**0.5) + 4
         # pos = (w-dist, dist)
@@ -113,8 +129,16 @@ class Lamp(Boxes):
         self.roundedPlate(d, d, r, move="only left up")
 
         hole = lambda: self.hole(w, 70, 2)
-        self.surroundingWall(d, d, r, 120, top='h', bottom='h', callback=[
-            None, hole, None, hole], move="up")
+        self.surroundingWall(
+            d,
+            d,
+            r,
+            120,
+            top="h",
+            bottom="h",
+            callback=[None, hole, None, hole],
+            move="up",
+        )
 
         with self.saved_context():
             self.rectangularWall(x, y, edges="fFfF", holesMargin=5, move="right")
@@ -123,8 +147,7 @@ class Lamp(Boxes):
             self.rectangularWall(y, h, "fftf", move="right")
             self.rectangularWall(y, h, "fftf")
 
-        self.rectangularWall(x, y, edges="fFfF", holesMargin=5,
-                             move="up only")
+        self.rectangularWall(x, y, edges="fFfF", holesMargin=5, move="up only")
 
-        self.rectangularWall(x, h, edges='hFFF', holesMargin=5, move="right")
-        self.rectangularWall(x, h, edges='hFFF', holesMargin=5)
+        self.rectangularWall(x, h, edges="hFFF", holesMargin=5, move="right")
+        self.rectangularWall(x, h, edges="hFFF", holesMargin=5)

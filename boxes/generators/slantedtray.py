@@ -35,8 +35,12 @@ class SlantedTray(Boxes):
 
         self.buildArgParser(sx="40*3", y=40.0, h=40.0, outside=False)
         self.argparser.add_argument(
-            "--front_height",  action="store", type=float, default=0.3,
-            help="height of the front as fraction of the total height")
+            "--front_height",
+            action="store",
+            type=float,
+            default=0.3,
+            help="height of the front as fraction of the total height",
+        )
 
     def finger_holes_CB(self, sx, h):
         t = self.thickness
@@ -79,9 +83,7 @@ class SlantedTray(Boxes):
             front_height,
             "FFeF",
             move="up",
-            callback=[
-                partial(self.finger_holes_CB, sx, front_height)
-            ],
+            callback=[partial(self.finger_holes_CB, sx, front_height)],
         )
 
         for _ in range(len(sx) + 1):

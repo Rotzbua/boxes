@@ -26,23 +26,42 @@ class GearBox(Boxes):
         Boxes.__init__(self)
         self.addSettingsArgs(edges.FingerJointSettings)
         self.argparser.add_argument(
-            "--teeth1", action="store", type=int, default=8,
-            help="number of teeth on ingoing shaft")
+            "--teeth1",
+            action="store",
+            type=int,
+            default=8,
+            help="number of teeth on ingoing shaft",
+        )
         self.argparser.add_argument(
-            "--teeth2", action="store", type=int, default=20,
-            help="number of teeth on outgoing shaft")
+            "--teeth2",
+            action="store",
+            type=int,
+            default=20,
+            help="number of teeth on outgoing shaft",
+        )
         self.argparser.add_argument(
-            "--modulus", action="store", type=float, default=3,
-            help="modulus of the teeth in mm")
+            "--modulus",
+            action="store",
+            type=float,
+            default=3,
+            help="modulus of the teeth in mm",
+        )
         self.argparser.add_argument(
-            "--shaft", action="store", type=float, default=6.,
-            help="diameter of the shaft")
+            "--shaft",
+            action="store",
+            type=float,
+            default=6.0,
+            help="diameter of the shaft",
+        )
         self.argparser.add_argument(
-            "--stages", action="store", type=int, default=4,
-            help="number of stages in the gear reduction")
+            "--stages",
+            action="store",
+            type=int,
+            default=4,
+            help="number of stages in the gear reduction",
+        )
 
     def render(self):
-
         if self.teeth2 < self.teeth1:
             self.teeth2, self.teeth1 = self.teeth1, self.teeth2
 
@@ -84,12 +103,30 @@ class GearBox(Boxes):
         pressure_angle = 20
 
         for i in range(self.stages - 1):
-            self.gears(teeth=self.teeth2, dimension=self.modulus, angle=pressure_angle,
-                       mount_hole=mh, profile_shift=profile_shift, move="up")
+            self.gears(
+                teeth=self.teeth2,
+                dimension=self.modulus,
+                angle=pressure_angle,
+                mount_hole=mh,
+                profile_shift=profile_shift,
+                move="up",
+            )
 
-        self.gears(teeth=self.teeth2, dimension=self.modulus, angle=pressure_angle,
-                   mount_hole=mh, profile_shift=profile_shift, move="right")
+        self.gears(
+            teeth=self.teeth2,
+            dimension=self.modulus,
+            angle=pressure_angle,
+            mount_hole=mh,
+            profile_shift=profile_shift,
+            move="right",
+        )
 
         for i in range(self.stages):
-            self.gears(teeth=self.teeth1, dimension=self.modulus, angle=pressure_angle,
-                       mount_hole=mh, profile_shift=profile_shift, move="down")
+            self.gears(
+                teeth=self.teeth1,
+                dimension=self.modulus,
+                angle=pressure_angle,
+                mount_hole=mh,
+                profile_shift=profile_shift,
+                move="down",
+            )

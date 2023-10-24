@@ -28,15 +28,23 @@ class FlexBox2(Boxes):
         self.addSettingsArgs(edges.FlexSettings)
         self.buildArgParser("x", "y", "h", "outside")
         self.argparser.add_argument(
-            "--radius", action="store", type=float, default=15,
-            help="Radius of the corners in mm")
+            "--radius",
+            action="store",
+            type=float,
+            default=15,
+            help="Radius of the corners in mm",
+        )
         self.argparser.add_argument(
-            "--latchsize", action="store", type=float, default=8,
-            help="size of latch in multiples of thickness")
+            "--latchsize",
+            action="store",
+            type=float,
+            default=8,
+            help="size of latch in multiples of thickness",
+        )
 
     def flexBoxSide(self, y, h, r, callback=None, move=None):
         t = self.thickness
-        if self.move(y+2*t, h+t, move, True):
+        if self.move(y + 2 * t, h + t, move, True):
             return
 
         self.moveTo(t, t)
@@ -55,22 +63,22 @@ class FlexBox2(Boxes):
         self.edges["f"](h - r - self.latchsize)
         self.corner(90)
 
-        self.move(y+2*t, h+t, move)
+        self.move(y + 2 * t, h + t, move)
 
     def surroundingWall(self, move=None):
         y, h, x, r = self.y, self.h, self.x, self.radius
         t = self.thickness
 
-        tw = y + h - 3*r + 2*self.c4 + self.latchsize + t
-        th = x + 2.5*t
+        tw = y + h - 3 * r + 2 * self.c4 + self.latchsize + t
+        th = x + 2.5 * t
 
         if self.move(tw, th, move, True):
             return
 
-        self.moveTo(t, .25*t)
+        self.moveTo(t, 0.25 * t)
         self.edges["F"](h - r, False)
 
-        if (y - 2 * r < t):
+        if y - 2 * r < t:
             self.edges["X"](2 * self.c4 + y - 2 * r, x + 2 * t)
         else:
             self.edges["X"](self.c4, x + 2 * t)
@@ -93,7 +101,6 @@ class FlexBox2(Boxes):
         self.move(tw, th, move)
 
     def render(self):
-
         if self.outside:
             self.y = self.adjustSize(self.y)
             self.h = self.adjustSize(self.h)
@@ -105,7 +112,6 @@ class FlexBox2(Boxes):
         self.radius = min(self.radius, max(0, self.h - self.latchsize))
         self.c4 = c4 = math.pi * self.radius * 0.5
 
-
         self.moveTo(2 * self.thickness, self.thickness)
 
         with self.saved_context():
@@ -115,5 +121,7 @@ class FlexBox2(Boxes):
         self.surroundingWall(move="up only")
 
         self.flexBoxSide(self.y, self.h, self.radius, move="right")
-        self.flexBoxSide(self.y, self.h, self.radius, move= "mirror right")
-        self.rectangularWall(self.x, self.h - self.radius - self.latchsize, edges="fFeF")
+        self.flexBoxSide(self.y, self.h, self.radius, move="mirror right")
+        self.rectangularWall(
+            self.x, self.h - self.radius - self.latchsize, edges="fFeF"
+        )

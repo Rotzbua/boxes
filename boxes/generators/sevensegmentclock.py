@@ -36,34 +36,41 @@ There is currently not a lot of space for elecrtonics and this generator is stil
         Boxes.__init__(self)
         self.addSettingsArgs(edges.FingerJointSettings)
         self.argparser.add_argument(
-            "--height",  action="store", type=float, default=100.0,
-            help="height of the front panel (with walls if outside is selected) in mm")
+            "--height",
+            action="store",
+            type=float,
+            default=100.0,
+            help="height of the front panel (with walls if outside is selected) in mm",
+        )
         self.argparser.add_argument(
-            "--h",  action="store", type=float, default=20.0,
-            help="depth (with walls if outside is selected) in mm")
+            "--h",
+            action="store",
+            type=float,
+            default=20.0,
+            help="depth (with walls if outside is selected) in mm",
+        )
         self.buildArgParser(outside=False)
 
     def frontCB(self):
         x = self.height
-        self.hole(1.27*x, 0.4*x, 0.05*x)
-        self.hole(1.27*x, 0.6*x, 0.05*x)
-        self.moveTo(0.1*x, 0.1*x)
+        self.hole(1.27 * x, 0.4 * x, 0.05 * x)
+        self.hole(1.27 * x, 0.6 * x, 0.05 * x)
+        self.moveTo(0.1 * x, 0.1 * x)
         for i in range(2):
             for j in range(2):
-                self.seven_segments(.8 * x)
-                #self.seven_holes(.8 * x)
-                self.moveTo(.6 * x)
+                self.seven_segments(0.8 * x)
+                # self.seven_holes(.8 * x)
+                self.moveTo(0.6 * x)
             self.moveTo(0.1 * x)
 
     def backCB(self):
         x = self.height
-        self.moveTo(0.1*x, 0.1*x)
+        self.moveTo(0.1 * x, 0.1 * x)
         for i in range(2):
             for j in range(2):
-                self.seven_segment_holes(.8 * x)
-                self.moveTo(.6 * x)
+                self.seven_segment_holes(0.8 * x)
+                self.moveTo(0.6 * x)
             self.moveTo(0.1 * x)
-
 
     def render(self):
         height, h = self.height, self.h
@@ -73,7 +80,7 @@ There is currently not a lot of space for elecrtonics and this generator is stil
             h = self.h = self.adjustSize(h)
 
         t = self.thickness
-        y = (3*0.60 + 0.1 + 0.2) * height + 0.55 * 0.8 * height
+        y = (3 * 0.60 + 0.1 + 0.2) * height + 0.55 * 0.8 * height
 
         self.rectangularWall(height, h, "FFFF", move="right")
         self.rectangularWall(y, h, "FfFf", move="up")
@@ -81,7 +88,11 @@ There is currently not a lot of space for elecrtonics and this generator is stil
         self.rectangularWall(height, h, "FFFF", move="left up")
 
         with self.saved_context():
-            self.rectangularWall(y, height, "ffff", callback=[self.frontCB], move="right")
-            self.rectangularWall(y, height, "ffff", callback=[self.backCB], move="right")
+            self.rectangularWall(
+                y, height, "ffff", callback=[self.frontCB], move="right"
+            )
+            self.rectangularWall(
+                y, height, "ffff", callback=[self.backCB], move="right"
+            )
         self.rectangularWall(y, height, "ffff", move="up only")
-        self.seven_segment_separators(0.8*height, h, 4)
+        self.seven_segment_separators(0.8 * height, h, 4)

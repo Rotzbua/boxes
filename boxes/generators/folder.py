@@ -25,8 +25,12 @@ class Folder(Boxes):
         self.addSettingsArgs(edges.FlexSettings)
         self.buildArgParser("x", "y", "h")
         self.argparser.add_argument(
-            "--r", action="store", type=float, default=10.0,
-            help="radius of the corners")
+            "--r",
+            action="store",
+            type=float,
+            default=10.0,
+            help="radius of the corners",
+        )
         self.argparser.set_defaults(h=20)
 
     def render(self):

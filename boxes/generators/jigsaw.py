@@ -26,11 +26,19 @@ class JigsawPuzzle(Boxes):  # change class name here and below
         Boxes.__init__(self)
         self.count = 0
         self.argparser.add_argument(
-            "--size", action="store", type=float, default=100,
-            help="size of the puzzle in mm")
+            "--size",
+            action="store",
+            type=float,
+            default=100,
+            help="size of the puzzle in mm",
+        )
         self.argparser.add_argument(
-            "--depth", action="store", type=int, default=5,
-            help="depth of the recursion/level of detail")
+            "--depth",
+            action="store",
+            type=int,
+            default=5,
+            help="depth of the recursion/level of detail",
+        )
 
     def peano(self, level):
         if level == 0:
@@ -54,18 +62,18 @@ class JigsawPuzzle(Boxes):  # change class name here and below
         self.hilbert(level - 1, -parity)
 
         # interface to and draw second subcurve with same parity as big curve
-        self.edge(self.size / 2 ** self.depth)
+        self.edge(self.size / 2**self.depth)
         self.corner(parity * -90)
         self.hilbert(level - 1, parity)
 
         # third subcurve
-        self.edge(self.size / 2 ** self.depth)
+        self.edge(self.size / 2**self.depth)
         self.hilbert(level - 1, parity)
 
         # if level == 3: self.corner(-360, 0.4*self.size/2**self.depth)
         # fourth subcurve
         self.corner(parity * -90)
-        self.edge(self.size / 2 ** self.depth)
+        self.edge(self.size / 2**self.depth)
         self.hilbert(level - 1, -parity)
         # a final turn is needed to make the turtle
         # end up facing outward from the large square

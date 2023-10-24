@@ -9,6 +9,7 @@ class BoxesQrCodeFactory(qrcode.image.base.BaseImage):
     SVG image builder
     Creates a QR-code image as a SVG document fragment.
     """
+
     _SVG_namespace = "http://www.w3.org/2000/svg"
     kind = "SVG"
     allowed_kinds = ("SVG",)
@@ -31,7 +32,7 @@ class BoxesQrCodeFactory(qrcode.image.base.BaseImage):
         units = Decimal(pixels) / 10
         if not text:
             return units
-        return '%smm' % units
+        return "%smm" % units
 
     def save(self, stream, kind=None):
         self.check_kind(kind=kind)
@@ -53,11 +54,13 @@ class BoxesQrCodeFactory(qrcode.image.base.BaseImage):
     def _write(self, stream):
         stream.write("".join(self._img))
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     import qrcode
     import qrcode.image
+
     q = qrcode.QRCode(image_factory=BoxesQrCodeFactory, box_size=10)
-    q.add_data('hello')
+    q.add_data("hello")
     ctx = "a context"
     img = q.make_image(ctx="a context")
     print(img.to_string())

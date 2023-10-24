@@ -27,38 +27,71 @@ class ConcaveKnob(Boxes):
 
         # Add non default cli params if needed (see argparse std lib)
         self.argparser.add_argument(
-            "--diameter",  action="store", type=float, default=50.,
-            help="Diameter of the knob (mm)")
+            "--diameter",
+            action="store",
+            type=float,
+            default=50.0,
+            help="Diameter of the knob (mm)",
+        )
         self.argparser.add_argument(
-            "--serrations",  action="store", type=int, default=3,
-            help="Number of serrations")
+            "--serrations",
+            action="store",
+            type=int,
+            default=3,
+            help="Number of serrations",
+        )
         self.argparser.add_argument(
-            "--rounded",  action="store", type=float, default=.2,
-            help="Amount of circumference used for non convex parts")
+            "--rounded",
+            action="store",
+            type=float,
+            default=0.2,
+            help="Amount of circumference used for non convex parts",
+        )
         self.argparser.add_argument(
-            "--angle",  action="store", type=float, default=70.,
-            help="Angle between convex and concave parts")
+            "--angle",
+            action="store",
+            type=float,
+            default=70.0,
+            help="Angle between convex and concave parts",
+        )
         self.argparser.add_argument(
-            "--bolthole",  action="store", type=float, default=6.,
-            help="Diameter of the bolt hole (mm)")
+            "--bolthole",
+            action="store",
+            type=float,
+            default=6.0,
+            help="Diameter of the bolt hole (mm)",
+        )
         self.argparser.add_argument(
-            "--dhole",  action="store", type=float, default=1.,
-            help="D-Flat in fraction of the diameter")
+            "--dhole",
+            action="store",
+            type=float,
+            default=1.0,
+            help="D-Flat in fraction of the diameter",
+        )
         self.argparser.add_argument(
-            "--hexhead",  action="store", type=float, default=10.,
-            help="Width of the hex bolt head (mm)")
+            "--hexhead",
+            action="store",
+            type=float,
+            default=10.0,
+            help="Width of the hex bolt head (mm)",
+        )
 
     def render(self):
         t = self.thickness
-        self.parts.concaveKnob(self.diameter, self.serrations,
-                               self.rounded, self.angle,
-                               callback=lambda:self.dHole(0, 0,
-                                                          d=self.bolthole,
-                                                          rel_w=self.dhole),
-                               move="right")
-        self.parts.concaveKnob(self.diameter, self.serrations,
-                               self.rounded, self.angle,
-                               callback=lambda: self.nutHole(self.hexhead),
-                               move="right")
-        self.parts.concaveKnob(self.diameter, self.serrations,
-                               self.rounded, self.angle)
+        self.parts.concaveKnob(
+            self.diameter,
+            self.serrations,
+            self.rounded,
+            self.angle,
+            callback=lambda: self.dHole(0, 0, d=self.bolthole, rel_w=self.dhole),
+            move="right",
+        )
+        self.parts.concaveKnob(
+            self.diameter,
+            self.serrations,
+            self.rounded,
+            self.angle,
+            callback=lambda: self.nutHole(self.hexhead),
+            move="right",
+        )
+        self.parts.concaveKnob(self.diameter, self.serrations, self.rounded, self.angle)

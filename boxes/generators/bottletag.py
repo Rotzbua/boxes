@@ -28,23 +28,43 @@ class BottleTag(Boxes):
         self.buildArgParser()
         # Add non default cli params if needed (see argparse std lib)
         self.argparser.add_argument(
-            "--width", action="store", type=float, default=72,
-            help="width of neck tag")
+            "--width", action="store", type=float, default=72, help="width of neck tag"
+        )
         self.argparser.add_argument(
-            "--height", action="store", type=float, default=98,
-            help="height of neck tag")
+            "--height",
+            action="store",
+            type=float,
+            default=98,
+            help="height of neck tag",
+        )
         self.argparser.add_argument(
-            "--min_diameter", action="store", type=float, default=24,
-            help="inner diameter of bottle neck hole")
+            "--min_diameter",
+            action="store",
+            type=float,
+            default=24,
+            help="inner diameter of bottle neck hole",
+        )
         self.argparser.add_argument(
-            "--max_diameter", action="store", type=float, default=50,
-            help="outer diameter of bottle neck hole")
+            "--max_diameter",
+            action="store",
+            type=float,
+            default=50,
+            help="outer diameter of bottle neck hole",
+        )
         self.argparser.add_argument(
-            "--radius", action="store", type=float, default=15,
-            help="corner radius of bottom tag")
+            "--radius",
+            action="store",
+            type=float,
+            default=15,
+            help="corner radius of bottom tag",
+        )
         self.argparser.add_argument(
-            "--segment_width", action="store", type=int, default=3,
-            help="inner segment width")
+            "--segment_width",
+            action="store",
+            type=int,
+            default=3,
+            help="inner segment width",
+        )
 
     def render(self):
         # adjust to the variables you want in the local scope

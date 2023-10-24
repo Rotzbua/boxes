@@ -29,72 +29,103 @@ class Spool(Boxes):
 
         self.buildArgParser(h=100)
         self.argparser.add_argument(
-            "--outer_diameter",  action="store", type=float, default=200.0,
-            help="diameter of the flanges")
+            "--outer_diameter",
+            action="store",
+            type=float,
+            default=200.0,
+            help="diameter of the flanges",
+        )
         self.argparser.add_argument(
-            "--inner_diameter",  action="store", type=float, default=80.0,
-            help="diameter of the center part")
+            "--inner_diameter",
+            action="store",
+            type=float,
+            default=80.0,
+            help="diameter of the center part",
+        )
         self.argparser.add_argument(
-            "--axle_diameter",  action="store", type=float, default=40.0,
-            help="diameter of the axle hole (axle not part of drawing)")
+            "--axle_diameter",
+            action="store",
+            type=float,
+            default=40.0,
+            help="diameter of the axle hole (axle not part of drawing)",
+        )
         self.argparser.add_argument(
-            "--sides",  action="store", type=int, default=8,
-            help="number of pieces for the center part")
+            "--sides",
+            action="store",
+            type=int,
+            default=8,
+            help="number of pieces for the center part",
+        )
         self.argparser.add_argument(
-            "--reinforcements",  action="store", type=int, default=8,
-            help="number of reinforcement ribs per side")
+            "--reinforcements",
+            action="store",
+            type=int,
+            default=8,
+            help="number of reinforcement ribs per side",
+        )
         self.argparser.add_argument(
-            "--reinforcement_height",  action="store", type=float, default=0.0,
-            help="height of reinforcement ribs on the flanges")
+            "--reinforcement_height",
+            action="store",
+            type=float,
+            default=0.0,
+            help="height of reinforcement ribs on the flanges",
+        )
 
     def sideCB(self):
         self.hole(0, 0, d=self.axle_diameter)
-        r, h, side = self.regularPolygon(self.sides, radius=self.inner_diameter/2)
+        r, h, side = self.regularPolygon(self.sides, radius=self.inner_diameter / 2)
         t = self.thickness
         for i in range(self.sides):
-            self.fingerHolesAt(-side/2, h+0.5*self.thickness, side, 0)
+            self.fingerHolesAt(-side / 2, h + 0.5 * self.thickness, side, 0)
             self.moveTo(0, 0, 360 / self.sides)
 
         if self.reinforcement_height:
             for i in range(self.reinforcements):
                 self.fingerHolesAt(
-                    self.axle_diameter / 2, 0, h-self.axle_diameter / 2, 0)
-                self.fingerHolesAt(
-                     r + t, 0, self.outer_diameter / 2 - r - t, 0)
+                    self.axle_diameter / 2, 0, h - self.axle_diameter / 2, 0
+                )
+                self.fingerHolesAt(r + t, 0, self.outer_diameter / 2 - r - t, 0)
                 self.moveTo(0, 0, 360 / self.reinforcements)
 
     def reinforcementCB(self):
         for i in range(self.reinforcements):
             self.fingerHolesAt(
-                self.axle_diameter / 2, 0,
-                (self.inner_diameter - self.axle_diameter) / 2 + self.thickness, 0)
+                self.axle_diameter / 2,
+                0,
+                (self.inner_diameter - self.axle_diameter) / 2 + self.thickness,
+                0,
+            )
             self.moveTo(0, 0, 360 / self.reinforcements)
-
 
     def render(self):
         t = self.thickness
-        r, h, side = self.regularPolygon(self.sides, radius=self.inner_diameter/2)
+        r, h, side = self.regularPolygon(self.sides, radius=self.inner_diameter / 2)
         for i in range(2):
-            self.parts.disc(
-                self.outer_diameter, callback=self.sideCB, move="right")
+            self.parts.disc(self.outer_diameter, callback=self.sideCB, move="right")
         for i in range(self.sides):
             self.rectangularWall(side, self.h, "fefe", move="right")
         if self.reinforcement_height:
-            for i in range(self.reinforcements*2):
+            for i in range(self.reinforcements * 2):
                 edge = edges.CompoundEdge(
-                    self, "fef",
-                    [self.outer_diameter / 2 - r - t,
-                     r - h + t,
-                     h - self.axle_diameter / 2])
+                    self,
+                    "fef",
+                    [
+                        self.outer_diameter / 2 - r - t,
+                        r - h + t,
+                        h - self.axle_diameter / 2,
+                    ],
+                )
                 self.trapezoidWall(
                     self.reinforcement_height - t,
                     (self.outer_diameter - self.axle_diameter) / 2,
                     (self.inner_diameter - self.axle_diameter) / 2 + t,
                     ["e", "f", "e", edge],
-                    move="right")
+                    move="right",
+                )
             for i in range(2):
                 self.parts.disc(
-                    self.inner_diameter + 2*t,
+                    self.inner_diameter + 2 * t,
                     hole=self.axle_diameter,
                     callback=self.reinforcementCB,
-                    move="right")
+                    move="right",
+                )

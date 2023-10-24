@@ -26,7 +26,11 @@ except ImportError:
 
 class Boxes2rst:
     def __init__(self) -> None:
-        self.boxes = {b.__name__: b() for b in boxes.generators.getAllBoxGenerators().values() if b.webinterface}
+        self.boxes = {
+            b.__name__: b()
+            for b in boxes.generators.getAllBoxGenerators().values()
+            if b.webinterface
+        }
         self.groups = boxes.generators.ui_groups
         self.groups_by_name = boxes.generators.ui_groups_by_name
 
@@ -40,10 +44,16 @@ class Boxes2rst:
                 for box in group.generators:
                     f.write(box.__class__.__name__)
                     f.write("\n..........................................\n\n")
-                    f.write(f"\n\n.. autoclass:: {box.__class__.__module__}.{box.__class__.__name__}")
+                    f.write(
+                        f"\n\n.. autoclass:: {box.__class__.__module__}.{box.__class__.__name__}"
+                    )
                     f.write("\n\n")
-                    if os.path.exists(f"../../static/samples/{box.__class__.__name__}.jpg"):
-                        f.write(f".. image:: ../../static/samples/{box.__class__.__name__}.jpg\n\n")
+                    if os.path.exists(
+                        f"../../static/samples/{box.__class__.__name__}.jpg"
+                    ):
+                        f.write(
+                            f".. image:: ../../static/samples/{box.__class__.__name__}.jpg\n\n"
+                        )
 
 
 def main() -> None:

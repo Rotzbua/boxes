@@ -28,12 +28,20 @@ class Tetris(Boxes):
         self.addSettingsArgs(edges.FingerJointSettings)
 
         self.argparser.add_argument(
-            "--blocksize", action="store", type=float, default=40.,
-            help="size of a square")
+            "--blocksize",
+            action="store",
+            type=float,
+            default=40.0,
+            help="size of a square",
+        )
         self.argparser.add_argument(
-            "--shape", action="store", type=str, default="L",
-            choices=['I', 'L', 'O', 'S', 'T'],
-            help="shape of the piece")
+            "--shape",
+            action="store",
+            type=str,
+            default="L",
+            choices=["I", "L", "O", "S", "T"],
+            help="shape of the piece",
+        )
 
     def cb(self, nr):
         t = self.thickness
@@ -45,25 +53,24 @@ class Tetris(Boxes):
             if self.shape in "LT":
                 for i in range(1, 3):
                     with self.saved_context():
-                        self.moveTo(s*i - t, 0, 90)
-                        self.edge(s - 2*t)
+                        self.moveTo(s * i - t, 0, 90)
+                        self.edge(s - 2 * t)
                 if self.shape == "L":
-                    self.moveTo(s*2, s - t, 0)
-                else: # "T"
+                    self.moveTo(s * 2, s - t, 0)
+                else:  # "T"
                     self.moveTo(s, s - t, 0)
-                self.edge(s - 2*t)
+                self.edge(s - 2 * t)
             if self.shape == "I":
                 for i in range(1, 4):
                     with self.saved_context():
-                        self.moveTo(s*i - t, 0, 90)
-                        self.edge(s - 2*t)
+                        self.moveTo(s * i - t, 0, 90)
+                        self.edge(s - 2 * t)
         if self.shape == "S" and nr in (0, 1, 4, 5):
             self.moveTo(s - t, 0, 90)
-            self.edge(s - 2*t)
+            self.edge(s - 2 * t)
         if self.shape == "O":
             self.moveTo(s - t, 0, 90)
             self.edge(s - t)
-
 
         self.ctx.stroke()
 
@@ -73,19 +80,30 @@ class Tetris(Boxes):
         s = self.blocksize
 
         if self.shape == "L":
-            borders = [3*s - 2*t, 90, 2*s - 2*t, 90, s - 2*t, 90,
-                       s, -90, 2*s, 90, s - 2*t, 90]
+            borders = [
+                3 * s - 2 * t,
+                90,
+                2 * s - 2 * t,
+                90,
+                s - 2 * t,
+                90,
+                s,
+                -90,
+                2 * s,
+                90,
+                s - 2 * t,
+                90,
+            ]
         elif self.shape == "I":
-            borders = [4*s - 2*t, 90, s - 2*t, 90 ] * 2
+            borders = [4 * s - 2 * t, 90, s - 2 * t, 90] * 2
         elif self.shape == "S":
-            borders = [2 * s - 2 * t, 90, s, -90, s, 90, s - 2 * t, 90] *2
+            borders = [2 * s - 2 * t, 90, s, -90, s, 90, s - 2 * t, 90] * 2
         elif self.shape == "O":
-            borders = [2*s - 2*t, 90] * 4
+            borders = [2 * s - 2 * t, 90] * 4
         elif self.shape == "T":
-            borders = [90, s - 2*t, 90, s, -90, s, 90]
-            borders = [3*s - 2*t] + borders + [s - 2*t] + list(reversed(borders))
+            borders = [90, s - 2 * t, 90, s, -90, s, 90]
+            borders = [3 * s - 2 * t] + borders + [s - 2 * t] + list(reversed(borders))
         self.polygonWall(borders=borders, callback=self.cb, move="right")
-        self.polygonWall(borders=borders, callback=self.cb,
-                         move="mirror right")
+        self.polygonWall(borders=borders, callback=self.cb, move="mirror right")
 
         self.polygonWalls(borders=borders, h=s - 2 * t)

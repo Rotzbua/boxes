@@ -27,9 +27,13 @@ class MagazineFile(Boxes):
         self.addSettingsArgs(edges.FingerJointSettings)
         self.addSettingsArgs(edges.MountingSettings, margin=0, num=1)
         self.argparser.add_argument(
-            "--top_edge", action="store",
-            type=ArgparseEdgeType("eG"), choices=list("eG"),
-            default="e", help="edge type for top edge")
+            "--top_edge",
+            action="store",
+            type=ArgparseEdgeType("eG"),
+            choices=list("eG"),
+            default="e",
+            help="edge type for top edge",
+        )
 
     def side(self, w, h, hi, top_edge):
         r = min(h - hi, w) / 2.0
@@ -67,17 +71,23 @@ class MagazineFile(Boxes):
         self.corner(90)
 
     def render(self):
-
         if self.outside:
             self.x = self.adjustSize(self.x)
             self.y = self.adjustSize(self.y)
             self.h = self.adjustSize(self.h, e2=False)
 
-        x, y, h, = self.x, self.y, self.h
+        (
+            x,
+            y,
+            h,
+        ) = (
+            self.x,
+            self.y,
+            self.h,
+        )
         self.hi = hi = self.hi or (h / 2.0)
         t = self.thickness
         t1, t2, t3, t4 = _TopEdge.topEdges(self, self.top_edge)
-
 
         with self.saved_context():
             self.rectangularWall(x, h, ["F", "f", t2, "f"], move="up")

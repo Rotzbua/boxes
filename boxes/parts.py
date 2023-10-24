@@ -5,7 +5,11 @@ from boxes import vectors
 
 def arcOnCircle(spanning_angle, outgoing_angle, r=1.0):
     angle = spanning_angle + 2 * outgoing_angle
-    radius = r * sin(radians(0.5 * spanning_angle)) / sin(radians(180 - outgoing_angle - 0.5 * spanning_angle))
+    radius = (
+        r
+        * sin(radians(0.5 * spanning_angle))
+        / sin(radians(180 - outgoing_angle - 0.5 * spanning_angle))
+    )
     return angle, abs(radius)
 
 
@@ -77,18 +81,19 @@ class Parts:
         if hole:
             self.hole(0, 0, hole / 2)
 
-        self.moveTo(diameter / 2, 0, 90-angle)
-        a, r = arcOnCircle(360. / n / 2, angle, diameter / 2)
-        a2, r2 = arcOnCircle(360. / n / 2, -angle, diameter / 2)
+        self.moveTo(diameter / 2, 0, 90 - angle)
+        a, r = arcOnCircle(360.0 / n / 2, angle, diameter / 2)
+        a2, r2 = arcOnCircle(360.0 / n / 2, -angle, diameter / 2)
 
         for i in range(n):
-            self.boxes.corner(a, r, tabs=(i % max(1, (n+1) // 6) == 0))
+            self.boxes.corner(a, r, tabs=(i % max(1, (n + 1) // 6) == 0))
             self.boxes.corner(a2, r2)
 
         self.move(size, size, move)
 
-    def concaveKnob(self, diameter, n=3, rounded=0.2, angle=70, hole=0,
-                    callback=None, move=""):
+    def concaveKnob(
+        self, diameter, n=3, rounded=0.2, angle=70, hole=0, callback=None, move=""
+    ):
         """Knob with dents to be easier to be gripped
 
         :param diameter: diameter of the knob
@@ -114,16 +119,17 @@ class Parts:
 
         self.cc(callback, None, 0, 0)
         self.moveTo(diameter / 2, 0, 90 + angle)
-        a, r = arcOnCircle(360. / n * (1 - rounded), -angle, diameter / 2)
+        a, r = arcOnCircle(360.0 / n * (1 - rounded), -angle, diameter / 2)
 
         if abs(a) < 0.01:  # avoid trying to make a straight line as an arc
-            a, r = arcOnCircle(360. / n * (1 - rounded), -angle - 0.01, diameter / 2)
+            a, r = arcOnCircle(360.0 / n * (1 - rounded), -angle - 0.01, diameter / 2)
 
         for i in range(n):
             self.boxes.corner(a, r)
             self.corner(angle)
-            self.corner(360. / n * rounded, diameter / 2, tabs=
-                        (i % max(1, (n+1) // 6) == 0))
+            self.corner(
+                360.0 / n * rounded, diameter / 2, tabs=(i % max(1, (n + 1) // 6) == 0)
+            )
             self.corner(angle)
 
         self.move(size, size, move)
@@ -138,20 +144,30 @@ class Parts:
         :param move: (Default value = "")
         """
         space = 360 * self.spacing / r_inside / 2 / pi
-        nc = int(min(n, 360 / (angle+space)))
+        nc = int(min(n, 360 / (angle + space)))
 
         while n > 0:
-            if self.move(2*r_outside, 2*r_outside, move, True):
+            if self.move(2 * r_outside, 2 * r_outside, move, True):
                 return
             self.moveTo(0, r_outside, -90)
             for i in range(nc):
                 self.polyline(
-                    0, (angle, r_outside), 0, 90, (r_outside-r_inside, 2),
-                    90, 0, (-angle, r_inside), 0, 90, (r_outside-r_inside, 2),
-                    90)
-                x, y = vectors.circlepoint(r_outside, radians(angle+space))
-                self.moveTo(y, r_outside-x, angle+space)
-                n -=1
+                    0,
+                    (angle, r_outside),
+                    0,
+                    90,
+                    (r_outside - r_inside, 2),
+                    90,
+                    0,
+                    (-angle, r_inside),
+                    0,
+                    90,
+                    (r_outside - r_inside, 2),
+                    90,
+                )
+                x, y = vectors.circlepoint(r_outside, radians(angle + space))
+                self.moveTo(y, r_outside - x, angle + space)
+                n -= 1
                 if n == 0:
                     break
-            self.move(2*r_outside, 2*r_outside, move)
+            self.move(2 * r_outside, 2 * r_outside, move)

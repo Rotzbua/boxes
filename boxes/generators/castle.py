@@ -29,16 +29,32 @@ with towers and gates and walls that can be attached in multiple configurations.
         self.addSettingsArgs(edges.FingerJointSettings)
 
     def render(self, t_x=70, t_h=250, w1_x=300, w1_h=120, w2_x=100, w2_h=120):
-        s = edges.FingerJointSettings(10.0, relative=True,
-                                      space=1, finger=1,
-                                      width=self.thickness)
+        s = edges.FingerJointSettings(
+            10.0, relative=True, space=1, finger=1, width=self.thickness
+        )
 
         s.edgeObjects(self, "pPQ")
 
         self.moveTo(0, 0)
-        self.rectangularWall(t_x, t_h, edges="efPf", move="right", callback=[lambda: self.fingerHolesAt(t_x * 0.5, 0, w1_h, 90), ])
+        self.rectangularWall(
+            t_x,
+            t_h,
+            edges="efPf",
+            move="right",
+            callback=[
+                lambda: self.fingerHolesAt(t_x * 0.5, 0, w1_h, 90),
+            ],
+        )
         self.rectangularWall(t_x, t_h, edges="efPf", move="right")
-        self.rectangularWall(t_x, t_h, edges="eFPF", move="right", callback=[lambda: self.fingerHolesAt(t_x * 0.5, 0, w2_h, 90), ])
+        self.rectangularWall(
+            t_x,
+            t_h,
+            edges="eFPF",
+            move="right",
+            callback=[
+                lambda: self.fingerHolesAt(t_x * 0.5, 0, w2_h, 90),
+            ],
+        )
         self.rectangularWall(t_x, t_h, edges="eFPF", move="right")
 
         self.rectangularWall(w1_x, w1_h, "efpe", move="right")

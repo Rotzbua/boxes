@@ -33,67 +33,102 @@ class SBCMicroRack(Boxes):
 
         # count
         self.argparser.add_argument(
-            "--sbcs", action="store", type=int, default=5,
+            "--sbcs",
+            action="store",
+            type=int,
+            default=5,
             help="how many slots for sbcs",
         )
 
         # spaces
         self.argparser.add_argument(
-            "--clearance_x", action="store", type=int, default=3,
-            help="clearance for the board in the box (x) in mm"
+            "--clearance_x",
+            action="store",
+            type=int,
+            default=3,
+            help="clearance for the board in the box (x) in mm",
         )
         self.argparser.add_argument(
-            "--clearance_y", action="store", type=int, default=3,
-            help="clearance for the board in the box (y) in mm"
+            "--clearance_y",
+            action="store",
+            type=int,
+            default=3,
+            help="clearance for the board in the box (y) in mm",
         )
         self.argparser.add_argument(
-            "--clearance_z", action="store", type=int, default=28,
+            "--clearance_z",
+            action="store",
+            type=int,
+            default=28,
             help="SBC Clearance in mm",
         )
 
         # mounting holes
         self.argparser.add_argument(
-            "--hole_dist_edge", action="store", type=float, default=3.5,
-            help="hole distance from edge in mm"
+            "--hole_dist_edge",
+            action="store",
+            type=float,
+            default=3.5,
+            help="hole distance from edge in mm",
         )
         self.argparser.add_argument(
-            "--hole_grid_dimension_x", action="store", type=int, default=58,
-            help="width of x hole area"
+            "--hole_grid_dimension_x",
+            action="store",
+            type=int,
+            default=58,
+            help="width of x hole area",
         )
         self.argparser.add_argument(
-            "--hole_grid_dimension_y", action="store", type=int, default=49,
-            help="width of y hole area"
+            "--hole_grid_dimension_y",
+            action="store",
+            type=int,
+            default=49,
+            help="width of y hole area",
         )
         self.argparser.add_argument(
-            "--hole_diameter", action="store", type=float, default=2.75,
-            help="hole diameters"
+            "--hole_diameter",
+            action="store",
+            type=float,
+            default=2.75,
+            help="hole diameters",
         )
 
         # i/o holes
         self.argparser.add_argument(
-            "--netusb_z", action="store", type=int, default=18,
-            help="height of the net/usb hole mm"
+            "--netusb_z",
+            action="store",
+            type=int,
+            default=18,
+            help="height of the net/usb hole mm",
         )
         self.argparser.add_argument(
-            "--netusb_x", action="store", type=int, default=53,
-            help="width of the net/usb hole in mm"
+            "--netusb_x",
+            action="store",
+            type=int,
+            default=53,
+            help="width of the net/usb hole in mm",
         )
 
         # features
         self.argparser.add_argument(
-            "--stable", action='store', type=boolarg, default=False,
-            help="draw some holes to put a 1/4\" dowel through at the base and top"
+            "--stable",
+            action="store",
+            type=boolarg,
+            default=False,
+            help='draw some holes to put a 1/4" dowel through at the base and top',
         )
         self.argparser.add_argument(
-            "--switch", action='store', type=boolarg, default=False,
-            help="adds an additional vertical segment to hold the switch in place, works best w/ --stable"
+            "--switch",
+            action="store",
+            type=boolarg,
+            default=False,
+            help="adds an additional vertical segment to hold the switch in place, works best w/ --stable",
         )
         # TODO flesh this idea out better
-        #self.argparser.add_argument(
+        # self.argparser.add_argument(
         #    "--fan", action='store', type=int, default=0, required=False,
         #    help="ensure that the x width is at least this much and as well, draw a snug holder for a fan someplace"
         # )
-
 
     def paint_mounting_holes(self):
         cy = self.clearance_y
@@ -104,35 +139,17 @@ class SBCMicroRack(Boxes):
         hgdx = self.hole_grid_dimension_x
         hgdy = self.hole_grid_dimension_y
 
-        self.hole(
-            h2r + cx + hde / 2,
-            h2r + cy + hde / 2,
-            h2r / 2
-        )
+        self.hole(h2r + cx + hde / 2, h2r + cy + hde / 2, h2r / 2)
 
-        self.hole(
-            h2r + cx + hgdx + hde / 2,
-            h2r + cy + hde / 2,
-            h2r / 2
-        )
+        self.hole(h2r + cx + hgdx + hde / 2, h2r + cy + hde / 2, h2r / 2)
 
-        self.hole(
-            h2r + cx + hde / 2,
-            h2r + cy + hgdy + hde / 2,
-            h2r / 2
-        )
+        self.hole(h2r + cx + hde / 2, h2r + cy + hgdy + hde / 2, h2r / 2)
 
-        self.hole(
-            h2r + cx + hgdx + hde / 2,
-            h2r + cy + hgdy + hde / 2,
-            h2r / 2
-        )
+        self.hole(h2r + cx + hgdx + hde / 2, h2r + cy + hgdy + hde / 2, h2r / 2)
 
     def paint_stable_features(self):
         if self.stable:
-            self.hole(
-                10, 10, d=6.5
-            )
+            self.hole(10, 10, d=6.5)
 
     def paint_netusb_holes(self):
         t = self.thickness
@@ -142,13 +159,20 @@ class SBCMicroRack(Boxes):
         usb_height = self.netusb_z
         usb_width = self.netusb_x
         for i in range(self.sbcs):
-            self.rectangularHole(w/2, (height_per)*i+15 , usb_width, usb_height, r=1)
+            self.rectangularHole(
+                w / 2, (height_per) * i + 15, usb_width, usb_height, r=1
+            )
 
     def paint_finger_holes(self):
         t = self.thickness
         height_per = self.clearance_z + t
         for i in range(self.sbcs):
-            self.fingerHolesAt((height_per) * i + +height_per/2 + 1.5, self.hole_dist_edge, self.x, 90)
+            self.fingerHolesAt(
+                (height_per) * i + +height_per / 2 + 1.5,
+                self.hole_dist_edge,
+                self.x,
+                90,
+            )
 
     def render(self):
         # adjust to the variables you want in the local scope
@@ -161,40 +185,47 @@ class SBCMicroRack(Boxes):
         # render your parts here
 
         with self.saved_context():
-            self.rectangularWall(height_total + height_per/2,
-                                 x + self.hole_dist_edge * 2,
-                                 "eseS",
-                                 callback=[self.paint_finger_holes,
-                                           self.paint_netusb_holes],
-                                 move="up")
+            self.rectangularWall(
+                height_total + height_per / 2,
+                x + self.hole_dist_edge * 2,
+                "eseS",
+                callback=[self.paint_finger_holes, self.paint_netusb_holes],
+                move="up",
+            )
 
-            self.rectangularWall(height_total + height_per/2,
-                                 x + self.hole_dist_edge * 2,
-                                 "eseS",
-                                 callback=[self.paint_finger_holes,
-                                           self.paint_stable_features],
-                                 move="up")
+            self.rectangularWall(
+                height_total + height_per / 2,
+                x + self.hole_dist_edge * 2,
+                "eseS",
+                callback=[self.paint_finger_holes, self.paint_stable_features],
+                move="up",
+            )
 
             if self.switch:
-                self.rectangularWall(height_total + height_per / 2,
-                                     x + self.hole_dist_edge * 2,
-                                     "eseS",
-                                     callback=[self.paint_stable_features],
-                                     move="up")
+                self.rectangularWall(
+                    height_total + height_per / 2,
+                    x + self.hole_dist_edge * 2,
+                    "eseS",
+                    callback=[self.paint_stable_features],
+                    move="up",
+                )
 
-        self.rectangularWall(height_total + height_per/2,
-                             x + self.hole_dist_edge * 2,
-                             "eseS",
-                             move="right only")
+        self.rectangularWall(
+            height_total + height_per / 2,
+            x + self.hole_dist_edge * 2,
+            "eseS",
+            move="right only",
+        )
 
-        self.rectangularWall(y + self.hole_dist_edge * 2,
-                             x + self.hole_dist_edge * 2,
-                             "efef",
-                             move="up")
+        self.rectangularWall(
+            y + self.hole_dist_edge * 2, x + self.hole_dist_edge * 2, "efef", move="up"
+        )
 
         for i in range(self.sbcs):
-            self.rectangularWall(y + self.hole_dist_edge * 2,
-                                 x + self.hole_dist_edge * 2,
-                                 "efef",
-                                 callback=[self.paint_mounting_holes],
-                                 move="up")
+            self.rectangularWall(
+                y + self.hole_dist_edge * 2,
+                x + self.hole_dist_edge * 2,
+                "efef",
+                callback=[self.paint_mounting_holes],
+                move="up",
+            )

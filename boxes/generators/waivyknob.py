@@ -27,32 +27,63 @@ class WaivyKnob(Boxes):
 
         # Add non default cli params if needed (see argparse std lib)
         self.argparser.add_argument(
-            "--diameter",  action="store", type=float, default=50.,
-            help="Diameter of the knob (mm)")
+            "--diameter",
+            action="store",
+            type=float,
+            default=50.0,
+            help="Diameter of the knob (mm)",
+        )
         self.argparser.add_argument(
-            "--serrations",  action="store", type=int, default=20,
-            help="Number of serrations")
+            "--serrations",
+            action="store",
+            type=int,
+            default=20,
+            help="Number of serrations",
+        )
         self.argparser.add_argument(
-            "--serrationangle",  action="store", type=float, default=45.,
-            help="higher values for deeper serrations (degrees)")
+            "--serrationangle",
+            action="store",
+            type=float,
+            default=45.0,
+            help="higher values for deeper serrations (degrees)",
+        )
         self.argparser.add_argument(
-            "--bolthole",  action="store", type=float, default=6.,
-            help="Diameter of the bolt hole (mm)")
+            "--bolthole",
+            action="store",
+            type=float,
+            default=6.0,
+            help="Diameter of the bolt hole (mm)",
+        )
         self.argparser.add_argument(
-            "--dhole",  action="store", type=float, default=1.,
-            help="D-Flat in fraction of the diameter")
+            "--dhole",
+            action="store",
+            type=float,
+            default=1.0,
+            help="D-Flat in fraction of the diameter",
+        )
         self.argparser.add_argument(
-            "--hexhead",  action="store", type=float, default=10.,
-            help="Width of the hex bolt head (mm)")
+            "--hexhead",
+            action="store",
+            type=float,
+            default=10.0,
+            help="Width of the hex bolt head (mm)",
+        )
 
     def render(self):
         t = self.thickness
         angle = self.serrationangle
-        self.parts.waivyKnob(self.diameter, self.serrations, angle,
-                             callback=lambda:self.dHole(0, 0, d=self.bolthole,
-                                                        rel_w=self.dhole),
-                             move="right")
-        self.parts.waivyKnob(self.diameter, self.serrations, angle,
-                             callback=lambda: self.nutHole(self.hexhead),
-                             move="right")
+        self.parts.waivyKnob(
+            self.diameter,
+            self.serrations,
+            angle,
+            callback=lambda: self.dHole(0, 0, d=self.bolthole, rel_w=self.dhole),
+            move="right",
+        )
+        self.parts.waivyKnob(
+            self.diameter,
+            self.serrations,
+            angle,
+            callback=lambda: self.nutHole(self.hexhead),
+            move="right",
+        )
         self.parts.waivyKnob(self.diameter, self.serrations, angle)

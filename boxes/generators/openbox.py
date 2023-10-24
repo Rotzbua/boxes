@@ -26,10 +26,13 @@ class OpenBox(Boxes):
         Boxes.__init__(self)
         self.buildArgParser("x", "y", "h", "outside")
         self.argparser.add_argument(
-            "--edgetype", action="store",
-            type=ArgparseEdgeType("Fh"), choices=list("Fh"),
+            "--edgetype",
+            action="store",
+            type=ArgparseEdgeType("Fh"),
+            choices=list("Fh"),
             default="F",
-            help="edge type")
+            help="edge type",
+        )
         self.addSettingsArgs(edges.FingerJointSettings)
 
     def render(self):

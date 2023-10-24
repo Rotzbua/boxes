@@ -95,8 +95,12 @@ class CoffeeCapsuleHolder(Boxes):
             for col in range(self.columns):
                 with self.saved_context():
                     self.moveTo(
-                        self.outer_margin + col * (self.lid_size_with_margin + self.column_spacing) - self.burn,
-                        self.outer_margin + (self.rows - 0.5) * self.lid_size + self.burn,
+                        self.outer_margin
+                        + col * (self.lid_size_with_margin + self.column_spacing)
+                        - self.burn,
+                        self.outer_margin
+                        + (self.rows - 0.5) * self.lid_size
+                        + self.burn,
                         -90,
                     )
                     hole_renderer()

@@ -22,7 +22,7 @@ import sys
 try:
     import boxes
 except ImportError:
-    sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
+    sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), ".."))
     import boxes
 
 import boxes.generators
@@ -33,22 +33,22 @@ def print_usage():
 
 
 def list_grouped_generators():
-    print('Available generators:')
+    print("Available generators:")
     for group in generator_groups():
-        print('\n' + group.title)
+        print("\n" + group.title)
         if group.description:
-            print('\n%s\n' % group.description)
+            print("\n%s\n" % group.description)
         else:
             print()
         for box in group.generators:
-            print(' *  {}  -  {}'.format(box.__name__, box.__doc__ or ''))
+            print(" *  {}  -  {}".format(box.__name__, box.__doc__ or ""))
 
 
 def get_translation():
     try:
-        return gettext.translation('boxes.py', localedir='locale')
+        return gettext.translation("boxes.py", localedir="locale")
     except OSError:
-        return gettext.translation('boxes.py', fallback=True)
+        return gettext.translation("boxes.py", fallback=True)
 
 
 def run_generator(name, args):
@@ -63,7 +63,7 @@ def run_generator(name, args):
         box.render()
         box.close()
     else:
-        msg = f'Unknown generator \'{name}\'. Use boxes --list to get a list of available commands.\n'
+        msg = f"Unknown generator '{name}'. Use boxes --list to get a list of available commands.\n"
         sys.stderr.write(msg)
 
 
@@ -77,8 +77,9 @@ def group_generators(generators):
     groups_by_name = boxes.generators.ui_groups_by_name
 
     for name, generator in generators.items():
-        group_for_generator = groups_by_name.get(generator.ui_group,
-                                                 groups_by_name['Misc'])
+        group_for_generator = groups_by_name.get(
+            generator.ui_group, groups_by_name["Misc"]
+        )
         group_for_generator.add(generator)
 
     return groups
@@ -88,7 +89,7 @@ def generators_by_name():
     all_generators = boxes.generators.getAllBoxGenerators()
 
     return {
-        name.split('.')[-1].lower(): generator
+        name.split(".")[-1].lower(): generator
         for name, generator in all_generators.items()
     }
 
@@ -98,7 +99,7 @@ def main() -> None:
         del sys.argv[1]
     if len(sys.argv) == 1:
         print_usage()
-    elif sys.argv[1] == '--list':
+    elif sys.argv[1] == "--list":
         list_grouped_generators()
     else:
         name = sys.argv[1].lower()
@@ -107,5 +108,5 @@ def main() -> None:
         run_generator(name, sys.argv[2:])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

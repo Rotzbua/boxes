@@ -36,7 +36,6 @@ See ClosedBox for variant without a base.
         self.buildArgParser("x", "y", "h", "outside")
 
     def render(self):
-
         x, y, h = self.x, self.y, self.h
 
         if self.outside:

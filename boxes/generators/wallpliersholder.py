@@ -27,8 +27,12 @@ class WallPliersHolder(_WallMountedBox):
         self.buildArgParser(sx="100*3", y=50, h=50, outside=True)
 
         self.argparser.add_argument(
-            "--angle",  action="store", type=float, default=45,
-            help="bracing angle - less for more bracing")
+            "--angle",
+            action="store",
+            type=float,
+            default=45,
+            help="bracing angle - less for more bracing",
+        )
 
     def brace(self, h, d, a, outside=False, move=None):
         t = self.thickness
@@ -45,14 +49,14 @@ class WallPliersHolder(_WallMountedBox):
         l = (d + t - r) / math.sin(math.radians(a))
 
         if outside:
-            self.polyline(t, (90-a, r), l, (a, r))
+            self.polyline(t, (90 - a, r), l, (a, r))
             self.edges["h"](h)
-            self.polyline(0, 90, d + 2*t, 90)
+            self.polyline(0, 90, d + 2 * t, 90)
         else:
-            self.polyline(0, (90-a, r), l, (a, r), 0, 90, t, -90)
+            self.polyline(0, (90 - a, r), l, (a, r), 0, 90, t, -90)
             self.edges["f"](h)
             self.polyline(0, 90, d, 90)
-        self.edges["b"](h + (d+t-r) * math.tan(math.radians(90-a)) + r)
+        self.edges["b"](h + (d + t - r) * math.tan(math.radians(90 - a)) + r)
         self.polyline(0, 90)
 
         self.move(tw, th, move)
@@ -81,9 +85,17 @@ class WallPliersHolder(_WallMountedBox):
         t = self.thickness
 
         r = y / 4
-        self.h_t = h + (y+t-r) * math.tan(math.radians(90-self.angle)) + r
+        self.h_t = h + (y + t - r) * math.tan(math.radians(90 - self.angle)) + r
 
-        self.rectangularWall(sum(sx) + (len(sx)-1) * t, h, "efef", callback=[self.frontCB],  move="up")
-        self.rectangularWall(sum(sx) + (len(sx)-1) * t, self.h_t, "eCec", callback=[self.backCB],  move="up")
-        for i in range(len(sx)+1):
-            self.brace(h, y, self.angle, i<2, move="right")
+        self.rectangularWall(
+            sum(sx) + (len(sx) - 1) * t, h, "efef", callback=[self.frontCB], move="up"
+        )
+        self.rectangularWall(
+            sum(sx) + (len(sx) - 1) * t,
+            self.h_t,
+            "eCec",
+            callback=[self.backCB],
+            move="up",
+        )
+        for i in range(len(sx) + 1):
+            self.brace(h, y, self.angle, i < 2, move="right")

@@ -1,7 +1,13 @@
 class Extents:
     __slots__ = "xmin ymin xmax ymax".split()
 
-    def __init__(self, xmin: float = float('inf'), ymin: float = float('inf'), xmax: float = float('-inf'), ymax: float = float('-inf')) -> None:
+    def __init__(
+        self,
+        xmin: float = float("inf"),
+        ymin: float = float("inf"),
+        xmax: float = float("-inf"),
+        ymax: float = float("-inf"),
+    ) -> None:
         self.xmin = xmin
         self.ymin = ymin
         self.xmax = xmax
@@ -22,8 +28,10 @@ class Extents:
         if extent == 0:
             return Extents(self.xmin, self.ymin, self.xmax, self.ymax)
         return Extents(
-            min(self.xmin, extent.xmin), min(self.ymin, extent.ymin),
-            max(self.xmax, extent.xmax), max(self.ymax, extent.ymax)
+            min(self.xmin, extent.xmin),
+            min(self.ymin, extent.ymin),
+            max(self.xmax, extent.xmax),
+            max(self.ymax, extent.ymax),
         )
 
     def __radd__(self, extent):
@@ -40,4 +48,4 @@ class Extents:
         return self.ymax - self.ymin
 
     def __repr__(self) -> str:
-        return f'Extents ({self.xmin},{self.ymin})-({self.xmax},{self.ymax})'
+        return f"Extents ({self.xmin},{self.ymin})-({self.xmax},{self.ymax})"

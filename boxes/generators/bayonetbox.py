@@ -27,37 +27,49 @@ class BayonetBox(Boxes):
         Boxes.__init__(self)
 
         self.argparser.add_argument(
-            "--diameter",  action="store", type=float, default=50.,
-            help="Diameter of the box in mm")
+            "--diameter",
+            action="store",
+            type=float,
+            default=50.0,
+            help="Diameter of the box in mm",
+        )
         self.argparser.add_argument(
-            "--lugs",  action="store", type=int, default=10,
-            help="number of locking lugs")
+            "--lugs",
+            action="store",
+            type=int,
+            default=10,
+            help="number of locking lugs",
+        )
         self.argparser.add_argument(
-            "--alignment_pins",  action="store", type=float, default=1.0,
-            help="diameter of the alignment pins")
+            "--alignment_pins",
+            action="store",
+            type=float,
+            default=1.0,
+            help="diameter of the alignment pins",
+        )
         self.buildArgParser("outside")
 
     def alignmentHoles(self, inner=False, outer=False):
         d = self.diameter
         r = d / 2
         t = self.thickness
-        p = 0.05*t
+        p = 0.05 * t
         l = self.lugs
 
         a = 180 / l
         with self.saved_context():
             for i in range(3):
                 if outer:
-                    self.hole(r-t/2, 0, d=self.alignment_pins)
+                    self.hole(r - t / 2, 0, d=self.alignment_pins)
                 if inner:
-                    self.hole(r-2*t-p, 0, d=self.alignment_pins)
-                self.moveTo(0, 0, 360/3)
+                    self.hole(r - 2 * t - p, 0, d=self.alignment_pins)
+                self.moveTo(0, 0, 360 / 3)
 
     def lowerLayer(self, asPart=False, move=None):
         d = self.diameter
         r = d / 2
         t = self.thickness
-        p = 0.05*t
+        p = 0.05 * t
         l = self.lugs
 
         a = 180 / l
@@ -65,14 +77,27 @@ class BayonetBox(Boxes):
         if asPart:
             if self.move(d, d, move, True):
                 return
-            self.moveTo(d/2, d/2)
+            self.moveTo(d / 2, d / 2)
 
         self.alignmentHoles(inner=True)
-        self.hole(0, 0, r=d/2 - 2.5*t)
-        self.moveTo(d/2 - 1.5*t, 0, -90)
+        self.hole(0, 0, r=d / 2 - 2.5 * t)
+        self.moveTo(d / 2 - 1.5 * t, 0, -90)
 
         for i in range(l):
-            self.polyline(0, (-4/3*a, r-1.5*t), 0, 90, 0.5*t, -90, 0, (-2/3*a, r-t), 0, -90, 0.5*t, 90)
+            self.polyline(
+                0,
+                (-4 / 3 * a, r - 1.5 * t),
+                0,
+                90,
+                0.5 * t,
+                -90,
+                0,
+                (-2 / 3 * a, r - t),
+                0,
+                -90,
+                0.5 * t,
+                90,
+            )
 
         if asPart:
             self.move(d, d, move)
@@ -81,7 +106,7 @@ class BayonetBox(Boxes):
         d = self.diameter
         r = d / 2
         t = self.thickness
-        p = 0.05*t
+        p = 0.05 * t
         l = self.lugs
 
         a = 180 / l
@@ -90,40 +115,74 @@ class BayonetBox(Boxes):
         with self.saved_context():
             self.lowerLayer()
 
-        self.moveTo(d/2 - 1.5*t+p, 0, -90)
+        self.moveTo(d / 2 - 1.5 * t + p, 0, -90)
         for i in range(l):
-            self.polyline(0, (-2/3*a, r-1.5*t+p), 0, 90, 0.5*t, -90, 0, (-4/3*a, r-t+p), 0, -90, 0.5*t, 90)
-
+            self.polyline(
+                0,
+                (-2 / 3 * a, r - 1.5 * t + p),
+                0,
+                90,
+                0.5 * t,
+                -90,
+                0,
+                (-4 / 3 * a, r - t + p),
+                0,
+                -90,
+                0.5 * t,
+                90,
+            )
 
     def upperCB(self):
         d = self.diameter
         r = d / 2
         t = self.thickness
-        p = 0.05*t
+        p = 0.05 * t
         l = self.lugs
 
         a = 180 / l
 
-        self.hole(0, 0, r=d/2 - 2.5*t)
-        self.hole(0, 0, r=d/2 - 1.5*t)
+        self.hole(0, 0, r=d / 2 - 2.5 * t)
+        self.hole(0, 0, r=d / 2 - 1.5 * t)
         self.alignmentHoles(inner=True, outer=True)
-        self.moveTo(d/2 - 1.5*t, 0, -90)
+        self.moveTo(d / 2 - 1.5 * t, 0, -90)
 
         for i in range(l):
-            self.polyline(0, (-1.3*a, r-1.5*t+p), 0, 90, 0.5*t, -90, 0, (-0.7*a, r-t+p), 0, -90, 0.5*t, 90)
-
+            self.polyline(
+                0,
+                (-1.3 * a, r - 1.5 * t + p),
+                0,
+                90,
+                0.5 * t,
+                -90,
+                0,
+                (-0.7 * a, r - t + p),
+                0,
+                -90,
+                0.5 * t,
+                90,
+            )
 
     def render(self):
         d = self.diameter
         t = self.thickness
-        p = 0.05*t
+        p = 0.05 * t
 
         if not self.outside:
-            self.diameter = d = d - 3*t
+            self.diameter = d = d - 3 * t
 
-
-        self.parts.disc(d, callback=lambda: self.alignmentHoles(outer=True), move="right")
-        self.parts.disc(d, callback=lambda: (self.alignmentHoles(outer=True), self.hole(0, 0, d/2-1.5*t)), move="right")
+        self.parts.disc(
+            d, callback=lambda: self.alignmentHoles(outer=True), move="right"
+        )
+        self.parts.disc(
+            d,
+            callback=lambda: (
+                self.alignmentHoles(outer=True),
+                self.hole(0, 0, d / 2 - 1.5 * t),
+            ),
+            move="right",
+        )
         self.parts.disc(d, callback=self.lowerCB, move="right")
         self.parts.disc(d, callback=self.upperCB, move="right")
-        self.parts.disc(d, callback=lambda : self.alignmentHoles(inner=True),move="right")
+        self.parts.disc(
+            d, callback=lambda: self.alignmentHoles(inner=True), move="right"
+        )

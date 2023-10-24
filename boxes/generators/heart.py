@@ -25,29 +25,36 @@ class HeartBox(Boxes):
     def __init__(self) -> None:
         Boxes.__init__(self)
 
-        self.addSettingsArgs(edges.FingerJointSettings, finger=1.0,space=1.0)
+        self.addSettingsArgs(edges.FingerJointSettings, finger=1.0, space=1.0)
         self.addSettingsArgs(edges.FlexSettings)
         self.buildArgParser(x=150, h=50)
         self.argparser.add_argument(
-            "--top",  action="store", type=str, default="closed",
-            choices=["closed", "hole", "lid",],
-            help="style of the top and lid")
+            "--top",
+            action="store",
+            type=str,
+            default="closed",
+            choices=[
+                "closed",
+                "hole",
+                "lid",
+            ],
+            help="style of the top and lid",
+        )
 
     def CB(self):
         x = self.x
         t = self.thickness
 
-        l = 2/3. * x - t
-        r = l/2. - t
-        d = 2 *t
+        l = 2 / 3.0 * x - t
+        r = l / 2.0 - t
+        d = 2 * t
 
         if self.top == "closed":
             return
 
         for i in range(2):
             self.moveTo(t, t)
-            self.polyline((l, 2), (180, r), (d, 1), -90,
-                          (d, 1), (180, r), (l, 2), 90)
+            self.polyline((l, 2), (180, r), (d, 1), -90, (d, 1), (180, r), (l, 2), 90)
             l -= t
             r -= t
             d += t
@@ -58,8 +65,8 @@ class HeartBox(Boxes):
         x, h = self.x, self.h
         t = self.thickness
 
-        l = 2/3. * x
-        r = l/2. - 0.5*t
+        l = 2 / 3.0 * x
+        r = l / 2.0 - 0.5 * t
 
         borders = [l, (180, r), t, -90, t, (180, r), l, 90]
         self.polygonWalls(borders, h)
@@ -67,4 +74,6 @@ class HeartBox(Boxes):
         self.polygonWall(borders, callback=[self.CB], move="right")
         self.polygonWall(borders, move="mirror right")
         if self.top == "lid":
-            self.polygonWall([l+t, (180, r+t), 0, -90, 0, (180, r+t), l+t, 90], 'e')
+            self.polygonWall(
+                [l + t, (180, r + t), 0, -90, 0, (180, r + t), l + t, 90], "e"
+            )

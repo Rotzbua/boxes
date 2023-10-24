@@ -28,21 +28,30 @@ class FlexBox3(Boxes):
         self.addSettingsArgs(edges.FlexSettings)
         self.buildArgParser("x", "y", "outside")
         self.argparser.add_argument(
-            "--z", action="store", type=float, default=100.0,
-            help="height of the box")
+            "--z", action="store", type=float, default=100.0, help="height of the box"
+        )
         self.argparser.add_argument(
-            "--h", action="store", type=float, default=10.0,
-            help="height of the lid")
+            "--h", action="store", type=float, default=10.0, help="height of the lid"
+        )
         self.argparser.add_argument(
-            "--radius", action="store", type=float, default=10.0,
-            help="radius of the lids living hinge")
+            "--radius",
+            action="store",
+            type=float,
+            default=10.0,
+            help="radius of the lids living hinge",
+        )
         self.argparser.add_argument(
-            "--c", action="store", type=float, default=1.0,
-            dest="d", help="clearance of the lid")
+            "--c",
+            action="store",
+            type=float,
+            default=1.0,
+            dest="d",
+            help="clearance of the lid",
+        )
 
     def flexBoxSide(self, x, y, r, callback=None, move=None):
         t = self.thickness
-        if self.move(x+2*t, y+t, move, True):
+        if self.move(x + 2 * t, y + t, move, True):
             return
 
         self.moveTo(t, t)
@@ -59,14 +68,14 @@ class FlexBox3(Boxes):
         self.edges["f"](y)
         self.corner(90)
 
-        self.move(x+2*t, y+t, move)
+        self.move(x + 2 * t, y + t, move)
 
     def surroundingWall(self, move=None):
         x, y, z, r, d = self.x, self.y, self.z, self.radius, self.d
         t = self.thickness
 
-        tw = x + y - 2*r + self.c4 + 2*t + t
-        th = z + 4*t + 2*d
+        tw = x + y - 2 * r + self.c4 + 2 * t + t
+        th = z + 4 * t + 2 * d
 
         if self.move(tw, th, move, True):
             return
@@ -104,21 +113,21 @@ class FlexBox3(Boxes):
         if r < h:
             r2 = r + t
             base_l = x + 2 * t
-            if self.move(h+t, base_l+t, move, True):
+            if self.move(h + t, base_l + t, move, True):
                 return
 
             self.edge(h + self.thickness - r2)
             self.corner(90, r2)
             self.edge(r - r2 + 1 * t)
         else:
-            a = math.acos((r-h)/(r+t))
+            a = math.acos((r - h) / (r + t))
             ang = math.degrees(a)
-            base_l = x + (r+t) * math.sin(a) - r + t
-            if self.move(h+t, base_l+t, move, True):
+            base_l = x + (r + t) * math.sin(a) - r + t
+            if self.move(h + t, base_l + t, move, True):
                 return
 
-            self.corner(90-ang)
-            self.corner(ang, r+t)
+            self.corner(90 - ang)
+            self.corner(ang, r + t)
 
         self.edges["F"](x - r + t)
         self.edgeCorner("F", "f")
@@ -127,7 +136,7 @@ class FlexBox3(Boxes):
         self.edge(base_l)
         self.corner(90)
 
-        self.move(h+t, base_l+t, move)
+        self.move(h + t, base_l + t, move)
 
     def render(self):
         if self.outside:
@@ -145,15 +154,17 @@ class FlexBox3(Boxes):
         width = 2 * x + y - 2 * r + c4 + 14 * thickness + 3 * h  # lock
         height = y + z + 8 * thickness
 
-
-        s = edges.FingerJointSettings(self.thickness, finger=1.,
-                                      space=1., surroundingspaces=1)
+        s = edges.FingerJointSettings(
+            self.thickness, finger=1.0, space=1.0, surroundingspaces=1
+        )
         s.edgeObjects(self, "gGH")
 
         with self.saved_context():
             self.surroundingWall(move="right")
             self.rectangularWall(x, z, edges="FFFF", move="right")
-            self.rectangularWall(h, z + 2 * (d + self.thickness), edges="GeGF", move="right")
+            self.rectangularWall(
+                h, z + 2 * (d + self.thickness), edges="GeGF", move="right"
+            )
             self.lidSide(move="right")
             self.lidSide(move="mirror right")
 

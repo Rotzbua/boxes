@@ -27,25 +27,45 @@ class WallCaliper(_WallMountedBox):
         self.buildArgParser(h=100)
         # Add non default cli params if needed (see argparse std lib)
         self.argparser.add_argument(
-            "--width",  action="store", type=float, default=18.0,
-            help="width of the long end")
+            "--width",
+            action="store",
+            type=float,
+            default=18.0,
+            help="width of the long end",
+        )
         self.argparser.add_argument(
-            "--height",  action="store", type=float, default=6.0,
-            help="height of the body")
+            "--height",
+            action="store",
+            type=float,
+            default=6.0,
+            help="height of the body",
+        )
 
     def side(self, move=None):
         t = self.thickness
         h = self.h
         hc = self.height
 
-        tw = self.edges["b"].spacing() + hc + 8*t
+        tw = self.edges["b"].spacing() + hc + 8 * t
 
         if self.move(tw, h, move, True):
             return
 
         self.moveTo(self.edges["b"].startwidth())
-        self.polyline(5*t+hc, (90, 2*t), h/2-2*t, (180, 1.5*t), 0.25*h,
-                      -90, hc, -90, 0.75*h-2*t, (90, 2*t), 2*t, 90)
+        self.polyline(
+            5 * t + hc,
+            (90, 2 * t),
+            h / 2 - 2 * t,
+            (180, 1.5 * t),
+            0.25 * h,
+            -90,
+            hc,
+            -90,
+            0.75 * h - 2 * t,
+            (90, 2 * t),
+            2 * t,
+            90,
+        )
 
         self.edges["b"](h)
 
@@ -60,6 +80,16 @@ class WallCaliper(_WallMountedBox):
         self.side(move="right")
         self.side(move="right")
         w = self.width
-        self.flangedWall(w, h, flanges=[0, 2*t, 0, 2*t], edges="eeee",
-                         r=2*t,
-                         callback=[lambda:(self.wallHolesAt(1.5*t, 0, h, 90), self.wallHolesAt(w+2.5*t, 0, h, 90))])
+        self.flangedWall(
+            w,
+            h,
+            flanges=[0, 2 * t, 0, 2 * t],
+            edges="eeee",
+            r=2 * t,
+            callback=[
+                lambda: (
+                    self.wallHolesAt(1.5 * t, 0, h, 90),
+                    self.wallHolesAt(w + 2.5 * t, 0, h, 90),
+                )
+            ],
+        )

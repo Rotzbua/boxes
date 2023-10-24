@@ -124,15 +124,26 @@ class LaptopStand(Boxes):  # Change class name!
         )
 
     def laptopstand_triangles(self, calcs, move=None):
-        tw = calcs["base"] + self.spacing + 2 * (calcs["base_extra"] + math.sin(math.radians(calcs["angle"]))*(calcs["lip_outer"]+1))
+        tw = (
+            calcs["base"]
+            + self.spacing
+            + 2
+            * (
+                calcs["base_extra"]
+                + math.sin(math.radians(calcs["angle"])) * (calcs["lip_outer"] + 1)
+            )
+        )
         th = calcs["height"] + 2 * self.ground_offset + self.spacing
 
         if self.move(tw, th, move, True):
             return
-        self.moveTo(calcs["base_extra"]+self.spacing + math.sin(math.radians(calcs["angle"]))*(calcs["lip_outer"]+1))
+        self.moveTo(
+            calcs["base_extra"]
+            + self.spacing
+            + math.sin(math.radians(calcs["angle"])) * (calcs["lip_outer"] + 1)
+        )
         self.draw_triangle(calcs, top=False)
-        self.moveTo(calcs["base"] - self.spacing,
-                    th, 180)
+        self.moveTo(calcs["base"] - self.spacing, th, 180)
         self.draw_triangle(calcs, top=True)
 
         self.move(tw, th, move)
@@ -148,30 +159,46 @@ class LaptopStand(Boxes):  # Change class name!
         foot_length = 10 + self.nub_size
 
         base_length_without_feet = (
-            calcs["base"] - foot_length * 2 - 7 # -7 to account for extra width gained by 45deg angles
+            calcs["base"]
+            - foot_length * 2
+            - 7  # -7 to account for extra width gained by 45deg angles
         )
 
         if top:
             # Bottom without slot
             self.polyline(
-                foot_length, 45,
-                5, -45,
-                base_length_without_feet, -45,
-                5, 45,
-                foot_length + calcs["base_extra"], 0,
+                foot_length,
+                45,
+                5,
+                -45,
+                base_length_without_feet,
+                -45,
+                5,
+                45,
+                foot_length + calcs["base_extra"],
+                0,
             )
         else:
             # Bottom with slot
             self.polyline(
-                foot_length, 45,
-                5, -45,
-                (base_length_without_feet - self.thickness) / 2, 90,
-                calcs["bottom_slot_depth"] - 3.5, -90,
-                self.thickness, -90,
-                calcs["bottom_slot_depth"] - 3.5, 90,
-                (base_length_without_feet - self.thickness) / 2, -45,
-                5, 45,
-                foot_length  + calcs["base_extra"], 0,
+                foot_length,
+                45,
+                5,
+                -45,
+                (base_length_without_feet - self.thickness) / 2,
+                90,
+                calcs["bottom_slot_depth"] - 3.5,
+                -90,
+                self.thickness,
+                -90,
+                calcs["bottom_slot_depth"] - 3.5,
+                90,
+                (base_length_without_feet - self.thickness) / 2,
+                -45,
+                5,
+                45,
+                foot_length + calcs["base_extra"],
+                0,
             )
 
         # End nub

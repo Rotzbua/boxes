@@ -36,7 +36,6 @@ class DisplayCase(Boxes):
         )
 
     def render(self):
-
         x, y, h = self.x, self.y, self.h
 
         if self.outside:
@@ -51,10 +50,18 @@ class DisplayCase(Boxes):
 
         d2 = d3 = None
 
-        self.rectangularWall(x, h, "ffff", bedBolts=[d2] * 4, move="right", label="Wall 1")
-        self.rectangularWall(y, h, "fFfF", bedBolts=[d3, d2, d3, d2], move="up", label="Wall 2")
+        self.rectangularWall(
+            x, h, "ffff", bedBolts=[d2] * 4, move="right", label="Wall 1"
+        )
+        self.rectangularWall(
+            y, h, "fFfF", bedBolts=[d3, d2, d3, d2], move="up", label="Wall 2"
+        )
         self.rectangularWall(y, h, "fFfF", bedBolts=[d3, d2, d3, d2], label="Wall 4")
-        self.rectangularWall(x, h, "ffff", bedBolts=[d2] * 4, move="left up", label="Wall 3")
+        self.rectangularWall(
+            x, h, "ffff", bedBolts=[d2] * 4, move="left up", label="Wall 3"
+        )
 
-        self.flangedWall(x, y, "FFFF", flanges=[self.overhang] * 4, move="right", label="Top")
+        self.flangedWall(
+            x, y, "FFFF", flanges=[self.overhang] * 4, move="right", label="Top"
+        )
         self.flangedWall(x, y, "FFFF", flanges=[self.overhang] * 4, label="Bottom")

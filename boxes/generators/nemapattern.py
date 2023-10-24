@@ -26,15 +26,24 @@ class NemaPattern(Boxes):
         Boxes.__init__(self)
         self.addSettingsArgs(edges.FingerJointSettings)
         self.argparser.add_argument(
-            "--size", action="store", type=int, default=8,
+            "--size",
+            action="store",
+            type=int,
+            default=8,
             choices=list(sorted(self.nema_sizes.keys())),
-            help="Nema size of the motor")
+            help="Nema size of the motor",
+        )
         self.argparser.add_argument(
-            "--screwholes", action="store", type=float, default=0.0,
-            help="Size of the screw holes in mm - 0 for default size")
+            "--screwholes",
+            action="store",
+            type=float,
+            default=0.0,
+            help="Size of the screw holes in mm - 0 for default size",
+        )
 
     def render(self):
         motor, flange, holes, screws = self.nema_sizes.get(
-            self.size, self.nema_sizes[8])
+            self.size, self.nema_sizes[8]
+        )
 
-        self.NEMA(self.size, motor/2, motor/2, screwholes=self.screwholes)
+        self.NEMA(self.size, motor / 2, motor / 2, screwholes=self.screwholes)

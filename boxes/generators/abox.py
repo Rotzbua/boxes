@@ -37,7 +37,7 @@ class ABox(Boxes):
 
         t1, t2, t3, t4 = "eeee"
         b = self.edges.get(self.bottom_edge, self.edges["F"])
-        sideedge = "F" # if self.vertical_edges == "finger joints" else "h"
+        sideedge = "F"  # if self.vertical_edges == "finger joints" else "h"
 
         if self.outside:
             self.x = x = self.adjustSize(x, sideedge, sideedge)
@@ -45,18 +45,19 @@ class ABox(Boxes):
             self.h = h = self.adjustSize(h, b, t1)
 
         with self.saved_context():
-            self.rectangularWall(x, h, [b, sideedge, t1, sideedge],
-                                 ignore_widths=[1, 6], move="up")
-            self.rectangularWall(x, h, [b, sideedge, t3, sideedge],
-                                 ignore_widths=[1, 6], move="up")
+            self.rectangularWall(
+                x, h, [b, sideedge, t1, sideedge], ignore_widths=[1, 6], move="up"
+            )
+            self.rectangularWall(
+                x, h, [b, sideedge, t3, sideedge], ignore_widths=[1, 6], move="up"
+            )
 
             if self.bottom_edge != "e":
                 self.rectangularWall(x, y, "ffff", move="up")
             self.lid(x, y)
 
-        self.rectangularWall(x, h, [b, sideedge, t3, sideedge],
-                             ignore_widths=[1, 6], move="right only")
-        self.rectangularWall(y, h, [b, "f", t2, "f"],
-                             ignore_widths=[1, 6], move="up")
-        self.rectangularWall(y, h, [b, "f", t4, "f"],
-                             ignore_widths=[1, 6], move="up")
+        self.rectangularWall(
+            x, h, [b, sideedge, t3, sideedge], ignore_widths=[1, 6], move="right only"
+        )
+        self.rectangularWall(y, h, [b, "f", t2, "f"], ignore_widths=[1, 6], move="up")
+        self.rectangularWall(y, h, [b, "f", t4, "f"], ignore_widths=[1, 6], move="up")

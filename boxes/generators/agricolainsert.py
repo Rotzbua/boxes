@@ -225,7 +225,7 @@ protruding underneath.
 
         # generate spacer
         spacer_height = card_tray_height / 2
-        spacer_spacing = card_tray_width-99.8
+        spacer_spacing = card_tray_width - 99.8
         spacer_upper_width = sloped_wall_posx_at_y0 + spacer_height * tan
         self.trapezoidWall(
             spacer_height,

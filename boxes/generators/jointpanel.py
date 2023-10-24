@@ -35,12 +35,15 @@ For plywood this method works well with a very stiff press fit. Aim for needing 
     def __init__(self) -> None:
         Boxes.__init__(self)
 
-        self.addSettingsArgs(
-            edges.DoveTailSettings, size=1, depth=.5, radius=.1)
+        self.addSettingsArgs(edges.DoveTailSettings, size=1, depth=0.5, radius=0.1)
         self.buildArgParser(sx="400/2", sy="400/3")
         self.argparser.add_argument(
-            "--separate",  action="store", type=boolarg, default=False,
-            help="draw pieces apart so they can be cut to form a large sheet")
+            "--separate",
+            action="store",
+            type=boolarg,
+            default=False,
+            help="draw pieces apart so they can be cut to form a large sheet",
+        )
 
     def render(self):
         sx, sy = self.sx, self.sy
@@ -55,12 +58,10 @@ For plywood this method works well with a very stiff press fit. Aim for needing 
                     t3 = "e" if nx == 0 else "D"
                     self.rectangularWall(x, y, [t0, t1, t2, t3])
                     if self.separate:
-                        self.rectangularWall(x, y, [t0, t1, t2, t3],
-                                             move="right only")
+                        self.rectangularWall(x, y, [t0, t1, t2, t3], move="right only")
                     else:
                         self.moveTo(x)
             if self.separate:
-                self.rectangularWall(x, y, [t0, t1, t2, t3],
-                                    move="up only")
+                self.rectangularWall(x, y, [t0, t1, t2, t3], move="up only")
             else:
                 self.moveTo(0, y - self.edges["d"].spacing() if ny == 0 else y)

@@ -18,7 +18,7 @@ from boxes import *
 from boxes import robot, servos
 
 
-class RobotArm(Boxes): # change class name here and below
+class RobotArm(Boxes):  # change class name here and below
     """Segments of servo powered robot arm"""
 
     ui_group = "Part"
@@ -31,22 +31,39 @@ class RobotArm(Boxes): # change class name here and below
             ra = robot.RobotArg(True)
             sa = servos.ServoArg()
             self.argparser.add_argument(
-                "--type%i" % i,  action="store", type=ra,
-                default="none", choices=ra.choices(),
-                help="type of arm segment")
+                "--type%i" % i,
+                action="store",
+                type=ra,
+                default="none",
+                choices=ra.choices(),
+                help="type of arm segment",
+            )
             self.argparser.add_argument(
-                "--servo%ia" % i,  action="store", type=sa, default="Servo9g",
-                choices=sa.choices(), help="type of servo to use")
+                "--servo%ia" % i,
+                action="store",
+                type=sa,
+                default="Servo9g",
+                choices=sa.choices(),
+                help="type of servo to use",
+            )
             self.argparser.add_argument(
-                "--servo%ib" % i,  action="store", type=sa, default="Servo9g",
-                choices=sa.choices(), help="type of servo to use on second side (if different is supported)")
+                "--servo%ib" % i,
+                action="store",
+                type=sa,
+                default="Servo9g",
+                choices=sa.choices(),
+                help="type of servo to use on second side (if different is supported)",
+            )
             self.argparser.add_argument(
-                "--length%i" % i,  action="store", type=float, default=50.,
-                help="length of segment axle to axle")
+                "--length%i" % i,
+                action="store",
+                type=float,
+                default=50.0,
+                help="length of segment axle to axle",
+            )
 
     def render(self):
-
-        for i in range(5, 0,-1):
+        for i in range(5, 0, -1):
             armtype = getattr(self, "type%i" % i)
             length = getattr(self, "length%i" % i)
             servoA = getattr(self, "servo%ia" % i)

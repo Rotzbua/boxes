@@ -35,14 +35,21 @@ Then attach the hinges on the inside of the box and then connect them to lid.
         self.addSettingsArgs(edges.CabinetHingeSettings)
         self.buildArgParser("x", "y", "h", "outside")
         self.argparser.add_argument(
-            "--lidheight",  action="store", type=float, default=20.0,
-            help="height of lid in mm")
+            "--lidheight",
+            action="store",
+            type=float,
+            default=20.0,
+            help="height of lid in mm",
+        )
         self.argparser.add_argument(
-            "--splitlid",  action="store", type=float, default=0.0,
-            help="split the lid in y direction (mm)")
+            "--splitlid",
+            action="store",
+            type=float,
+            default=0.0,
+            help="split the lid in y direction (mm)",
+        )
 
     def render(self):
-
         x, y, h, hl = self.x, self.y, self.h, self.lidheight
         s = self.splitlid
 
@@ -50,9 +57,10 @@ Then attach the hinges on the inside of the box and then connect them to lid.
             x = self.adjustSize(x)
             y = self.adjustSize(y)
             h = self.adjustSize(h)
-            s = self.adjustSize(s, None) # reduce by half of the walls
+            s = self.adjustSize(s, None)  # reduce by half of the walls
 
-        if s > x or s < 0.0: s = 0.0
+        if s > x or s < 0.0:
+            s = 0.0
         t = self.thickness
 
         # bottom walls
@@ -68,8 +76,8 @@ Then attach the hinges on the inside of the box and then connect them to lid.
         self.rectangularWall(x, hl, "UFFF", move="right")
         if s:
             self.rectangularWall(s, hl, "eeFf", move="right")
-            self.rectangularWall(y-s, hl, "efFe", move="up")
-            self.rectangularWall(y-s, hl, "eeFf")
+            self.rectangularWall(y - s, hl, "efFe", move="up")
+            self.rectangularWall(y - s, hl, "eeFf")
             self.rectangularWall(s, hl, "efFe", move="left")
             self.rectangularWall(x, hl, "UFFF", move="left up")
         else:
@@ -81,9 +89,9 @@ Then attach the hinges on the inside of the box and then connect them to lid.
         self.rectangularWall(x, y, "ffff")
         if s:
             self.rectangularWall(x, s, "ffef", move="left up")
-            self.rectangularWall(x, y-s, "efff", move="up")
+            self.rectangularWall(x, y - s, "efff", move="up")
         else:
             self.rectangularWall(x, y, "ffff", move="left up")
-        self.edges['u'].parts(move="up")
+        self.edges["u"].parts(move="up")
         if s:
-            self.edges['u'].parts(move="up")
+            self.edges["u"].parts(move="up")

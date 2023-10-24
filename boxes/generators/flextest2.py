@@ -26,8 +26,12 @@ class FlexTest2(Boxes):
         Boxes.__init__(self)
         self.buildArgParser("x", "y")
         self.argparser.add_argument(
-            "--fw", action="store", type=float, default=1,
-            help="distance of flex cuts in multiples of thickness")
+            "--fw",
+            action="store",
+            type=float,
+            default=1,
+            help="distance of flex cuts in multiples of thickness",
+        )
 
     def render(self):
         x, y = self.x, self.y

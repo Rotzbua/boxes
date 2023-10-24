@@ -32,19 +32,28 @@ Both is currently untested.
         Boxes.__init__(self)
         self.addSettingsArgs(edges.FingerJointSettings)
         self.argparser.add_argument(
-            "--digit",  action="store", type=float, default=100.0,
-            help="height of the digit (without walls) in mm")
+            "--digit",
+            action="store",
+            type=float,
+            default=100.0,
+            help="height of the digit (without walls) in mm",
+        )
         self.argparser.add_argument(
-            "--h",  action="store", type=float, default=20.0,
-            help="height separation walls in mm")
+            "--h",
+            action="store",
+            type=float,
+            default=20.0,
+            help="height separation walls in mm",
+        )
 
     @restore
     @holeCol
     def segment(self, l, w):
         w2 = w * 2**0.5
         self.moveTo(0, 0, 45)
-        self.polyline(w2, -45, l-2*w, -45, w2, -90, w2, -45,
-                      l-2*w, -45, w2, -90)
+        self.polyline(
+            w2, -45, l - 2 * w, -45, w2, -90, w2, -45, l - 2 * w, -45, w2, -90
+        )
 
     @restore
     def seven_segments(self, x):
@@ -52,18 +61,18 @@ Both is currently untested.
         l = 0.4 * x
         w = 0.05 * x
         d = 0.05 * x
-        width = l + 2*w + d # 0.55 * x
+        width = l + 2 * w + d  # 0.55 * x
 
-        #self.rectangularHole(width/2, x/2, width, x)
+        # self.rectangularHole(width/2, x/2, width, x)
 
-        for px in [w/2 + d/2 , w/2 + l + 1.5*d]:
-            for py in [w + d/2, w + l + 1.5*d]:
+        for px in [w / 2 + d / 2, w / 2 + l + 1.5 * d]:
+            for py in [w + d / 2, w + l + 1.5 * d]:
                 with self.saved_context():
                     self.moveTo(px, py, 90)
                     self.segment(l, w)
         for i in range(3):
             with self.saved_context():
-                self.moveTo(w/2 + d, w + i*(l+d))
+                self.moveTo(w / 2 + d, w + i * (l + d))
                 self.segment(l, w)
 
     def seven_segment_holes(self, x):
@@ -71,18 +80,25 @@ Both is currently untested.
         l = 0.4 * x
         w = 0.05 * x
         d = 0.05 * x
-        width = l + 2*w + d
+        width = l + 2 * w + d
 
         for i in range(2):
-            self.fingerHolesAt(t/4*2**.5, x/2+w-t/4*2**.5,
-                               2**0.5*(width-t) - t/2, -45)
-            self.fingerHolesAt(t, t, 2**0.5* (.55*x/2 - t) - t/2, 45)
-            self.fingerHolesAt(width/2 + t/2**.5/2,
-                               width/2 + t/2**.5/2,
-                               2**0.5*(l/2+d/2) - 1.5*t, 45)
-            self.fingerHolesAt(-t/2, x/2 + 0.25*t, x/2 - 0.25*t, 90)
-            self.fingerHolesAt(-t/2, 0, x/2 - 0.25*t, 90)
-            self.fingerHolesAt(-t, -t/2, l + 2*w + d + 2*t, 0)
+            self.fingerHolesAt(
+                t / 4 * 2**0.5,
+                x / 2 + w - t / 4 * 2**0.5,
+                2**0.5 * (width - t) - t / 2,
+                -45,
+            )
+            self.fingerHolesAt(t, t, 2**0.5 * (0.55 * x / 2 - t) - t / 2, 45)
+            self.fingerHolesAt(
+                width / 2 + t / 2**0.5 / 2,
+                width / 2 + t / 2**0.5 / 2,
+                2**0.5 * (l / 2 + d / 2) - 1.5 * t,
+                45,
+            )
+            self.fingerHolesAt(-t / 2, x / 2 + 0.25 * t, x / 2 - 0.25 * t, 90)
+            self.fingerHolesAt(-t / 2, 0, x / 2 - 0.25 * t, 90)
+            self.fingerHolesAt(-t, -t / 2, l + 2 * w + d + 2 * t, 0)
             self.moveTo(width, x, 180)
 
     def seven_segment_separators(self, x, h, n=1):
@@ -90,24 +106,24 @@ Both is currently untested.
         l = 0.4 * x
         w = 0.05 * x
         d = 0.05 * x
-        width = l + 2*w + d # 0.55 * x
+        width = l + 2 * w + d  # 0.55 * x
         for length in (
-                2**0.5*(width-t) - t/2,
-                2**0.5* x/4 - t,
-                2**0.5*(l/2+d/2) - 1.5*t,
-                x/2 - 0.25*t,
-                x/2 - 0.25*t,
-                l + 2*w + d + 2*t,):
-            self.partsMatrix(2*n, 1, "right",
-                             self.rectangularWall, length, h, "feee")
+            2**0.5 * (width - t) - t / 2,
+            2**0.5 * x / 4 - t,
+            2**0.5 * (l / 2 + d / 2) - 1.5 * t,
+            x / 2 - 0.25 * t,
+            x / 2 - 0.25 * t,
+            l + 2 * w + d + 2 * t,
+        ):
+            self.partsMatrix(2 * n, 1, "right", self.rectangularWall, length, h, "feee")
 
     def render(self):
         digit, h = self.digit, self.h
         t = self.thickness
 
         self.seven_segments(digit)
-        self.moveTo(0.55*digit+self.spacing+t, t)
-        #self.seven_segments(digit)
+        self.moveTo(0.55 * digit + self.spacing + t, t)
+        # self.seven_segments(digit)
         self.seven_segment_holes(digit)
-        self.moveTo(0.55*digit+self.spacing+t, -t)
+        self.moveTo(0.55 * digit + self.spacing + t, -t)
         self.seven_segment_separators(digit, h)

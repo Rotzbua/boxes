@@ -17,7 +17,7 @@
 from boxes import *
 
 
-class AngledCutJig(Boxes): # Change class name!
+class AngledCutJig(Boxes):  # Change class name!
     """Jig for making angled cuts in a laser cutter"""
 
     ui_group = "Misc"
@@ -25,41 +25,55 @@ class AngledCutJig(Boxes): # Change class name!
     def __init__(self) -> None:
         Boxes.__init__(self)
 
-        self.addSettingsArgs(edges.FingerJointSettings, surroundingspaces=1.)
+        self.addSettingsArgs(edges.FingerJointSettings, surroundingspaces=1.0)
 
         # remove cli params you do not need
         self.buildArgParser(x=50, y=100)
         # Add non default cli params if needed (see argparse std lib)
         self.argparser.add_argument(
-            "--angle",  action="store", type=float, default=45.,
-            help="Angle of the cut")
+            "--angle", action="store", type=float, default=45.0, help="Angle of the cut"
+        )
 
     def bottomCB(self):
         t = self.thickness
-        self.fingerHolesAt(10-t, 4.5*t, 20, 0)
-        self.fingerHolesAt(30+t, 4.5*t, self.x, 0)
-        self.fingerHolesAt(10-t, self.y-4.5*t, 20, 0)
-        self.fingerHolesAt(30+t, self.y-4.5*t, self.x, 0)
+        self.fingerHolesAt(10 - t, 4.5 * t, 20, 0)
+        self.fingerHolesAt(30 + t, 4.5 * t, self.x, 0)
+        self.fingerHolesAt(10 - t, self.y - 4.5 * t, 20, 0)
+        self.fingerHolesAt(30 + t, self.y - 4.5 * t, self.x, 0)
 
     def render(self):
         # adjust to the variables you want in the local scope
         x, y = self.x, self.y
         t = self.thickness
 
-        th = x * math.tan(math.radians(90-self.angle))
-        l = (x**2 + th**2)**0.5
+        th = x * math.tan(math.radians(90 - self.angle))
+        l = (x**2 + th**2) ** 0.5
         th2 = 20 * math.tan(math.radians(self.angle))
-        l2 = (20**2 + th2**2)**0.5
+        l2 = (20**2 + th2**2) ** 0.5
 
-        self.rectangularWall(30+x+2*t, y, callback=[self.bottomCB], move="right")
-        self.rectangularWall(l, y, callback=[
-            lambda:self.fingerHolesAt(0, 4.5*t, l, 0), None,
-            lambda:self.fingerHolesAt(0, 4.5*t, l, 0), None],
-                             move="right")
-        self.rectangularWall(l2, y, callback=[
-            lambda:self.fingerHolesAt(0, 4.5*t, l2, 0), None,
-            lambda:self.fingerHolesAt(0, 4.5*t, l2, 0), None],
-                             move="right")
+        self.rectangularWall(30 + x + 2 * t, y, callback=[self.bottomCB], move="right")
+        self.rectangularWall(
+            l,
+            y,
+            callback=[
+                lambda: self.fingerHolesAt(0, 4.5 * t, l, 0),
+                None,
+                lambda: self.fingerHolesAt(0, 4.5 * t, l, 0),
+                None,
+            ],
+            move="right",
+        )
+        self.rectangularWall(
+            l2,
+            y,
+            callback=[
+                lambda: self.fingerHolesAt(0, 4.5 * t, l2, 0),
+                None,
+                lambda: self.fingerHolesAt(0, 4.5 * t, l2, 0),
+                None,
+            ],
+            move="right",
+        )
 
         self.rectangularTriangle(x, th, "fef", num=2, move="up")
         self.rectangularTriangle(20, th2, "fef", num=2, move="up")

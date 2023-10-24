@@ -30,23 +30,35 @@ class FlexBox5(boxes.Boxes):
         self.addSettingsArgs(boxes.edges.FlexSettings)
         self.buildArgParser("x", "h", "outside")
         self.argparser.add_argument(
-            "--top_diameter", action="store", type=float, default=60,
-            help="diameter at the top")
+            "--top_diameter",
+            action="store",
+            type=float,
+            default=60,
+            help="diameter at the top",
+        )
         self.argparser.add_argument(
-            "--bottom_diameter", action="store", type=float, default=60,
-            help="diameter at the bottom")
+            "--bottom_diameter",
+            action="store",
+            type=float,
+            default=60,
+            help="diameter at the bottom",
+        )
         self.argparser.add_argument(
-            "--latchsize", action="store", type=float, default=8,
-            help="size of latch in multiples of thickness")
+            "--latchsize",
+            action="store",
+            type=float,
+            default=8,
+            help="size of latch in multiples of thickness",
+        )
 
     def flexBoxSide(self, callback=None, move=None):
         t = self.thickness
 
-        r1, r2 = self.top_diameter/2., self.bottom_diameter/2
+        r1, r2 = self.top_diameter / 2.0, self.bottom_diameter / 2
         a = self.a
         l = self.l
 
-        tw , th = l+r1+r2, 2*max(r1, r2)+2*t
+        tw, th = l + r1 + r2, 2 * max(r1, r2) + 2 * t
 
         if self.move(tw, th, move, True):
             return
@@ -55,34 +67,33 @@ class FlexBox5(boxes.Boxes):
 
         self.cc(callback, 0)
         self.edges["f"](l)
-        self.corner(180+2*a, r1)
+        self.corner(180 + 2 * a, r1)
         self.cc(callback, 1)
         self.latch(self.latchsize)
         self.cc(callback, 2)
         self.edges["f"](l - self.latchsize)
-        self.corner(180-2*a, r2)
+        self.corner(180 - 2 * a, r2)
 
         self.move(tw, th, move)
 
     def surroundingWall(self, move=None):
         t = self.thickness
 
-        r1, r2 = self.top_diameter/2., self.bottom_diameter/2
+        r1, r2 = self.top_diameter / 2.0, self.bottom_diameter / 2
         h = self.h
         a = self.a
         l = self.l
 
+        c1 = math.radians(180 + 2 * a) * r1
+        c2 = math.radians(180 - 2 * a) * r2
 
-        c1 = math.radians(180+2*a) * r1
-        c2 = math.radians(180-2*a) * r2
-
-        tw = 2*l + c1 + c2
-        th = h + 2.5*t
+        tw = 2 * l + c1 + c2
+        th = h + 2.5 * t
 
         if self.move(tw, th, move, True):
             return
 
-        self.moveTo(0, 0.25*t)
+        self.moveTo(0, 0.25 * t)
 
         self.edges["F"](l - self.latchsize, False)
         self.edges["X"](c2, h + 2 * t)
@@ -102,7 +113,6 @@ class FlexBox5(boxes.Boxes):
         self.move(tw, th, move)
 
     def render(self):
-
         if self.outside:
             self.x = self.adjustSize(self.x)
             self.h = self.adjustSize(self.h)
@@ -112,10 +122,10 @@ class FlexBox5(boxes.Boxes):
         t = self.thickness
         self.latchsize *= self.thickness
         d_t, d_b = self.top_diameter, self.bottom_diameter
-        self.x = max(self.x, self.latchsize + 2*t + (d_t + d_b)/2)
+        self.x = max(self.x, self.latchsize + 2 * t + (d_t + d_b) / 2)
 
-        d_c = self.x - d_t/2. - d_b/2.
-        self.a = math.degrees(math.asin((d_t-d_b)/2 / d_c))
+        d_c = self.x - d_t / 2.0 - d_b / 2.0
+        self.a = math.degrees(math.asin((d_t - d_b) / 2 / d_c))
         self.l = d_c * math.cos(math.radians(self.a))
 
         self.surroundingWall(move="up")

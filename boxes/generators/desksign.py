@@ -30,29 +30,53 @@ class Desksign(Boxes):
     def __init__(self) -> None:
         Boxes.__init__(self)
         self.addSettingsArgs(edges.FingerJointSettings)
-        self.addSettingsArgs(edges.StackableSettings, width=2.0) # used for feet
+        self.addSettingsArgs(edges.StackableSettings, width=2.0)  # used for feet
 
         self.argparser.add_argument(
-            "--width",  action="store", type=float, default=150,
-            help="plate width in mm (excluding holes)")
+            "--width",
+            action="store",
+            type=float,
+            default=150,
+            help="plate width in mm (excluding holes)",
+        )
         self.argparser.add_argument(
-            "--height",  action="store", type=float, default=80,
-            help="plate height in mm")
+            "--height",
+            action="store",
+            type=float,
+            default=80,
+            help="plate height in mm",
+        )
         self.argparser.add_argument(
-            "--angle",  action="store", type=float, default=60,
-            help="plate angle in degrees (90 is vertical)")
+            "--angle",
+            action="store",
+            type=float,
+            default=60,
+            help="plate angle in degrees (90 is vertical)",
+        )
         self.argparser.add_argument(
-            "--label", action="store", type=str, default="",
-            help="optional text to engrave (leave blank to omit)")
+            "--label",
+            action="store",
+            type=str,
+            default="",
+            help="optional text to engrave (leave blank to omit)",
+        )
         self.argparser.add_argument(
-            "--fontsize", action="store", type=float, default=20,
-            help="height of text")
+            "--fontsize", action="store", type=float, default=20, help="height of text"
+        )
         self.argparser.add_argument(
-            "--feet", action="store", type=boolarg, default=False,
-            help="add raised feet")
+            "--feet",
+            action="store",
+            type=boolarg,
+            default=False,
+            help="add raised feet",
+        )
         self.argparser.add_argument(
-            "--mirror", action="store", type=boolarg, default=True,
-            help="mirrors one of the stand so the same side of the material can be placed on the outside")
+            "--mirror",
+            action="store",
+            type=boolarg,
+            default=True,
+            help="mirrors one of the stand so the same side of the material can be placed on the outside",
+        )
 
     def render(self):
         width = self.width
@@ -65,18 +89,31 @@ class Desksign(Boxes):
         if not (0 < angle and angle < 90):
             raise ValueError("angle has to between 0 and 90 degrees")
 
-        base =  math.cos(math.radians(angle)) * height
+        base = math.cos(math.radians(angle)) * height
         h = math.sin(math.radians(angle)) * height
 
         label = self.label
         fontsize = self.fontsize
 
         if label and fontsize:
-            self.rectangularWall(width, height, "eheh", move="right", callback=[
-                lambda: self.text("%s" % label, width/2, (height-fontsize)/2,
-                    fontsize = fontsize, align="center", color=Color.ETCHING)]) # add text
+            self.rectangularWall(
+                width,
+                height,
+                "eheh",
+                move="right",
+                callback=[
+                    lambda: self.text(
+                        "%s" % label,
+                        width / 2,
+                        (height - fontsize) / 2,
+                        fontsize=fontsize,
+                        align="center",
+                        color=Color.ETCHING,
+                    )
+                ],
+            )  # add text
         else:
-            self.rectangularWall(width, height, "eheh", move="right") # front
+            self.rectangularWall(width, height, "eheh", move="right")  # front
 
         # stands at back/side
         edge = "šef" if feet else "eef"

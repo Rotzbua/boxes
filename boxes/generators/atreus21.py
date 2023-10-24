@@ -7,7 +7,8 @@ from .keyboard import Keyboard
 
 class Atreus21(Boxes, Keyboard):
     """Generator for a split atreus keyboard."""
-    ui_group = 'Misc'
+
+    ui_group = "Misc"
     btn_size = 15.6
     half_btn = btn_size / 2
     border = 6
@@ -16,7 +17,7 @@ class Atreus21(Boxes, Keyboard):
         super().__init__()
         self.add_common_keyboard_parameters(
             # By default, columns from Atreus 21
-            default_columns_definition=f'4@3/4@6/4@11/4@5/4@0/1@{self.btn_size * 0.5}'
+            default_columns_definition=f"4@3/4@6/4@11/4@5/4@0/1@{self.btn_size * 0.5}"
         )
 
     def render(self):
@@ -64,15 +65,13 @@ class Atreus21(Boxes, Keyboard):
         b = self.border
         case_x, case_y = self._case_x_y()
         self.rectangularHole(
-            x * -.5 + case_x + b * .5,
-            y * -.5 + case_y + b * .5,
-            x, y
+            x * -0.5 + case_x + b * 0.5, y * -0.5 + case_y + b * 0.5, x, y
         )
 
     @restore
     def rim(self):
         x, y = self._case_x_y()
-        self.moveTo(x * .5, y * .5)
+        self.moveTo(x * 0.5, y * 0.5)
         self.rectangularHole(0, 0, x, y, 5)
 
     @restore
@@ -113,5 +112,8 @@ class Atreus21(Boxes, Keyboard):
         spacing = Keyboard.STANDARD_KEY_SPACING
         margin = spacing - self.btn_size
         x = len(self.columns_definition) * spacing - margin
-        y = max(offset + keys * spacing for (offset, keys) in self.columns_definition) - margin
+        y = (
+            max(offset + keys * spacing for (offset, keys) in self.columns_definition)
+            - margin
+        )
         return x, y

@@ -58,8 +58,10 @@ def dotproduct(v1, v2):
     """Dot product"""
     return v1[0] * v2[0] + v1[1] * v2[1]
 
+
 def circlepoint(r, a):
     return (r * math.cos(a), r * math.sin(a))
+
 
 def tangent(x, y, r):
     """angle and length of a tangent to a circle at x,y with radius r"""
@@ -68,22 +70,30 @@ def tangent(x, y, r):
     a2 = math.asin(r / l1)
     l2 = math.cos(a2) * l1
 
-    return (a1+a2, l2)
+    return (a1 + a2, l2)
+
 
 def rotm(angle):
     """Rotation matrix"""
-    return [[math.cos(angle), -math.sin(angle), 0],
-            [math.sin(angle), math.cos(angle), 0]]
+    return [
+        [math.cos(angle), -math.sin(angle), 0],
+        [math.sin(angle), math.cos(angle), 0],
+    ]
 
 
 def vtransl(v, m):
     m0, m1 = m
-    return [m0[0] * v[0] + m0[1] * v[1] + m0[2],
-            m1[0] * v[0] + m1[1] * v[1] + m1[2]]
+    return [m0[0] * v[0] + m0[1] * v[1] + m0[2], m1[0] * v[0] + m1[1] * v[1] + m1[2]]
 
 
 def mmul(m0, m1):
-    result = [[0, ] * len(m0[0]) for i in range(len(m0))]
+    result = [
+        [
+            0,
+        ]
+        * len(m0[0])
+        for i in range(len(m0))
+    ]
     for i in range(len(m0[0])):
         for j in range(len(m0)):
             for k in range(len(m0)):
@@ -106,7 +116,7 @@ def kerf(points, k, closed=True):
         if not closed:
             if i == 0:
                 v1 = v2
-            if i == lp-1:
+            if i == lp - 1:
                 v2 = v1
         # direction the point has to move
         d = normalize(vadd(v1, v2))

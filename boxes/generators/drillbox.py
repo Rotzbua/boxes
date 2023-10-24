@@ -28,18 +28,22 @@ class DrillBox(_TopEdge):
     def __init__(self) -> None:
         Boxes.__init__(self)
 
-        self.addSettingsArgs(edges.FingerJointSettings,
-                             space=3, finger=3, surroundingspaces=1)
+        self.addSettingsArgs(
+            edges.FingerJointSettings, space=3, finger=3, surroundingspaces=1
+        )
         self.addSettingsArgs(edges.RoundedTriangleEdgeSettings, outset=1)
         self.addSettingsArgs(edges.StackableSettings)
         self.addSettingsArgs(edges.MountingSettings)
         self.addSettingsArgs(LidSettings)
         self.argparser.add_argument(
-            "--top_edge", action="store",
-            type=ArgparseEdgeType("eStG"), choices=list("eStG"),
-            default="e", help="edge type for top edge")
-        self.buildArgParser(sx="25*3", sy="60*4", sh="5:25:10",
-                            bottom_edge="h")
+            "--top_edge",
+            action="store",
+            type=ArgparseEdgeType("eStG"),
+            choices=list("eStG"),
+            default="e",
+            help="edge type for top edge",
+        )
+        self.buildArgParser(sx="25*3", sy="60*4", sh="5:25:10", bottom_edge="h")
         self.argparser.add_argument(
             "--holes",
             action="store",
@@ -58,7 +62,7 @@ class DrillBox(_TopEdge):
             "--holeincrement",
             action="store",
             type=float,
-            default=.5,
+            default=0.5,
             help="increment between holes",
         )
 
@@ -68,7 +72,6 @@ class DrillBox(_TopEdge):
         for d in self.sh[:-1]:
             h += d + t
             self.fingerHolesAt(0, h, l, angle=0)
-
 
     def drillholes(self, description=False):
         y = 0
@@ -80,7 +83,9 @@ class DrillBox(_TopEdge):
                 for k in range(self.holes):
                     self.hole(x + dx / 2, y + (k + 0.5) * iy, d=d + 0.05)
                 if description:
-                    self.rectangularHole(x + dx / 2, y + dy / 2, dx - 2, dy - 2, color=Color.ETCHING)
+                    self.rectangularHole(
+                        x + dx / 2, y + dy / 2, dx - 2, dy - 2, color=Color.ETCHING
+                    )
                     self.text(
                         "%.1f" % d,
                         x + 2,
@@ -99,32 +104,50 @@ class DrillBox(_TopEdge):
         x = sum(self.sx)
         y = sum(self.sy)
 
-        h = sum(self.sh) + self.thickness * (len(self.sh)-1)
+        h = sum(self.sh) + self.thickness * (len(self.sh) - 1)
         b = self.bottom_edge
         t1, t2, t3, t4 = self.topEdges(self.top_edge)
 
         self.rectangularWall(
-            x, h, [b, "f", t1, "F"],
+            x,
+            h,
+            [b, "f", t1, "F"],
             ignore_widths=[1, 6],
-            callback=[lambda: self.sideholes(x)], move="right")
+            callback=[lambda: self.sideholes(x)],
+            move="right",
+        )
         self.rectangularWall(
-            y, h, [b, "f", t2, "F"], callback=[lambda: self.sideholes(y)],
+            y,
+            h,
+            [b, "f", t2, "F"],
+            callback=[lambda: self.sideholes(y)],
             ignore_widths=[1, 6],
-            move="up")
+            move="up",
+        )
         self.rectangularWall(
-            y, h, [b, "f", t3, "F"], callback=[lambda: self.sideholes(y)],
-            ignore_widths=[1, 6])
-        self.rectangularWall(
-            x, h, [b, "f", t4, "F"],
+            y,
+            h,
+            [b, "f", t3, "F"],
+            callback=[lambda: self.sideholes(y)],
             ignore_widths=[1, 6],
-            callback=[lambda: self.sideholes(x)], move="left up")
+        )
+        self.rectangularWall(
+            x,
+            h,
+            [b, "f", t4, "F"],
+            ignore_widths=[1, 6],
+            callback=[lambda: self.sideholes(x)],
+            move="left up",
+        )
         if b != "e":
             self.rectangularWall(x, y, "ffff", move="right")
         for d in self.sh[:-2]:
-            self.rectangularWall(
-                x, y, "ffff", callback=[self.drillholes], move="right")
+            self.rectangularWall(x, y, "ffff", callback=[self.drillholes], move="right")
         self.rectangularWall(
-            x, y, "ffff",
+            x,
+            y,
+            "ffff",
             callback=[lambda: self.drillholes(description=True)],
-            move="right")
+            move="right",
+        )
         self.lid(x, y, self.top_edge)

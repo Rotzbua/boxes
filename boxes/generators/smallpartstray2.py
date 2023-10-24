@@ -19,7 +19,6 @@ from boxes.lids import LidSettings, _TopEdge
 
 
 class TopEdge(edges.BaseEdge):
-
     def __init__(self, boxes, lengths, h):
         super().__init__(boxes, None)
         self.lengths = lengths
@@ -28,20 +27,34 @@ class TopEdge(edges.BaseEdge):
     def __call__(self, length, **kw):
         h = self.h
         t = self.boxes.thickness
-        t2 = t * 2**.5
-        slot = h/2**.5 + t/2
+        t2 = t * 2**0.5
+        slot = h / 2**0.5 + t / 2
         self.polyline(
-            0, 90, t2, -45,
-            slot-t, -90, t, -90, slot, 135,
-            self.lengths[0] - t2/2)
+            0, 90, t2, -45, slot - t, -90, t, -90, slot, 135, self.lengths[0] - t2 / 2
+        )
 
         for l in self.lengths[1:]:
             self.polyline(
-                0, 45, t, 45, h/2-t2/2, -90, t, -90, h/2-t2, 135,
-                slot-t, -90, t, -90, slot, 135,
-                l - t2/2
+                0,
+                45,
+                t,
+                45,
+                h / 2 - t2 / 2,
+                -90,
+                t,
+                -90,
+                h / 2 - t2,
+                135,
+                slot - t,
+                -90,
+                t,
+                -90,
+                slot,
+                135,
+                l - t2 / 2,
             )
-        self.polyline(t2/2)
+        self.polyline(t2 / 2)
+
 
 class SmallPartsTray2(_TopEdge):
     """A Type Tray variant with slopes toward the front"""
@@ -54,39 +67,50 @@ If there are no inner front to back walls just add everything to one side wall a
 
     def __init__(self) -> None:
         Boxes.__init__(self)
-        self.addTopEdgeSettings(fingerjoint={"surroundingspaces": 1.0},
-                                roundedtriangle={"outset" : 1})
+        self.addTopEdgeSettings(
+            fingerjoint={"surroundingspaces": 1.0}, roundedtriangle={"outset": 1}
+        )
         self.addSettingsArgs(LidSettings)
         self.buildArgParser("sx", "sy", "hi", "outside", h=30)
         # "bottom_edge", "top_edge")
         self.argparser.add_argument(
-            "--back_height",  action="store", type=float, default=0.0,
-            help="additional height of the back wall - e top edge only")
+            "--back_height",
+            action="store",
+            type=float,
+            default=0.0,
+            help="additional height of the back wall - e top edge only",
+        )
         self.argparser.add_argument(
-            "--radius",  action="store", type=float, default=0.0,
-            help="radius for strengthening side walls with back_height")
+            "--radius",
+            action="store",
+            type=float,
+            default=0.0,
+            help="radius for strengthening side walls with back_height",
+        )
         self.argparser.add_argument(
-            "--handle", type=boolarg, default=False, help="add handle to the bottom (changes bottom edge in the front)",
+            "--handle",
+            type=boolarg,
+            default=False,
+            help="add handle to the bottom (changes bottom edge in the front)",
         )
 
     def fingerHolesCB(self, sections, height):
-
         def CB():
             posx = -0.5 * self.thickness
             for x in sections[:-1]:
                 posx += x + self.thickness
                 self.fingerHolesAt(posx, 0, height)
-        return CB
 
+        return CB
 
     def fingerHoleLineCB(self, posx, posy, sections):
         def CB():
             self.moveTo(posx, posy, 90)
             for l in sections:
                 self.fingerHolesAt(0, 0, l, 0)
-                self.moveTo(l+self.thickness)
-        return CB
+                self.moveTo(l + self.thickness)
 
+        return CB
 
     def xHoles(self):
         posx = -0.5 * self.thickness
@@ -99,16 +123,15 @@ If there are no inner front to back walls just add everything to one side wall a
         posy = -0.5 * self.thickness
         for y in self.sy[:-1]:
             posy += y + self.thickness
-            self.fingerHolesAt(posy, 0, self.hi-t*2**.5)
+            self.fingerHolesAt(posy, 0, self.hi - t * 2**0.5)
             with self.saved_context():
-                self.moveTo(posy-0.5*t, self.hi, 135)
-                self.fingerHolesAt(-0.5*t, 0, self.hi*2**.5+t/2)
+                self.moveTo(posy - 0.5 * t, self.hi, 135)
+                self.fingerHolesAt(-0.5 * t, 0, self.hi * 2**0.5 + t / 2)
 
-        self.moveTo(posy+self.sy[-1]+0.5*t, self.hi, 135)
-        self.fingerHolesAt(-0.5*t, 0, self.hi*2**.5+t/2)
+        self.moveTo(posy + self.sy[-1] + 0.5 * t, self.hi, 135)
+        self.fingerHolesAt(-0.5 * t, 0, self.hi * 2**0.5 + t / 2)
 
     def render(self):
-
         # tmp settings
         self.top_edge = "e"
         self.bottom_edge = "F"
@@ -140,65 +163,113 @@ If there are no inner front to back walls just add everything to one side wall a
 
         # outer walls - front/back
         if bh:
-            self.rectangularWall(x, h+bh, [b, "f", tb, "f"],
-                                 callback=[self.xHoles],
-                                 #ignore_widths=[],
-                                 move="up", label="back")
-            self.rectangularWall(x, h, ["f" if self.handle else b, "f", "e", "f"],
-                                 callback=[self.fingerHolesCB(self.sx[::-1], h),],
-                                 move="up", label="front")
+            self.rectangularWall(
+                x,
+                h + bh,
+                [b, "f", tb, "f"],
+                callback=[self.xHoles],
+                # ignore_widths=[],
+                move="up",
+                label="back",
+            )
+            self.rectangularWall(
+                x,
+                h,
+                ["f" if self.handle else b, "f", "e", "f"],
+                callback=[
+                    self.fingerHolesCB(self.sx[::-1], h),
+                ],
+                move="up",
+                label="front",
+            )
         else:
-            self.rectangularWall(x, h, [b, "F", tb, "F"],
-                                 callback=[self.xHoles],
-                                 #ignore_widths=[1, 6],
-                                 move="up", label="back")
-            self.rectangularWall(x, hi-t*2**.5, ["f" if self.handle else b, "F", "e", "F"],
-                                 callback=[self.fingerHolesCB(self.sx[::-1], hi-t*2**.5),],
-                                 #ignore_widths=[] if self.handle else [1, 6],
-                                 move="up", label="front")
-
+            self.rectangularWall(
+                x,
+                h,
+                [b, "F", tb, "F"],
+                callback=[self.xHoles],
+                # ignore_widths=[1, 6],
+                move="up",
+                label="back",
+            )
+            self.rectangularWall(
+                x,
+                hi - t * 2**0.5,
+                ["f" if self.handle else b, "F", "e", "F"],
+                callback=[
+                    self.fingerHolesCB(self.sx[::-1], hi - t * 2**0.5),
+                ],
+                # ignore_widths=[] if self.handle else [1, 6],
+                move="up",
+                label="front",
+            )
 
         # floor boards
 
-        t2 = t * 2**.5
-        dy = hi + t2/2
-        slot = t + t2/2 # 1.5*t
-        floors = [self.sy[0]- hi - slot + t2, slot]
+        t2 = t * 2**0.5
+        dy = hi + t2 / 2
+        slot = t + t2 / 2  # 1.5*t
+        floors = [self.sy[0] - hi - slot + t2, slot]
         self.rectangularWall(
-            x, floors[0], "ffef",
-            callback=[self.fingerHolesCB(self.sx, self.sy[0]-dy)],
-            move="up", label="floor back side")
+            x,
+            floors[0],
+            "ffef",
+            callback=[self.fingerHolesCB(self.sx, self.sy[0] - dy)],
+            move="up",
+            label="floor back side",
+        )
         for y_ in self.sy[1:]:
             self.rectangularWall(
-                x, y_ - slot + t, "efef",
-                callback=[self.fingerHolesCB(self.sx, y_ - slot + t),
-                          self.fingerHoleLineCB(hi-t2+t/2, 0, self.sx[::-1])],
-                move="up", label="floor")
+                x,
+                y_ - slot + t,
+                "efef",
+                callback=[
+                    self.fingerHolesCB(self.sx, y_ - slot + t),
+                    self.fingerHoleLineCB(hi - t2 + t / 2, 0, self.sx[::-1]),
+                ],
+                move="up",
+                label="floor",
+            )
             floors.extend([y_ - slot + t, slot])
         self.rectangularWall(
-            x, hi-t2, "efYf" if self.handle else "efff",
-            callback=[self.fingerHolesCB(self.sx, hi-t2)],
-            move="up", label="floor front side")
-        floors.append(hi-t2)
+            x,
+            hi - t2,
+            "efYf" if self.handle else "efff",
+            callback=[self.fingerHolesCB(self.sx, hi - t2)],
+            move="up",
+            label="floor front side",
+        )
+        floors.append(hi - t2)
 
         # Inner walls
 
         be = "f" if b != "e" else "e"
 
         for i in range(len(self.sy) - 1):
-            e = [edges.SlottedEdge(self, self.sx, be, slots=0.5 * hi), "f",
-                 edges.SlottedEdge(self, self.sx[::-1], "e"), "f"]
-            self.rectangularWall(x, hi-t2, e, move="up", label=f"inner x {i+1}")
+            e = [
+                edges.SlottedEdge(self, self.sx, be, slots=0.5 * hi),
+                "f",
+                edges.SlottedEdge(self, self.sx[::-1], "e"),
+                "f",
+            ]
+            self.rectangularWall(x, hi - t2, e, move="up", label=f"inner x {i+1}")
         # slopes
         for i in self.sy:
             self.rectangularWall(
-                x, hi*2**.5 + t/2,
-                [edges.SlottedEdge(self, self.sx, "e", slots=hi/2**.5), "f",
-                 edges.SlottedEdge(self, self.sx[::-1], "e"), "f"],
-                move="up", label="slope")
+                x,
+                hi * 2**0.5 + t / 2,
+                [
+                    edges.SlottedEdge(self, self.sx, "e", slots=hi / 2**0.5),
+                    "f",
+                    edges.SlottedEdge(self, self.sx[::-1], "e"),
+                    "f",
+                ],
+                move="up",
+                label="slope",
+            )
 
         # top / lid
-        self.drawLid(x, y, self.top_edge) # XXX deal with front
+        self.drawLid(x, y, self.top_edge)  # XXX deal with front
         self.lid(x, y, self.top_edge)
 
         self.ctx.restore()
@@ -211,24 +282,48 @@ If there are no inner front to back walls just add everything to one side wall a
         for move in ("up", "up mirror"):
             if bh:
                 self.trapezoidSideWall(
-                    y, h+bh, hi-t*2**.5,
-                    [edges.CompoundEdge(self, ("FE"*len(self.sy))+"F", floors),
-                     "h", "e", "h"],
-                    radius=self.radius, callback=[self.yHoles, ],
-                    move=move, label="side")
+                    y,
+                    h + bh,
+                    hi - t * 2**0.5,
+                    [
+                        edges.CompoundEdge(self, ("FE" * len(self.sy)) + "F", floors),
+                        "h",
+                        "e",
+                        "h",
+                    ],
+                    radius=self.radius,
+                    callback=[
+                        self.yHoles,
+                    ],
+                    move=move,
+                    label="side",
+                )
             else:
                 self.rectangularWall(
-                    y, h,
-                    [edges.CompoundEdge(self, ("FE"*len(self.sy))+"F", floors),
-                     edges.CompoundEdge(self, "fE", (hi-t*2**.5, h-hi+t*2**.5)),
-                     tl, "f"],
-                    callback=[self.yHoles, ],
-                    #ignore_widths=[6] if self.handle else [1, 6],
-                    move=move, label="side")
+                    y,
+                    h,
+                    [
+                        edges.CompoundEdge(self, ("FE" * len(self.sy)) + "F", floors),
+                        edges.CompoundEdge(
+                            self, "fE", (hi - t * 2**0.5, h - hi + t * 2**0.5)
+                        ),
+                        tl,
+                        "f",
+                    ],
+                    callback=[
+                        self.yHoles,
+                    ],
+                    # ignore_widths=[6] if self.handle else [1, 6],
+                    move=move,
+                    label="side",
+                )
 
         # inner walls
         for i in range(len(self.sx) - 1):
-            e = [edges.CompoundEdge(self, ("fE"*len(self.sy))+"f", floors),
-                 edges.CompoundEdge(self, "fe", (hi-t*2**.5, t*2**.5)),
-                 TopEdge(self, self.sy[::-1], hi), "f"]
+            e = [
+                edges.CompoundEdge(self, ("fE" * len(self.sy)) + "f", floors),
+                edges.CompoundEdge(self, "fe", (hi - t * 2**0.5, t * 2**0.5)),
+                TopEdge(self, self.sy[::-1], hi),
+                "f",
+            ]
             self.rectangularWall(y, hi, e, move="up", label=f"inner y {i+1}")

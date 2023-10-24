@@ -19,8 +19,9 @@ from boxes.edges import FingerJointEdge
 
 
 class UnevenFingerJointEdge(FingerJointEdge):
-    """Uneven finger joint edge """
-    char = 'u'
+    """Uneven finger joint edge"""
+
+    char = "u"
     description = "Uneven Finger Joint"
     positive = True
 
@@ -29,7 +30,11 @@ class UnevenFingerJointEdge(FingerJointEdge):
 
         positive = self.positive
 
-        s, f, thickness = self.settings.space, self.settings.finger, self.settings.thickness
+        s, f, thickness = (
+            self.settings.space,
+            self.settings.finger,
+            self.settings.thickness,
+        )
 
         p = 1 if positive else -1
 
@@ -41,22 +46,21 @@ class UnevenFingerJointEdge(FingerJointEdge):
             s -= play
             leftover -= play
 
-        shift = (f + s) / 2 # we shift all fingers to make them un even
-        if (leftover < shift):
+        shift = (f + s) / 2  # we shift all fingers to make them un even
+        if leftover < shift:
             leftover = shift
 
-        self.edge((leftover + shift)/2, tabs=1)  # Whole point of this class
+        self.edge((leftover + shift) / 2, tabs=1)  # Whole point of this class
 
-        l1,l2 = self.fingerLength(self.settings.angle)
-        h = l1-l2
+        l1, l2 = self.fingerLength(self.settings.angle)
+        h = l1 - l2
 
         d = (bedBoltSettings or self.bedBoltSettings)[0]
 
         for i in range(fingers):
             if i != 0:
                 if not positive and bedBolts and bedBolts.drawBolt(i):
-                    self.hole(0.5 * s,
-                              0.5 * self.settings.thickness, 0.5 * d)
+                    self.hole(0.5 * s, 0.5 * self.settings.thickness, 0.5 * d)
 
                 if positive and bedBolts and bedBolts.drawBolt(i):
                     self.bedBoltHole(s, bedBoltSettings)
@@ -65,27 +69,46 @@ class UnevenFingerJointEdge(FingerJointEdge):
 
             if positive and self.settings.style == "springs":
                 self.polyline(
-                    0, -90 * p, 0.8*h, (90 * p, 0.2*h),
-                    0.1 * h, 90, 0.9*h, -180, 0.9*h, 90,
-                    f - 0.6*h,
-                    90, 0.9*h, -180, 0.9*h, 90, 0.1*h,
-                (90 * p, 0.2 *h), 0.8*h, -90 * p)
+                    0,
+                    -90 * p,
+                    0.8 * h,
+                    (90 * p, 0.2 * h),
+                    0.1 * h,
+                    90,
+                    0.9 * h,
+                    -180,
+                    0.9 * h,
+                    90,
+                    f - 0.6 * h,
+                    90,
+                    0.9 * h,
+                    -180,
+                    0.9 * h,
+                    90,
+                    0.1 * h,
+                    (90 * p, 0.2 * h),
+                    0.8 * h,
+                    -90 * p,
+                )
             else:
                 self.polyline(0, -90 * p, h, 90 * p, f, 90 * p, h, -90 * p)
 
-        self.edge((leftover - shift)/2, tabs=1)  # Whole point of this class
+        self.edge((leftover - shift) / 2, tabs=1)  # Whole point of this class
+
 
 # Unstable
 class UnevenFingerJointEdgeCounterPart(UnevenFingerJointEdge):
     """Uneven finger joint edge - other side"""
-    char = 'U'
+
+    char = "U"
     description = "Uneven Finger Joint (opposing side)"
     positive = False
+
 
 class Platonic(Boxes):
     """Platonic solids generator"""
 
-    ui_group = "Unstable" # see ./__init__.py for names
+    ui_group = "Unstable"  # see ./__init__.py for names
     description = """![Icosahedron](static/samples/Platonic-Icosahedron.jpg)
 """
 
@@ -102,12 +125,17 @@ class Platonic(Boxes):
 
         self.addSettingsArgs(edges.FingerJointSettings, surroundingspaces=0)
 
-        self.buildArgParser(x=60, outside=True)  # x should be treated as edge length, TODO: change that
+        self.buildArgParser(
+            x=60, outside=True
+        )  # x should be treated as edge length, TODO: change that
         self.argparser.add_argument(
-            "--type",  action="store", type=str, default=list(self.SOLIDS)[0],
+            "--type",
+            action="store",
+            type=str,
+            default=list(self.SOLIDS)[0],
             choices=list(self.SOLIDS),
-            help="type of platonic solid")
-
+            help="type of platonic solid",
+        )
 
     def render(self):
         # adjust to the variables you want in the local scope

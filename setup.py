@@ -13,11 +13,24 @@ class CustomBuildExtCommand(build_py):
     """Customized setuptools install command - prints a friendly greeting."""
 
     def buildInkscapeExt(self):
-        os.system("{} {} {}".format(sys.executable, os.path.join("scripts", "boxes2inkscape"), "inkex"))
+        os.system(
+            "{} {} {}".format(
+                sys.executable, os.path.join("scripts", "boxes2inkscape"), "inkex"
+            )
+        )
 
     def updatePOT(self):
-        os.system("{} {} {}".format(sys.executable, os.path.join("scripts", "boxes2pot"), "po/boxes.py.pot"))
-        os.system("{} {}".format("xgettext -L Python -j --from-code=utf-8 -o po/boxes.py.pot", "boxes/*.py scripts/boxesserver scripts/boxes"))
+        os.system(
+            "{} {} {}".format(
+                sys.executable, os.path.join("scripts", "boxes2pot"), "po/boxes.py.pot"
+            )
+        )
+        os.system(
+            "{} {}".format(
+                "xgettext -L Python -j --from-code=utf-8 -o po/boxes.py.pot",
+                "boxes/*.py scripts/boxesserver scripts/boxes",
+            )
+        )
 
     def generate_mo_files(self):
         pos = glob.glob("po/*.po")
@@ -30,8 +43,11 @@ class CustomBuildExtCommand(build_py):
                 pass
             os.system(f"msgfmt {po} -o locale/{lang}/LC_MESSAGES/boxes.py.mo")
             self.distribution.data_files.append(
-                (os.path.join("share", "locale", lang, "LC_MESSAGES"),
-                 [os.path.join("locale", lang, "LC_MESSAGES", "boxes.py.mo")]))
+                (
+                    os.path.join("share", "locale", lang, "LC_MESSAGES"),
+                    [os.path.join("locale", lang, "LC_MESSAGES", "boxes.py.mo")],
+                )
+            )
 
     def run(self):
         if self.distribution.data_files is None:
@@ -40,45 +56,54 @@ class CustomBuildExtCommand(build_py):
         self.execute(self.generate_mo_files, ())
         self.execute(self.buildInkscapeExt, ())
 
-        if 'CURRENTLY_PACKAGING' in os.environ:
+        if "CURRENTLY_PACKAGING" in os.environ:
             # we are most probably building a Debian package
             # let us define a simple path!
-            path="/usr/share/inkscape/extensions"
-            self.distribution.data_files.append((path, [i for i in glob.glob(os.path.join("inkex", "*.inx"))]))
-            self.distribution.data_files.append((path, ['scripts/boxes']))
-            self.distribution.data_files.append((path, ['scripts/boxes_proxy.py']))
+            path = "/usr/share/inkscape/extensions"
+            self.distribution.data_files.append(
+                (path, [i for i in glob.glob(os.path.join("inkex", "*.inx"))])
+            )
+            self.distribution.data_files.append((path, ["scripts/boxes"]))
+            self.distribution.data_files.append((path, ["scripts/boxes_proxy.py"]))
         else:
             # we are surely not building a Debian package
             # then here is the default behavior:
             try:
-                path = check_output(["inkscape", "--system-data-directory"]).decode().strip()
+                path = (
+                    check_output(["inkscape", "--system-data-directory"])
+                    .decode()
+                    .strip()
+                )
                 path = os.path.join(path, "extensions")
-                if not os.access(path, os.W_OK): # Can we install globally
+                if not os.access(path, os.W_OK):  # Can we install globally
                     # Not tested on Windows and Mac
                     path = os.path.expanduser("~/.config/inkscape/extensions")
-                self.distribution.data_files.append((path, [i for i in glob.glob(os.path.join("inkex", "*.inx"))]))
-                self.distribution.data_files.append((path, ['scripts/boxes']))
-                self.distribution.data_files.append((path, ['scripts/boxes_proxy.py']))
+                self.distribution.data_files.append(
+                    (path, [i for i in glob.glob(os.path.join("inkex", "*.inx"))])
+                )
+                self.distribution.data_files.append((path, ["scripts/boxes"]))
+                self.distribution.data_files.append((path, ["scripts/boxes_proxy.py"]))
             except CalledProcessError:
-                pass # Inkscape is not installed
+                pass  # Inkscape is not installed
 
         build_py.run(self)
 
+
 setup(
-    name='boxes',
-    version='0.9',
-    description='Boxes generator for laser cutters',
-    author='Florian Festi',
-    author_email='florian@festi.info',
-    url='https://github.com/florianfesti/boxes',
+    name="boxes",
+    version="0.9",
+    description="Boxes generator for laser cutters",
+    author="Florian Festi",
+    author_email="florian@festi.info",
+    url="https://github.com/florianfesti/boxes",
     packages=find_packages(),
-    python_requires='>=3.8',
-    install_requires=['affine>=2.0', 'markdown', 'shapely>=1.8.2', 'qrcode==7.3.1'],
-    scripts=['scripts/boxes', 'scripts/boxesserver'],
+    python_requires=">=3.8",
+    install_requires=["affine>=2.0", "markdown", "shapely>=1.8.2", "qrcode==7.3.1"],
+    scripts=["scripts/boxes", "scripts/boxesserver"],
     cmdclass={
-        'build_py': CustomBuildExtCommand,
+        "build_py": CustomBuildExtCommand,
     },
-    classifiers=[ # https://pypi.python.org/pypi?%3Aaction=list_classifiers
+    classifiers=[  # https://pypi.python.org/pypi?%3Aaction=list_classifiers
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Environment :: Web Environment",
@@ -88,4 +113,5 @@ setup(
         "Topic :: Multimedia :: Graphics :: Editors :: Vector-Based",
         "Topic :: Scientific/Engineering",
     ],
-    keywords=["boxes", "box", "generator", "svg", "laser cutter"], )
+    keywords=["boxes", "box", "generator", "svg", "laser cutter"],
+)

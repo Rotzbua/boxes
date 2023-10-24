@@ -23,7 +23,6 @@ import inkex
 
 
 class boxesPyWrapper(inkex.GenerateExtension):
-
     def add_arguments(self, pars):
         args = sys.argv[1:]
         for arg in args:
@@ -39,9 +38,7 @@ class boxesPyWrapper(inkex.GenerateExtension):
 
         cmd = "boxes"  # boxes.exe in this local dir (or if present in %PATH%), or boxes from $PATH in linux
         for arg in vars(self.options):
-            if arg in (
-                    "output", "id", "ids", "selected_nodes",
-                    "input_file", "tab"):
+            if arg in ("output", "id", "ids", "selected_nodes", "input_file", "tab"):
                 continue
             # fix behaviour of "original" arg which does not correctly gets
             # interpreted if set to false
@@ -59,7 +56,11 @@ class boxesPyWrapper(inkex.GenerateExtension):
         try:
             stream = open(box_file)
         except FileNotFoundError as e:
-            inkex.utils.debug("There was no " + box_file + " output generated. Cannot continue. Command was:")
+            inkex.utils.debug(
+                "There was no "
+                + box_file
+                + " output generated. Cannot continue. Command was:"
+            )
             inkex.utils.debug(str(cmd))
             exit(1)
 
@@ -80,5 +81,5 @@ def main() -> None:
     boxesPyWrapper().run()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

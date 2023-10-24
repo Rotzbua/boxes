@@ -20,7 +20,7 @@ from boxes import *
 class RectangularWall(Boxes):
     """Simple wall"""
 
-    ui_group = "Part" # see ./__init__.py for names
+    ui_group = "Part"  # see ./__init__.py for names
 
     def __init__(self) -> None:
         Boxes.__init__(self)
@@ -39,33 +39,53 @@ class RectangularWall(Boxes):
         self.buildArgParser(x=100, h=100)
 
         self.argparser.add_argument(
-            "--bottom_edge", action="store",
-            type=ArgparseEdgeType("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"), choices=list("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
-            default="e", help="edge type for bottom edge")
+            "--bottom_edge",
+            action="store",
+            type=ArgparseEdgeType("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
+            choices=list("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
+            default="e",
+            help="edge type for bottom edge",
+        )
         self.argparser.add_argument(
-            "--right_edge", action="store",
-            type=ArgparseEdgeType("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"), choices=list("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
-            default="e", help="edge type for right edge")
+            "--right_edge",
+            action="store",
+            type=ArgparseEdgeType("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
+            choices=list("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
+            default="e",
+            help="edge type for right edge",
+        )
         self.argparser.add_argument(
-            "--top_edge", action="store",
-            type=ArgparseEdgeType("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"), choices=list("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
-            default="e", help="edge type for top edge")
+            "--top_edge",
+            action="store",
+            type=ArgparseEdgeType("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
+            choices=list("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
+            default="e",
+            help="edge type for top edge",
+        )
         self.argparser.add_argument(
-            "--left_edge", action="store",
-            type=ArgparseEdgeType("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"), choices=list("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
-            default="e", help="edge type for left edge")
-
+            "--left_edge",
+            action="store",
+            type=ArgparseEdgeType("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
+            choices=list("cCdDeEfFghiIjJkKlLmMnNoOpPqQRsSšŠuUvV"),
+            default="e",
+            help="edge type for left edge",
+        )
 
     def cb(self, nr):
         t = self.thickness
         if self.edgetypes[nr] == "f":
-            self.fingerHolesAt(0, -2.5*t, self.h if nr % 2 else self.x, 0)
+            self.fingerHolesAt(0, -2.5 * t, self.h if nr % 2 else self.x, 0)
 
     def render(self):
         # adjust to the variables you want in the local scope
         t = self.thickness
 
-        self.edgetypes = [self.bottom_edge, self.right_edge, self.top_edge, self.left_edge]
+        self.edgetypes = [
+            self.bottom_edge,
+            self.right_edge,
+            self.top_edge,
+            self.left_edge,
+        ]
 
-        self.moveTo(3*t, 3*t)
+        self.moveTo(3 * t, 3 * t)
         self.rectangularWall(self.x, self.h, self.edgetypes, callback=self.cb)

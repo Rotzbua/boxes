@@ -26,23 +26,35 @@ class Pulley(Boxes):
     def __init__(self) -> None:
         Boxes.__init__(self)
         # remove cli params you do not need
-        self.buildArgParser(h=6.)
+        self.buildArgParser(h=6.0)
         self.argparser.add_argument(
-            "--profile", action="store", type=str, default="GT2_2mm",
+            "--profile",
+            action="store",
+            type=str,
+            default="GT2_2mm",
             choices=pulley.Pulley.getProfiles(),
-            help="profile of the teeth/belt")
+            help="profile of the teeth/belt",
+        )
         self.argparser.add_argument(
-            "--teeth", action="store", type=int, default=20,
-            help="number of teeth")
+            "--teeth", action="store", type=int, default=20, help="number of teeth"
+        )
         self.argparser.add_argument(
-            "--axle", action="store", type=float, default=5,
-            help="diameter of the axle")
+            "--axle", action="store", type=float, default=5, help="diameter of the axle"
+        )
         self.argparser.add_argument(
-            "--insideout", action="store", type=BoolArg(), default=False,
-            help="create a ring gear with the belt being pushed against from within")
+            "--insideout",
+            action="store",
+            type=BoolArg(),
+            default=False,
+            help="create a ring gear with the belt being pushed against from within",
+        )
         self.argparser.add_argument(
-            "--top", action="store", type=float, default=0,
-            help="overlap of top rim (zero for none)")
+            "--top",
+            action="store",
+            type=float,
+            default=0,
+            help="overlap of top rim (zero for none)",
+        )
 
         # Add non default cli params if needed (see argparse std lib)
         # self.argparser.add_argument(
@@ -72,7 +84,15 @@ class Pulley(Boxes):
         if self.top:
             self.disk(
                 self.pulley.diameter(self.teeth, self.profile) + 2 * self.top,
-                self.axle, move="right")
+                self.axle,
+                move="right",
+            )
 
         for i in range(int(math.ceil(self.h / self.thickness))):
-            self.pulley(self.teeth, self.profile, insideout=self.insideout, r_axle=self.axle / 2.0, move="right")
+            self.pulley(
+                self.teeth,
+                self.profile,
+                insideout=self.insideout,
+                r_axle=self.axle / 2.0,
+                move="right",
+            )

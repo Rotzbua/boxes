@@ -46,10 +46,13 @@ def getSizeInMM(tree):
 
 def getViewBox(tree):
     root = tree.getroot()
-    m = re.match(r"\s*(-?\d+\.?\d*)\s+"
-                 r"(-?\d+\.?\d*)\s+"
-                 r"(-?\d+\.?\d*)\s+"
-                 r"(-?\d+\.?\d)\s*", root.get("viewBox"))
+    m = re.match(
+        r"\s*(-?\d+\.?\d*)\s+"
+        r"(-?\d+\.?\d*)\s+"
+        r"(-?\d+\.?\d*)\s+"
+        r"(-?\d+\.?\d)\s*",
+        root.get("viewBox"),
+    )
 
     return [float(m) for m in m.groups()]
 
@@ -83,7 +86,12 @@ def svgMerge(box, inkscape, output) -> None:
     for el in src_tree.getroot():
         dest_root.append(el)
         if el.tag.endswith("g"):
-            el.set("transform", f"matrix({scale_x:f},0,0,{scale_y:f}, {off_x:f}, {off_y:f})")
+            el.set(
+                "transform",
+                f"matrix({scale_x:f},0,0,{scale_y:f}, {off_x:f}, {off_y:f})",
+            )
 
     # write the xml file
-    ElementTree.ElementTree(dest_root).write(output, encoding='utf-8', xml_declaration=True)
+    ElementTree.ElementTree(dest_root).write(
+        output, encoding="utf-8", xml_declaration=True
+    )

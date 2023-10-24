@@ -24,13 +24,18 @@ class WallStairs(_WallMountedBox):
 
 sh gives height of the stairs from front to back. Note that the overall width and height is bigger than the nominal values as walls and the protrusions are not included in the measurements.
 """
+
     def __init__(self) -> None:
         super().__init__()
 
         self.buildArgParser(sx="250/3", sy="40*3", sh="30:100:180")
         self.argparser.add_argument(
-            "--braceheight",  action="store", type=float, default=30,
-            help="height of the brace at the bottom back (in mm). Zero for none")
+            "--braceheight",
+            action="store",
+            type=float,
+            default=30,
+            help="height of the brace at the bottom back (in mm). Zero for none",
+        )
 
     def yWall(self, move=None):
         t = self.thickness
@@ -41,14 +46,14 @@ sh gives height of the stairs from front to back. Note that the overall width an
         if self.move(tw, th, move, True):
             return
 
-        self.polyline(y-t, 90)
+        self.polyline(y - t, 90)
         self.edges["f"](self.braceheight)
         self.step(t)
         self.edges["A"](sh[-1] - self.braceheight)
         self.corner(90)
-        for i in range(len(sy)-1, 0, -1):
+        for i in range(len(sy) - 1, 0, -1):
             self.edges["f"](sy[i])
-            self.step(sh[i-1]-sh[i])
+            self.step(sh[i - 1] - sh[i])
         self.edges["f"](sy[0])
         self.polyline(0, 90, sh[0], 90)
 
@@ -61,23 +66,27 @@ sh gives height of the stairs from front to back. Note that the overall width an
             posx += dx + t
             self.fingerHolesAt(posx, 0, width, 90)
 
-
     def render(self):
         self.generateWallEdges()
 
         self.extra_height = 20
         t = self.thickness
         sx, sy, sh = self.sx, self.sy, self.sh
-        self.x = x = sum(sx) + len(sx)*t - t
+        self.x = x = sum(sx) + len(sx) * t - t
         self.y = y = sum(sy)
 
         for w in sy:
             self.rectangularWall(
-                x, w, "eheh", callback=[lambda:self.yCB(w)], move="up")
+                x, w, "eheh", callback=[lambda: self.yCB(w)], move="up"
+            )
         if self.braceheight:
             self.rectangularWall(
-                x, self.braceheight, "eheh",
-                callback=[lambda:self.yCB(self.braceheight)], move="up")
+                x,
+                self.braceheight,
+                "eheh",
+                callback=[lambda: self.yCB(self.braceheight)],
+                move="up",
+            )
 
         for i in range(len(sx) + 1):
             self.yWall(move="right")

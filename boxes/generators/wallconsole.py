@@ -26,11 +26,19 @@ class WallConsole(_WallMountedBox):
         self.buildArgParser(sx=100, h=100, outside=True)
 
         self.argparser.add_argument(
-            "--top_depth",  action="store", type=float, default=50,
-            help="depth at the top")
+            "--top_depth",
+            action="store",
+            type=float,
+            default=50,
+            help="depth at the top",
+        )
         self.argparser.add_argument(
-            "--bottom_depth",  action="store", type=float, default=35,
-            help="depth at the bottom")
+            "--bottom_depth",
+            action="store",
+            type=float,
+            default=35,
+            help="depth at the bottom",
+        )
 
     def backHoles(self):
         posx = -0.5 * self.thickness
@@ -45,7 +53,6 @@ class WallConsole(_WallMountedBox):
             self.fingerHolesAt(posx, 0, self.front, 90)
 
     def render(self):
-
         self.generateWallEdges()
 
         if self.outside:
@@ -57,12 +64,12 @@ class WallConsole(_WallMountedBox):
         td = self.top_depth
         bd = self.bottom_depth
 
-        self.front = (h**2 + (td-bd)**2)**0.5
+        self.front = (h**2 + (td - bd) ** 2) ** 0.5
 
-        self.rectangularWall(x, h, "eCec", callback=[self.backHoles],
-                             move="up")
-        self.rectangularWall(x, self.front, "eFeF",
-                             callback=[self.frontHoles], move="up")
+        self.rectangularWall(x, h, "eCec", callback=[self.backHoles], move="up")
+        self.rectangularWall(
+            x, self.front, "eFeF", callback=[self.frontHoles], move="up"
+        )
 
-        for i in range(len(self.sx)+1):
+        for i in range(len(self.sx) + 1):
             self.trapezoidWall(h, td, bd, "befe", move="up")

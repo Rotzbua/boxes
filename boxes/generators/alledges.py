@@ -40,22 +40,22 @@ class AllEdges(Boxes):
         t = self.thickness
 
         chars = list(self.edges.keys())
-        chars.sort(key=lambda c: c.lower() + (c if c.isupper() else ''))
+        chars.sort(key=lambda c: c.lower() + (c if c.isupper() else ""))
         chars.reverse()
 
-        self.moveTo(0, 10*t)
+        self.moveTo(0, 10 * t)
 
         for c in chars:
             with self.saved_context():
                 self.move(0, 0, "", True)
                 self.moveTo(x, 0, 90)
-                self.edge(t+self.edges[c].startwidth())
+                self.edge(t + self.edges[c].startwidth())
                 self.corner(90)
-                self.edges[c](x, h=4*t)
+                self.edges[c](x, h=4 * t)
                 self.corner(90)
-                self.edge(t+self.edges[c].endwidth())
+                self.edge(t + self.edges[c].endwidth())
                 self.move(0, 0, "")
 
-            self.moveTo(0, 3*t + self.edges[c].spacing())
+            self.moveTo(0, 3 * t + self.edges[c].spacing())
             self.text(f"{c} - {self.edges[c].description}")
-            self.moveTo(0, 12*t)
+            self.moveTo(0, 12 * t)
