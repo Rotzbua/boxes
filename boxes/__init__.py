@@ -234,8 +234,8 @@ class BoolArg:
     def html(self, name, default, _):
         if isinstance(default, (str)):
             default = self(default)
-        return """<input name="%s" type="hidden" value="0">
-<input name="%s" id="%s" aria-labeledby="%s %s" type="checkbox" value="1"%s>""" % (
+        return """<input name="{}" type="hidden" value="0">
+<input name="{}" id="{}" aria-labeledby="{} {}" type="checkbox" value="1"{}>""".format(
             name,
             name,
             name,
