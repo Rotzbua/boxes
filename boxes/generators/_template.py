@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class BOX(Boxes): # Change class name!
     """DESCRIPTION"""
 

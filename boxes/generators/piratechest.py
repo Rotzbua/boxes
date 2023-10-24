@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class PirateChest(Boxes):
     """Box with polygon lid with chest hinges."""
 

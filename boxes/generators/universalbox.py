@@ -15,9 +15,10 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from boxes import *
+from boxes import lids
 from boxes.edges import Bolts
 from boxes.lids import _TopEdge
-from boxes import lids
+
 
 class UniversalBox(_TopEdge):
     """Box with various options for different styles and lids"""

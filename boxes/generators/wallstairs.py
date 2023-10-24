@@ -16,6 +16,7 @@
 
 from boxes.walledges import _WallMountedBox
 
+
 class WallStairs(_WallMountedBox):
     """Platforms in different heights e.g. for screw drivers"""
 

@@ -17,6 +17,7 @@
 from boxes import *
 from boxes.generators.bayonetbox import BayonetBox
 
+
 class FilamentSpool(BayonetBox):
     """A two part spool for 3D printing filament"""
 

@@ -36,11 +36,12 @@
 # 			AttributeError: 'module' object inkex has no attribute 'uutounit
 # 			Fixed https://github.com/jnweiger/inkscape-gears-dev
 
-from math import pi, cos, sin, tan, radians, degrees, ceil, asin, acos, sqrt
+from math import acos, asin, ceil, cos, degrees, pi, radians, sin, sqrt, tan
 from os import devnull  # for debugging
 
 two_pi = 2 * pi
 import argparse
+
 from boxes.vectors import kerf, vdiff, vlength
 
 __version__ = '0.9'

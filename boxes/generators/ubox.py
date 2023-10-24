@@ -15,7 +15,7 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from boxes import *
-from boxes.lids import _TopEdge, LidSettings
+from boxes.lids import LidSettings, _TopEdge
 
 
 class UBox(_TopEdge):

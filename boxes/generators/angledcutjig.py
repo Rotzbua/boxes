@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class AngledCutJig(Boxes): # Change class name!
     """Jig for making angled cuts in a laser cutter"""
 

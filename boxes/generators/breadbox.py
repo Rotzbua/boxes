@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class BreadBox(Boxes):
     """A BreadBox with a gliding door"""
 

@@ -17,6 +17,7 @@
 from boxes import *
 from boxes.generators.console2 import Console2
 
+
 class SideDoorHousing(Console2):
     """A box with service hatches at the sides"""
 

@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class OttoSoles(Boxes):
     """Foam soles for the OttO bot"""
 

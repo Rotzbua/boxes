@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class CornerEdge(edges.Edge):
     char = "C"
 

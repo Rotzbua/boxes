@@ -16,6 +16,7 @@
 
 from boxes.walledges import _WallMountedBox
 
+
 class WallConsole(_WallMountedBox):
     """Outset and angled plate to mount stuff to"""
 

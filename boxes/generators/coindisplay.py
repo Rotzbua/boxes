@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class CoinHolderSideEdge(edges.BaseEdge):
     char = "B"
     def __call__(self, length, **kw):

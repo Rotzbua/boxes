@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class LBeam(Boxes):
     """Simple L-Beam: two pieces joined with a right angle"""
 

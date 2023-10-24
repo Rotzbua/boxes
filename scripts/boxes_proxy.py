@@ -12,12 +12,14 @@ Last patch: 27.04.2021
 License: GNU GPL v3
 
 """
-import inkex
-import sys
 import os
-from lxml import etree
+import sys
 import tempfile
 from shlex import quote
+
+from lxml import etree
+
+import inkex
 
 
 class boxesPyWrapper(inkex.GenerateExtension):

@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class Arcade(Boxes):
     """Desktop Arcade Machine"""
 

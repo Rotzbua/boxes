@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class WineRack(Boxes):
     """Honey Comb Style Wine Rack"""
 

@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class RoyalGame(Boxes):
     """The Royal Game of Ur"""
 

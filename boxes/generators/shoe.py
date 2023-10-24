@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class Shoe(Boxes):
     """Shoe shaped box"""
 

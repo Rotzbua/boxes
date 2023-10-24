@@ -17,6 +17,7 @@
 from boxes import *
 from boxes.walledges import _WallMountedBox
 
+
 class WallPliersHolder(_WallMountedBox):
     """Bar to hang pliers on"""
 

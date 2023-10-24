@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class CarbonFilter(Boxes):
     """Compact filter for activated char coal pellets"""
 

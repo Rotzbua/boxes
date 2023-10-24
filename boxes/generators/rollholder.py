@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class RollHolder(Boxes):
     """Holder for kitchen rolls or other rolls"""
 

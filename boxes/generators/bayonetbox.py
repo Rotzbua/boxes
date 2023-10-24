@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class BayonetBox(Boxes):
     """Round box made from layers with twist on top"""
 

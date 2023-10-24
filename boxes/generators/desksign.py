@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class Desksign(Boxes):
     """Simple diagonal plate with stands to show name or mesage"""
 

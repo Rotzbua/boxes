@@ -17,6 +17,7 @@
 from boxes import *
 from boxes.walledges import _WallMountedBox
 
+
 class PinEdge(edges.BaseEdge):
     def __call__(self, length, **kw):
         w2 = self.settings.pinwidth/2

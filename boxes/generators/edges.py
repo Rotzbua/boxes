@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class Edges(Boxes):
     """Print all registered Edge types"""
 

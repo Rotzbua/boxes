@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class HingeBox(Boxes):
     """Box with lid attached by cabinet hinges"""
 

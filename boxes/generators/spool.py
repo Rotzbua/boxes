@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class Spool(Boxes):
     """A simple spool"""
 

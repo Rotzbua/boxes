@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class PoleHook(Boxes): # change class name here and below
     """Hook for pole like things to be clamped to another pole"""
 

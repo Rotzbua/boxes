@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class HalfBox(Boxes):
     """Configurable half of a box which can be: a bookend, a hanging shelf, an angle clamping jig, ..."""
 

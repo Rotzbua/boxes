@@ -17,6 +17,7 @@
 from boxes import *
 from boxes.walledges import _WallMountedBox
 
+
 class SlottedEdge(edges.Edge):
 
     def __call__(self, length, **kw):

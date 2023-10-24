@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class RectangularWall(Boxes):
     """Simple wall"""
 

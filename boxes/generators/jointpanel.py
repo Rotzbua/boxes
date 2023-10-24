@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class JointPanel(Boxes):
     """Create pieces larger than your laser cutter by joining them with Dove Tails"""
 

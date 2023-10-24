@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class BurnTest(Boxes):
     """Test different burn values"""
     description = """This generator will make shapes that you can use to select

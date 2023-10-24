@@ -18,6 +18,7 @@ from boxes import *
 from boxes.lids import _TopEdge
 from boxes.walledges import _WallMountedBox
 
+
 class WallTypeTray(_WallMountedBox, _TopEdge):
     """Type tray - allows only continuous walls"""
 

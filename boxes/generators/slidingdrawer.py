@@ -1,5 +1,6 @@
 from boxes import *
 
+
 class SlidingDrawer(Boxes):
     """Sliding drawer box"""
 

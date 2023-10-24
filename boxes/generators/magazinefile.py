@@ -17,6 +17,7 @@
 from boxes import *
 from boxes.lids import _TopEdge
 
+
 class MagazineFile(Boxes):
     """Open magazine file"""
 

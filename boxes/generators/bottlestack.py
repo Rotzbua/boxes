@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class BottleStack(Boxes):
     """Stack bottles in a fridge"""
 

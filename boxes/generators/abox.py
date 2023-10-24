@@ -17,6 +17,7 @@
 from boxes import *
 from boxes.lids import LidSettings
 
+
 class ABox(Boxes):
     """A simple Box"""
 

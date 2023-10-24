@@ -16,6 +16,7 @@
 
 from boxes.walledges import _WallMountedBox
 
+
 class WallCaliper(_WallMountedBox):
     """Holds a single caliper to a wall"""
 

@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class HeartBox(Boxes):
     """Box in the form of a heart"""
 

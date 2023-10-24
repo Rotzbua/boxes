@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class BirdHouse(Boxes):
     """Simple Bird House"""
 

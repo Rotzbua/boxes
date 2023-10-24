@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class FanHole(Boxes):
     """Hole pattern for mounting a fan"""
 

@@ -18,6 +18,7 @@ from boxes import *
 from boxes import lids
 from boxes.edges import CompoundEdge
 
+
 class SmallPartsTray(Boxes):
     """Tray with slants to easier get out game tokens or screws"""
 

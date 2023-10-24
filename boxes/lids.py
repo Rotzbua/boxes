@@ -13,9 +13,11 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from boxes import edges, Boxes
-import boxes
 import math
+
+import boxes
+from boxes import Boxes, edges
+
 
 class LidSettings(edges.Settings):
 

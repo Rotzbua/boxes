@@ -17,6 +17,7 @@
 from boxes import *
 from boxes.walledges import _WallMountedBox
 
+
 class WallRollHolder(_WallMountedBox):
     """Holder for kitchen rolls or other rolls"""
 

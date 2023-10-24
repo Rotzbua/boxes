@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class FrontEdge(edges.BaseEdge):
     """An edge with room to get your fingers around cards"""
     def __call__(self, length, **kw):

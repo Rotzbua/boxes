@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class AllEdges(Boxes):
     """Showing all edge types"""
 

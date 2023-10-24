@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class LaserHoldfast(Boxes):
     """A holdfast for honey comb tables of laser cutters"""
 

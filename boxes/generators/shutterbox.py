@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class ShutterBox(Boxes):
     """Box with a rolling shutter made of flex"""
 

@@ -17,6 +17,7 @@
 from boxes import *
 from boxes.lids import _TopEdge
 
+
 class StorageShelf(_TopEdge):
     """StorageShelf can be used to store Typetray"""
 

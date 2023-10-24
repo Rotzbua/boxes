@@ -17,6 +17,7 @@
 from boxes import *
 from boxes import edges
 
+
 class LegEdge(edges.BaseEdge):
 
     def __call__(self, l, **kw):

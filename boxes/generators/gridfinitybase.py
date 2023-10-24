@@ -17,6 +17,7 @@
 from boxes import *
 from boxes import lids
 
+
 class GridfinityBase(Boxes):
     """A parameterized Gridfinity base"""
 

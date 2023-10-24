@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class LaserClamp(Boxes):
     """A clamp to hold down material to a knife table"""
 

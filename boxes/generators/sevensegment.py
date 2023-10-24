@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class SevenSegmentPattern(Boxes):
     """Holepatterns and walls for a seven segment digit"""
 

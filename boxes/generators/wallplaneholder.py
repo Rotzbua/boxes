@@ -16,6 +16,7 @@
 
 from boxes.walledges import _WallMountedBox
 
+
 class WallPlaneHolder(_WallMountedBox):
     """Hold a plane to a wall"""
 

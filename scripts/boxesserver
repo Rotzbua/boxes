@@ -19,6 +19,7 @@ import argparse
 import gettext
 import glob
 import html
+import io
 import mimetypes
 import os.path
 import re
@@ -28,12 +29,11 @@ import threading
 import time
 import traceback
 from typing import Any, NoReturn
-from urllib.parse import unquote_plus, quote
+from urllib.parse import quote, unquote_plus
 from wsgiref.simple_server import make_server
 
 import markdown
 import qrcode
-import io
 
 try:
     import boxes.generators

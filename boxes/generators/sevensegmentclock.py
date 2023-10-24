@@ -15,7 +15,9 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from boxes import *
+
 from .sevensegment import SevenSegmentPattern
+
 
 class SevenSegmentClock(SevenSegmentPattern):
     """Seven segment clock build with LED stripe"""

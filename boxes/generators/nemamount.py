@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class NemaMount(Boxes):
     """Mounting bracket for a Nema motor"""
 

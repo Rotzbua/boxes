@@ -16,6 +16,7 @@
 
 from boxes import *
 
+
 class FrontEdge(edges.Edge):
 
     def __call__(self, length, **kw):
