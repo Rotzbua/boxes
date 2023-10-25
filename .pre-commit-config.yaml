@@ -25,6 +25,12 @@ repos:
       - id: pyupgrade
         args: [ --py38-plus ]
 
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.2.1
+    hooks:
+      - id: autoflake
+        args: [ --remove-all-unused-imports, --in-place, --ignore-pass-statements, ]
+
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
     hooks:
@@ -37,10 +43,10 @@ repos:
   #        additional_dependencies: [ flake8-bugbear ]
   #        args: [ '--extend-ignore=E402,E501,E201,E202,E203,E221,E225,E231,E261,E266,E302,E305' ]
   #        # additional_dependencies: [ flake8-bugbear, flake8-docstrings ]
-  - repo: https://github.com/psf/black
-    rev: 23.10.0
-    hooks:
-      - id: black
+  #  - repo: https://github.com/psf/black
+  #    rev: 23.10.1
+  #    hooks:
+  #      - id: black
 
   #  - repo: https://github.com/codespell-project/codespell
   #    rev: v2.2.4
@@ -48,7 +54,22 @@ repos:
 
   #      - id: codespell
 
-#  - repo: https://github.com/pre-commit/mirrors-jshint
-#    rev: v2.13.6  # Use the sha / tag you want to point at
+  #  - repo: https://github.com/pre-commit/mirrors-jshint
+  #    rev: v2.13.6  # Use the sha / tag you want to point at
+  #    hooks:
+  #      - id: jshint
+
+#  - repo: https://github.com/markdownlint/markdownlint
+#    rev: 'v0.12.0'
 #    hooks:
-#      - id: jshint
+##      - id: markdownlint
+#      - id: markdownlint_docker
+
+#  - repo:  https://github.com/igorshubovych/markdownlint-cli
+#    rev: 'v0.37.0'
+#    hooks:
+#      - id: markdownlint-fix
+#  - repo:  https://github.com/jumanjihouse/pre-commit-hooks
+#    rev: ''
+#    hooks:
+#      - id: markdownlint

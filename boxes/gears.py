@@ -42,7 +42,7 @@ from os import devnull  # for debugging
 two_pi = 2 * pi
 import argparse
 
-from boxes.vectors import kerf, vdiff, vlength
+from boxes.vectors import vdiff, vlength
 
 __version__ = "0.9"
 
