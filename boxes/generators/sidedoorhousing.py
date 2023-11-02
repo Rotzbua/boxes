@@ -16,6 +16,7 @@
 from boxes import *
 from boxes.generators.console2 import Console2
 
+
 class SideDoorHousing(Console2):
     """A box with service hatches at the sides"""
 
@@ -47,7 +48,7 @@ The latches lock in place when closed. To open them they need to be pressed in a
             "--double_door",  action="store", type=boolarg, default=True,
             help="allow removing the backwall, too")
 
-        
+
     def render(self):
         x, y, h = self.x, self.y, self.h
         t = self.thickness
@@ -79,7 +80,7 @@ The latches lock in place when closed. To open them they need to be pressed in a
                      self.rectangularHole(y-1.55*t, latchpos, 1.1*t, 1.1*t))],
                 move=move)
 
-            
+
         for i in range(2 if self.double_door else 1):
             self.rectangularWall(x, t, (bottom, "F", "e", "F"),
                                  ignore_widths=[1, 6], move="up")
