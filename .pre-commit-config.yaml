@@ -53,12 +53,12 @@ repos:
   #      args: [ '--extend-ignore=E402,E501,E201,E202,E203,E221,E225,E231,E261,E266,E302,E305' ]
   #      # additional_dependencies: [ flake8-bugbear, flake8-docstrings ]
 
-#  - repo: https://github.com/pre-commit/mirrors-mypy
-#    rev: v1.6.1
-#    hooks:
-#      - id: mypy
-#        args: [ '--ignore-missing-imports' ]
-#        files: '^boxes/.*\.py$'
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.6.1
+    hooks:
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^boxes/.*\.py$'
 #      - id: mypy
 #        args: [ '--ignore-missing-imports' ]
 #        files: '^documentation/src/boxes2rst.py$'
