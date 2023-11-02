@@ -75,10 +75,10 @@ repos:
 #        args: [ '--ignore-missing-imports' ]
 #        additional_dependencies: [ 'inkex' ]
 #        files: '^scripts/boxes_proxy.py$'
-#      - id: mypy
-#        args: [ '--ignore-missing-imports' ]
-#        additional_dependencies: [ 'types-Markdown' ]
-#        files: '^scripts/boxesserver$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        additional_dependencies: [ 'types-Markdown' ]
+        files: '^scripts/boxesserver$'
       - id: mypy
         args: [ '--ignore-missing-imports' ]
         files: '^setup.py$'
