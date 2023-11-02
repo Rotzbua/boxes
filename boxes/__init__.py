@@ -2741,7 +2741,7 @@ class Boxes:
         :param bedBoltSettings:  (Default value = None)
         :param callback:  (Default value = None)
         :param move:  (Default value = None)
-        :param label: rendered to identify parts, it is not ment to be cut or etched (Default value = "")
+        :param label: rendered to identify parts, it is not meant to be cut or etched (Default value = "")
         """
         if len(edges) != 4:
             raise ValueError("four edges required")
@@ -2806,7 +2806,7 @@ class Boxes:
         :param r: radius of the corners of the flange
         :param callback:  (Default value = None)
         :param move:  (Default value = None)
-        :param label: rendered to identify parts, it is not ment to be cut or etched (Default value = "")
+        :param label: rendered to identify parts, it is not meant to be cut or etched (Default value = "")
         """
 
         t = self.thickness
@@ -2886,7 +2886,7 @@ class Boxes:
         :param bedBoltSettings:  (Default value = None)
         :param callback:  (Default value = None)
         :param move:  (Default value = None)
-        :param label: rendered to identify parts, it is not ment to be cut or etched (Default value = "")
+        :param label: rendered to identify parts, it is not meant to be cut or etched (Default value = "")
         """
         edges = [self.edges.get(e, e) for e in edges]
         if len(edges) == 2:
@@ -2974,7 +2974,7 @@ class Boxes:
         :param edges:  (Default value = "eee") bottom, right, left
         :param callback:  (Default value = None)
         :param move:  (Default value = None)
-        :param label: rendered to identify parts, it is not ment to be cut or etched (Default value = "")
+        :param label: rendered to identify parts, it is not meant to be cut or etched (Default value = "")
         """
 
         edges = [self.edges.get(e, e) for e in edges]
@@ -3019,7 +3019,7 @@ class Boxes:
         :param radius: (Default value = 0.0) radius of upper corners
         :param callback:  (Default value = None)
         :param move:  (Default value = None)
-        :param label: rendered to identify parts, it is not ment to be cut or etched (Default value = "")
+        :param label: rendered to identify parts, it is not meant to be cut or etched (Default value = "")
         """
 
         edges = [self.edges.get(e, e) for e in edges]
@@ -3200,7 +3200,7 @@ class Boxes:
         :param correct_corners: (Default value = True)
         :param callback:  (Default value = None)
         :param move:  (Default value = None)
-        :param label: rendered to identify parts, it is not ment to be cut or etched (Default value = "")
+        :param label: rendered to identify parts, it is not meant to be cut or etched (Default value = "")
 
         borders is alternating between length of the edge and angle of the corner. For now neither tabs nor radii are supported. None at the end closes the polygon.
         """

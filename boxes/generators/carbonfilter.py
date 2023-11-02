@@ -249,7 +249,7 @@ The last two types of ribs do not have finger joints on the outside but still ne
                 w,
                 "efef",
                 callback=[self.bottomCB, None, self.bottomCB],
-                label="botton plate",
+                label="bottom plate",
                 move="up",
             )
 

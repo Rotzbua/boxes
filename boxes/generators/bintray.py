@@ -67,7 +67,7 @@ class BinTray(Boxes):
             action="store",
             type=float,
             default=0.4,
-            help="fraction of bin height covert with slope",
+            help="fraction of bin height covered with slope",
         )
 
     def xSlots(self):

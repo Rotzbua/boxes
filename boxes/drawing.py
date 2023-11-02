@@ -881,7 +881,7 @@ class LBRN2Surface(Surface):
                 path.faster_edges(inner_corners)
                 num = 0
                 cnt = 1
-                ende = len(path.path) - 1
+                end = len(path.path) - 1
                 if self.dbg:
                     for c in path.path:
                         print("6", num, c)
@@ -891,8 +891,8 @@ class LBRN2Surface(Surface):
                 c = path.path[num]
                 C, x, y = c[0:3]
                 if self.dbg:
-                    print("ende:", ende)
-                while num < ende or (C == "T" and num <= ende):  # len(path.path):
+                    print("end:", end)
+                while num < end or (C == "T" and num <= end):  # len(path.path):
                     if self.dbg:
                         print("0", num)
                     c = path.path[num]
@@ -919,7 +919,7 @@ class LBRN2Surface(Surface):
                         # do something with M
                         done = False
                         bspline = False
-                        while done == False and num < ende:  # len(path.path):
+                        while done == False and num < end:  # len(path.path):
                             num += 1
                             c = path.path[num]
                             if self.dbg:
