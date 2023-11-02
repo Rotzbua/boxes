@@ -14,7 +14,8 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from boxes import *
-from boxes.lids import _TopEdge, LidSettings
+from boxes.lids import LidSettings, _TopEdge
+
 
 class TypeTray(_TopEdge):
     """Type tray - allows only continuous walls"""
@@ -193,7 +194,3 @@ class TypeTray(_TopEdge):
                 e = [edges.SlottedEdge(self, self.sy, be, slots=0.5 * hi),"f",
                      edges.SlottedEdge(self, self.sy[::-1], "f"), "f"]
             self.rectangularWall(y, hi, e, move="up", label=f"inner y {i+1}")
-
-
-
-
