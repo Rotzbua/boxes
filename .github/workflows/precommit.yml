@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ "3.12" ] # Lowest and highest.
+        python-version: [ "3.8", "3.12" ] # Lowest and highest.
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v4
