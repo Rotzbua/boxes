@@ -73,7 +73,7 @@ repos:
         files: '^scripts/boxes2pot$'
       - id: mypy
         args: [ '--ignore-missing-imports' ]
-        additional_dependencies: [ 'inkex' ]
+#        additional_dependencies: [ 'inkex' ]
         files: '^scripts/boxes_proxy.py$'
       - id: mypy
         args: [ '--ignore-missing-imports' ]
