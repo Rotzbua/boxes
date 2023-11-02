@@ -53,11 +53,11 @@ repos:
   #    hooks:
   #      - id: black
 
-  #  - repo: https://github.com/codespell-project/codespell
-  #    rev: v2.2.4
-  #    hooks:
-
-  #      - id: codespell
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.4
+    hooks:
+      - id: codespell
+        exclude: ^(po|static)/
 
   #  - repo: https://github.com/pre-commit/mirrors-jshint
   #    rev: v2.13.6  # Use the sha / tag you want to point at
