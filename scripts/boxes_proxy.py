@@ -17,12 +17,13 @@ import sys
 import tempfile
 from shlex import quote
 
+from inkex.extensions import GenerateExtension
 from lxml import etree
 
 import inkex
 
 
-class boxesPyWrapper(inkex.GenerateExtension):
+class boxesPyWrapper(GenerateExtension):
     def add_arguments(self, pars):
         args = sys.argv[1:]
         for arg in args:

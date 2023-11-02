@@ -44,17 +44,45 @@ repos:
     hooks:
       - id: isort
 
-  #  - repo: https://github.com/PyCQA/flake8
-  #    rev: 6.1.0
-  #    hooks:
-  #      - id: flake8
-  #        additional_dependencies: [ flake8-bugbear ]
-  #        args: [ '--extend-ignore=E402,E501,E201,E202,E203,E221,E225,E231,E261,E266,E302,E305' ]
-  #        # additional_dependencies: [ flake8-bugbear, flake8-docstrings ]
-  #  - repo: https://github.com/psf/black
-  #    rev: 23.10.1
-  #    hooks:
-  #      - id: black
+  # A lot todo to pass test.
+  #- repo: https://github.com/PyCQA/flake8
+  #  rev: 6.1.0
+  #  hooks:
+  #    - id: flake8
+  #      additional_dependencies: [ flake8-bugbear ]
+  #      args: [ '--extend-ignore=E402,E501,E201,E202,E203,E221,E225,E231,E261,E266,E302,E305' ]
+  #      # additional_dependencies: [ flake8-bugbear, flake8-docstrings ]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.6.1
+    hooks:
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^boxes/.*\.py$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^documentation/src/boxes2rst.py$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^scripts/boxes$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^scripts/boxes2inkscape$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^scripts/boxes2pot$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        additional_dependencies: [ 'inkex' ]
+        files: '^scripts/boxes_proxy.py$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        additional_dependencies: [ 'types-Markdown' ]
+        files: '^scripts/boxesserver$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^setup.py$'
+
   - repo: https://github.com/rstcheck/rstcheck
     rev: v6.2.0
     hooks:
@@ -62,33 +90,13 @@ repos:
         args: [ "--report-level=warning", "--ignore-directives=autoclass,automethod,automodule" ]
         additional_dependencies: [ sphinx ]
 
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.4
-    hooks:
-      - id: codespell
-        exclude: ^(boxes|locale|po|static)/
-
-  #  - repo: https://github.com/pre-commit/mirrors-jshint
-  #    rev: v2.13.6  # Use the sha / tag you want to point at
-  #    hooks:
-  #      - id: jshint
-
-#  - repo: https://github.com/markdownlint/markdownlint
-#    rev: 'v0.12.0'
-#    hooks:
-##      - id: markdownlint
-#      - id: markdownlint_docker
-
-#  - repo:  https://github.com/igorshubovych/markdownlint-cli
-#    rev: 'v0.37.0'
-#    hooks:
-#      - id: markdownlint-fix
-#  - repo:  https://github.com/jumanjihouse/pre-commit-hooks
-#    rev: ''
-#    hooks:
-#      - id: markdownlint
-
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.9.0.6
     hooks:
       - id: shellcheck
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.6
+    hooks:
+      - id: codespell
+        exclude: ^(boxes|locale|po|static)/
