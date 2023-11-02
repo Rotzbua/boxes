@@ -59,18 +59,18 @@ repos:
       - id: mypy
         args: [ '--ignore-missing-imports' ]
         files: '^boxes/.*\.py$'
-#      - id: mypy
-#        args: [ '--ignore-missing-imports' ]
-#        files: '^documentation/src/boxes2rst.py$'
-#      - id: mypy
-#        args: [ '--ignore-missing-imports' ]
-#        files: '^scripts/boxes$'
-#      - id: mypy
-#        args: [ '--ignore-missing-imports' ]
-#        files: '^scripts/boxes2inkscape$'
-#      - id: mypy
-#        args: [ '--ignore-missing-imports' ]
-#        files: '^scripts/boxes2pot$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^documentation/src/boxes2rst.py$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^scripts/boxes$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^scripts/boxes2inkscape$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^scripts/boxes2pot$'
 #      - id: mypy
 #        args: [ '--ignore-missing-imports' ]
 #        additional_dependencies: [ 'inkex' ]
@@ -79,9 +79,9 @@ repos:
 #        args: [ '--ignore-missing-imports' ]
 #        additional_dependencies: [ 'types-Markdown' ]
 #        files: '^scripts/boxesserver$'
-#      - id: mypy
-#        args: [ '--ignore-missing-imports' ]
-#        files: '^setup.py$'
+      - id: mypy
+        args: [ '--ignore-missing-imports' ]
+        files: '^setup.py$'
 
   - repo: https://github.com/rstcheck/rstcheck
     rev: v6.2.0
