@@ -126,7 +126,7 @@ class Keyboard:
                 n = int(m.group(3)) if m.group(3) else 1
                 result.extend([(offset, keys_count)]*n)
         except:
-            raise argparse.ArgumentTypeError("Don't understand columns definition string")
+            raise argparse.ArgumentTypeError("Don't understand columns definition string") from None
 
         return result
 
