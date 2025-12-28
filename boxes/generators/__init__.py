@@ -74,7 +74,7 @@ def getAllGeneratorModules() -> dict[str, ModuleType]:
     for importer, modname, ispkg in pkgutil.walk_packages(
             path=path,
             prefix=__name__ + '.',
-            onerror=lambda x: None):
+            onerror=lambda _: None):
         module = importlib.import_module(modname)
         generators[modname.split('.')[-1]] = module
     return generators
