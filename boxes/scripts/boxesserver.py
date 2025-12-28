@@ -98,7 +98,7 @@ def filter_url(url, non_default_args):
             continue
         if a in non_default_args:
             new_args.append(arg)
-    if len(new_args):
+    if 0 < len(new_args):
         return f"{base}?{'&'.join(new_args)}"
     else:
         return f"{base}"
