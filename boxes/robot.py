@@ -2,9 +2,9 @@ __all__ = [
     "RobotArg",
     "RobotArmMM",
     "RobotArmMm",
+    "RobotArmMu",
     "RobotArmUU",
     "RobotArmUu",
-    "RobotArmMu",
 ]
 
 class RobotArg:
