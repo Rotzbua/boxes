@@ -981,7 +981,7 @@ class LBRN2Surface(Surface):
                         if not text:
                             if self.dbg: print ("T: text with empty string - ",x, y, c)
                         else:
-                            sh = ET.SubElement(children, "Shape", Type="Text", CutIndex=str(fontColor), Font=f"{f}", H=f"{(params['fs']*1.75*0.6086434):.3f}", Str=f"{text}", Bold=f"{'1' if bold else '0'}", Italic=f"{'1' if italic else '0'}", Ah=f"{str(hor)}", Av=f"{str(ver)}", Eval=f"{texttype}", VariableOffset=f"{str(offs)}")  # 1mm = 1.75 Lightburn H units
+                            sh = ET.SubElement(children, "Shape", Type="Text", CutIndex=str(fontColor), Font=f"{f}", H=f"{(params['fs']*1.75*0.6086434):.3f}", Str=f"{text}", Bold=f"{'1' if bold else '0'}", Italic=f"{'1' if italic else '0'}", Ah=f"{hor!s}", Av=f"{ver!s}", Eval=f"{texttype}", VariableOffset=f"{offs!s}")  # 1mm = 1.75 Lightburn H units
                             sh.text = "\n  "
                             sh.tail = "\n"
                             xf = ET.SubElement(sh, "XForm")
