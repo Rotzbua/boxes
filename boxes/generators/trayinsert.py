@@ -15,6 +15,7 @@
 
 from boxes import *
 
+
 class SlantedEdge(edges.BaseEdge):
 
     def __call__(self, length, **kw):

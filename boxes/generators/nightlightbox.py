@@ -16,6 +16,7 @@
 from boxes import *
 from boxes.lids import _TopEdge
 
+
 class NightLightBox(_TopEdge):
     """Simple decorative lamp with creatively laser cut plates"""
 

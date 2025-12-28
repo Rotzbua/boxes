@@ -16,11 +16,11 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import math
+from collections.abc import Callable, Sequence
+
 from boxes import *
 from boxes.lids import Lid, LidSettings, _TopEdge
-import math
-from collections.abc import Callable
-from collections.abc import Sequence
 
 
 class Cutout:

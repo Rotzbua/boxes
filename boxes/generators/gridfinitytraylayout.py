@@ -1,5 +1,5 @@
 import boxes
-from boxes import Boxes, lids, restore, boolarg
+from boxes import Boxes, boolarg, lids, restore
 from boxes.Color import Color
 from boxes.generators.traylayout import TrayLayout
 
