@@ -18,10 +18,12 @@
 # Explanation of the math will be in a separate file
 
 import math
+from typing import NamedTuple
 
 import numpy
+
 from boxes import *
-from collections import namedtuple
+
 
 class Sphere(Boxes):
     """Actually not a sphere, but a hosohedron. Also not actually a box, but a globe, lamp, ornament or whatever you want it to be."""
@@ -29,6 +31,13 @@ class Sphere(Boxes):
     description = """With Voronoi pattern added:\n![Voronoi patterned Lamp](static/samples/Sphere-2.jpg)"""
 
     ui_group = "Misc"
+
+    class Curve(NamedTuple):
+        degrees: float
+        radius: float
+
+    class TurnToDirection(NamedTuple):
+        degrees: float
 
     def __init__(self) -> None:
         super().__init__()
@@ -68,9 +77,6 @@ class Sphere(Boxes):
         self.argparser.add_argument(
             "--tab_width", action="store", type=float, default=5.0,
             help="The width of the tabs (in mm)")
-
-    Curve = namedtuple('Curve', ["degrees", "radius"])
-    TurnToDirection = namedtuple('TurnToDirection', ["degrees"])
 
     def calculateXOfGore(self, u):
         return math.sin(u / self.sphere_radius) * self.halfBellyLens

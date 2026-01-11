@@ -446,14 +446,14 @@ class SVGSurface(Surface):
         if not md["reproducible"]:
             self._addTag(w, 'dc:date', creation_date)
 
-        if "url" in md and md["url"]:
+        if md.get("url"):
             self._addTag(w, 'dc:source', md["url"])
             self._addTag(w, 'dc:source', md["url_short"])
         else:
             self._addTag(w, 'dc:source', md["cli"])
 
         desc = md["short_description"] or ""
-        if "description" in md and md["description"]:
+        if md.get("description"):
             desc += "\n\n" + md["description"]
         desc += "\n\nCreated with Boxes.py (https://boxes.hackerspace-bamberg.de/)\n"
         desc += "Command line: %s\n" % md["cli"]
@@ -622,7 +622,7 @@ class PSSurface(Surface):
         for line in (md["short_description"] or "").split("\n"):
             desc += "%% %s\n" % line
         desc += "%\n"
-        if "description" in md and md["description"]:
+        if md.get("description"):
             desc += "%\n"
             for line in md["description"].split("\n"):
                 desc += "%% %s\n" % line
@@ -981,7 +981,7 @@ class LBRN2Surface(Surface):
                         if not text:
                             if self.dbg: print ("T: text with empty string - ",x, y, c)
                         else:
-                            sh = ET.SubElement(children, "Shape", Type="Text", CutIndex=str(fontColor), Font=f"{f}", H=f"{(params['fs']*1.75*0.6086434):.3f}", Str=f"{text}", Bold=f"{'1' if bold else '0'}", Italic=f"{'1' if italic else '0'}", Ah=f"{str(hor)}", Av=f"{str(ver)}", Eval=f"{texttype}", VariableOffset=f"{str(offs)}")  # 1mm = 1.75 Lightburn H units
+                            sh = ET.SubElement(children, "Shape", Type="Text", CutIndex=str(fontColor), Font=f"{f}", H=f"{(params['fs']*1.75*0.6086434):.3f}", Str=f"{text}", Bold=f"{'1' if bold else '0'}", Italic=f"{'1' if italic else '0'}", Ah=f"{hor!s}", Av=f"{ver!s}", Eval=f"{texttype}", VariableOffset=f"{offs!s}")  # 1mm = 1.75 Lightburn H units
                             sh.text = "\n  "
                             sh.tail = "\n"
                             xf = ET.SubElement(sh, "XForm")

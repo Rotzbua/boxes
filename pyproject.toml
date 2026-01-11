@@ -1,4 +1,3 @@
-
 [build-system]
 requires = ["setuptools >= 63.0"]
 build-backend = "setuptools.build_meta"
@@ -9,32 +8,32 @@ name = 'boxes'
 version = '1.2'
 requires-python = '>=3.10'
 description = 'Boxes generator for laser cutters'
-maintainers = [ { name = 'Florian Festi', email='florian@festi.info' } ]
+maintainers = [{ name = 'Florian Festi', email = 'florian@festi.info' }]
 readme = "README.rst"
 keywords = ["boxes", "box", "generator", "svg", "laser cutter"]
-classifiers = [ # https://pypi.python.org/pypi?%3Aaction=list_classifiers
-  "Development Status :: 5 - Production/Stable",
-  "Environment :: Console",
-  "Environment :: Web Environment",
-  "Intended Audience :: Manufacturing",
-  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-  "Programming Language :: Python :: 3",
-  "Topic :: Multimedia :: Graphics :: Editors :: Vector-Based",
-  "Topic :: Scientific/Engineering",
+classifiers = [# https://pypi.python.org/pypi?%3Aaction=list_classifiers
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: Web Environment",
+    "Intended Audience :: Manufacturing",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Graphics :: Editors :: Vector-Based",
+    "Topic :: Scientific/Engineering",
 ]
 
 [project.optional-dependencies]
 dev = [
-  "lxml",
-  "mypy",
-  "pre-commit",
-  "pytest>=8.1.1",
-  "types-Markdown"
+    "lxml",
+    "mypy",
+    "pre-commit",
+    "pytest>=8.1.1",
+    "types-Markdown"
 ]
 doc = ["sphinx>=8.0.2"]
 
 [tool.setuptools.dynamic]
-dependencies = {file=["requirements.txt"]}
+dependencies = { file = ["requirements.txt"] }
 
 [project.scripts]
 boxes = 'boxes.scripts.boxes_main:main'
@@ -59,3 +58,87 @@ warn_redundant_casts = true
 warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
+
+[tool.ruff]
+exclude = ["scripts/**/*"]
+lint.select = [
+    "A", # flake8-builtins
+    #    "ANN", # flake8-annotations
+    "ARG", # flake8-unused-arguments
+    "B", # flake8-bugbear
+    #      "C4",# flake8-comprehensions
+
+    #      "C90", #mccabe
+    #      "DTZ",# flake8-datetimez
+    # "D",# pydocstyle
+    #      "E",# pycodestyle errors
+    #      "F",# Pyflakes
+    "FA", # flake8-future-annotations
+    "FLY", # flynt
+    "FURB", # refurb
+    "I", # isort
+    "ISC", # flake8-implicit-str-concat
+    "LOG", # flake8-logging
+    #  # pep8-naming
+    #  #  "N",
+    #        "PERF", # Perflint
+    "PGH", # pygrep-hooks
+    #      "PIE",# flake8-pie
+    # pylint
+    "PLC",
+    "PLE",
+    #  "PLR",
+    #  "PLW",
+    #  "PTH",# flake8-use-pathlib
+    "PYI", # flake8-pyi
+    #    "Q", # flake8-quotes
+    # "RET", # flake8-return
+    # "RET503", # ToDo Missing explicit `return` at the end of function able to return non-`None` value
+    "RSE", # flake8-raise
+    "RUF", # Ruff-specific rules
+    "S", # flake8-bandit
+    #          "SIM",# flake8-simplify
+    #  "SLF",# flake8-self
+    "SLOT", # flake8-slots
+    "T10", # flake8-debugger
+    "TC", # flake8-type-checking
+    #  "UP",# pyupgrade
+    #      "W",# pycodestyle warnings
+    "YTT", # flake8-2020
+]
+lint.ignore = [
+    "S101", # ToDo
+    "S110", # ToDo
+    "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
+    "S603", # ToDo
+    "S606", # ToDo
+    "B007", # ToDo
+    "B006", # ToDo
+    "B905", # ToDo
+    "C408", # ToDo
+    "B023", # ToDo
+    "RUF015", # ToDo
+    "RUF021", # ToDo
+    "FURB187", # false positive: Use of assignment of `reversed` on list
+    "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
+    "RUF059", # Unpacked variable is never used
+    "RUF005", # Consider instead of concatenation
+    "PGH003", # Use specific rule codes when ignoring type issues
+    "E501", #
+    "E741", #
+    "TC003", # Move standard library import into a type-checking block
+    "B024", # is an abstract base class, but it has no abstract methods or properties
+    "ARG001", # Unused function argument
+    "ARG002", # Unused method argument
+    "A001", # Variable is shadowing a Python builtin
+    "A002", # Function argument is shadowing a Python builtin
+]
+
+[tool.ruff.lint.per-file-ignores]
+"boxes/**/*" = ["PTH"]
+"boxes/__init__.py" = ["PLC0415"]
+"boxes/edges.py" = ["PLC0415"]
+"boxes/scripts/**/*" = ["PTH"]
+"documentation/src/conf.py" = ["DTZ005", "RUF003"]
+"setup.py" = ["ALL", "PTH", "S"]
+"tests/**/*" = ["S101"]

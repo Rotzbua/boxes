@@ -16,6 +16,7 @@
 from boxes import *
 from boxes.walledges import _WallMountedBox
 
+
 class StackableBinEdge(edges.BaseEdge):
     # Character used to identify this edge type in wall specifications
     char = "j"

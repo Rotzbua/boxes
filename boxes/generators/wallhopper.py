@@ -16,6 +16,7 @@
 from boxes import *
 from boxes.walledges import _WallMountedBox
 
+
 class WallHopper(_WallMountedBox):
     """Storage hopper with dispensing tray"""
 

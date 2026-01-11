@@ -6,11 +6,11 @@ Generate stencils for wooden boxes.
 """
 from __future__ import annotations
 
+import argparse
 import gettext
+import logging
 import os
 import sys
-import argparse
-import logging
 from pathlib import Path
 
 try:

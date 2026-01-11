@@ -16,6 +16,7 @@
 from boxes import *
 from boxes.walledges import _WallMountedBox
 
+
 class WallXXX(_WallMountedBox): # Change class name!
     """DESCRIPTION"""
 

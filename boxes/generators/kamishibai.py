@@ -14,9 +14,9 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from boxes import *
-from boxes.lids import _TopEdge
 from boxes.edges import HingeSettings
-pass
+from boxes.lids import _TopEdge
+
 
 class Kamishibai(_TopEdge):
     """Kamishibai butai (japanese image theatre)"""

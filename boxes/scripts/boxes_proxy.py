@@ -15,10 +15,10 @@ License: GNU GPL v3
 import subprocess
 import sys
 
+from inkex.extensions import GenerateExtension
 from lxml import etree
 
 import inkex
-from inkex.extensions import GenerateExtension
 
 
 class boxesPyWrapper(GenerateExtension):
