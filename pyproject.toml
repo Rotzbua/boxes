@@ -62,9 +62,9 @@ warn_unused_ignores = true
 [tool.rstcheck]
 report_level = "ERROR"
 ignore_directives = [
-  "autoclass",
-  "automethod",
-  "automodule",
+    "autoclass",
+    "automethod",
+    "automodule",
 ]
 
 [tool.ruff]
@@ -97,7 +97,7 @@ lint.select = [
     "PLE",
     #  "PLR",
     #  "PLW",
-    #  "PTH",# flake8-use-pathlib
+    "PTH", # flake8-use-pathlib
     "PYI", # flake8-pyi
     #    "Q", # flake8-quotes
     # "RET", # flake8-return
@@ -127,6 +127,13 @@ lint.ignore = [
     "B023", # ToDo
     "RUF015", # ToDo
     "RUF021", # ToDo
+    "LOG015", # ToDo
+    "B904", # ToDo
+    "ARG003", # ToDo
+    "FURB171", # FixMe
+    "S324", # FixMe
+    "S314", # FixMe
+    "PLC0415", # FixMe
     "FURB187", # false positive: Use of assignment of `reversed` on list
     "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
     "RUF059", # Unpacked variable is never used
@@ -143,10 +150,9 @@ lint.ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"boxes/**/*" = ["PTH"]
 "boxes/__init__.py" = ["PLC0415"]
 "boxes/edges.py" = ["PLC0415"]
-"boxes/scripts/**/*" = ["PTH"]
+"boxes/scripts/boxes_generator.py" = ["PTH122"]
 "documentation/src/conf.py" = ["DTZ005", "RUF003"]
 "setup.py" = ["ALL", "PTH", "S"]
 "tests/**/*" = ["S101"]
