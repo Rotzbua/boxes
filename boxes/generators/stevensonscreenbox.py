@@ -14,10 +14,11 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from dataclasses import dataclass
+
 pass
 import numpy as np
-from boxes import Boxes, restore, Color
-from boxes import edges
+
+from boxes import Boxes, Color, edges, restore
 from boxes.edges import Settings
 
 

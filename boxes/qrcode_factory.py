@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from decimal import Decimal
-from typing import Any, IO
+from typing import IO, Any
 
 import qrcode.image.base
 import qrcode.image.svg

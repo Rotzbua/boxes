@@ -6,25 +6,26 @@ Generate stencils for wooden boxes.
 """
 from __future__ import annotations
 
+import argparse
+import copy
 import gettext
+import hashlib
+import logging
 import os
 import sys
-import copy
-import argparse
-import logging
-import hashlib
 from pathlib import Path
 from typing import TextIO
+
 try:
     import boxes
 except ImportError:
     sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../..'))
     import boxes
 
+import yaml
+
 import boxes.generators
 import boxes.svgmerge
-
-import yaml
 
 
 class ArgumentParserError(Exception): pass

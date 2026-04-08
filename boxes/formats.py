@@ -14,11 +14,12 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import io
 import os
 import shutil
 import subprocess
 import tempfile
-import io
+
 from boxes.drawing import Context, LBRN2Surface, PSSurface, SVGSurface
 
 
