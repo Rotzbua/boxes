@@ -18,10 +18,12 @@
 # Explanation of the math will be in a separate file
 
 import math
+from typing import NamedTuple
 
 import numpy
+
 from boxes import *
-from typing import NamedTuple
+
 
 class Sphere(Boxes):
     """Actually not a sphere, but a hosohedron. Also not actually a box, but a globe, lamp, ornament or whatever you want it to be."""

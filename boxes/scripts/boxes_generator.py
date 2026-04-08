@@ -75,20 +75,18 @@ layout: |
 
 Currently there is no web front-end for this script.
 """
-import yaml
-import copy
-import os
-import sys
-import logging
 import argparse
-import sys
-import uuid
+import copy
+import logging
 import os
 import re
-
+import sys
+import uuid
 import xml.etree.ElementTree as ET
+
 import rectpack
-from rectpack import newPacker, PackingBin
+import yaml
+from rectpack import PackingBin, newPacker
 from svgpathtools import parse_path
 
 try:
@@ -97,6 +95,7 @@ except ImportError:
     sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), "../.."))
     import boxes.generators
 import boxes
+
 
 class ArgumentParserError(Exception): pass
 

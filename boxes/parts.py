@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from math import *
 from typing import Any
-from collections.abc import Callable
 
 from boxes import vectors
 

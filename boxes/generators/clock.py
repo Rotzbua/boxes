@@ -15,6 +15,7 @@
 
 from boxes import *
 
+
 class Clock(Boxes):
     """Clock (old style with clock hands)"""
 
