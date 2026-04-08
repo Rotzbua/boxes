@@ -131,7 +131,6 @@ lint.ignore = [
     "B904", # ToDo
     "ARG003", # ToDo
     "FURB171", # FixMe
-    "S324", # FixMe
     "S314", # FixMe
     "PLC0415", # FixMe
     "FURB187", # false positive: Use of assignment of `reversed` on list
