@@ -19,7 +19,7 @@ from typing import TextIO
 try:
     import boxes
 except ImportError:
-    sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../..'))
+    sys.path.append(Path(__file__).resolve().parent.parent.__str__())
     import boxes
 
 import yaml
@@ -54,7 +54,7 @@ def print_grouped_generators() -> None:
 
 def multi_generate(config_path : Path|str|TextIO, output_path : Path|str, output_name_formater=None, format="svg") -> list[str]:
     if isinstance(config_path, str) or isinstance(config_path, Path):
-        with open(config_path) as ff:
+        with Path(config_path).open() as ff:
             config_data = yaml.safe_load(ff)
     else:
         config_data = yaml.safe_load(config_path)
@@ -62,7 +62,7 @@ def multi_generate(config_path : Path|str|TextIO, output_path : Path|str, output
     all_generators = boxes.generators.getAllBoxGenerators()
     generators_by_name = {b.__name__: b for b in all_generators.values()}
 
-    generated_files = []
+    generated_files: list[str] = []
     defaults = config_data.get("Defaults", {})
 
     for ii, box_settings in enumerate(config_data.get("Boxes", [])):
@@ -100,8 +100,9 @@ def multi_generate(config_path : Path|str|TextIO, output_path : Path|str, output
 
             # Handle layout separately
             if hasattr(box, "layout") and "layout" in settings:
-                if os.path.exists(settings["layout"]):
-                    with open(settings["layout"]) as ff:
+                layoutFile = Path(settings["layout"])
+                if layoutFile.exists():
+                    with layoutFile.open() as ff:
                         settings["layout"] = ff.read()
                 else:
                     box.layout = settings["layout"]
@@ -120,8 +121,9 @@ def multi_generate(config_path : Path|str|TextIO, output_path : Path|str, output
             #  - provided as a path to a file in the YAML file
             #  - using the special placeholder __GENERATE__ which will invoke the default
             if "layout" in settings:
-                if os.path.exists(settings["layout"]):
-                    with open(settings["layout"]) as ff:
+                layoutFile = Path(settings["layout"])
+                if layoutFile.exists():
+                    with layoutFile.open() as ff:
                         layout = ff.read()
                 else:
                     layout = settings["layout"]
@@ -182,19 +184,19 @@ def multi_generate(config_path : Path|str|TextIO, output_path : Path|str, output
             # Write the output - if count is provided generate multiple copies
             if box_settings.get("count") is not None:
                 for jj in range(int(box_settings.get("count"))):
-                    output_file = os.path.join(output_path, f"{output_fname}_{jj}.{format}")
+                    output_file = Path(output_path) / f"{output_fname}_{jj}.{format}"
                     print(f"Writing {output_file}")
-                    with open(output_file, "wb") as ff:
+                    with output_file.open("wb") as ff:
                         ff.write(data.read())
                         data.seek(0)
-                    generated_files.append(output_file)
+                    generated_files.append(output_file.__str__())
 
             else:
-                output_file = os.path.join(output_path, f"{output_fname}.{format}")
+                output_file = Path(output_path) / f"{output_fname}.{format}"
                 print(f"Writing {output_file}")
-                with open(output_file, "wb") as ff:
+                with output_file.open("wb") as ff:
                     ff.write(data.read())
-                generated_files.append(output_file)
+                generated_files.append(output_file.__str__())
 
     return generated_files
 
@@ -216,7 +218,7 @@ def run_generator(name: str, args) -> None:
         box.open()
         box.render()
         data = box.close()
-        with os.fdopen(sys.stdout.fileno(), "wb", closefd=False) if box.output == "-" else open(box.output, 'wb') as f:
+        with os.fdopen(sys.stdout.fileno(), "wb", closefd=False) if box.output == "-" else Path(box.output).open('wb') as f:
             f.write(data.getvalue())
     else:
         msg = f"Unknown generator '{name}'. Use boxes --list to get a list of available commands.\n"
@@ -292,24 +294,27 @@ def main() -> None:
         multi_generate(config_path, output_path, example_output_fname_formatter)
     elif args.multi_generator:
         try:
-            if os.path.isdir(extra[0]):
+            inputPath = Path(extra[0])
+            if inputPath.is_dir():
                 # if the output path is a folder assume the default name format
                 # and write all files to the sub-folder
-                output_path = Path(extra[0])
+                output_path = inputPath
                 output_fname_format = "{name}_{box_idx}"
             elif "{" not in extra[0] and "}" not in extra[0]:
                 # if substitution brackets aren't found, assume that isn't
                 # the desired behavior since it would cause every file to overwrite previous files
                 # so use this as a prefix with box index
-                output_path = Path(os.path.dirname(extra[0]))
+                output_path = inputPath.parent
                 output_fname_format = extra[0] + "_{box_idx}"
-            else:
+            elif inputPath.is_file():
                 # The user has provided a full path template, so use it as-is
-                output_path =Path(os.path.dirname(extra[0]))
-                output_fname_format = os.path.basename(extra[0])
+                output_path = inputPath.parent
+                output_fname_format = inputPath.name
+            else:
+                raise IndexError # Goto defaults.
         except IndexError:
             # No template has been provided, use defaults
-            output_path = Path(".")
+            output_path = Path()
             output_fname_format = "{name}_{box_idx}"
         multi_generate(args.multi_generator, output_path, output_fname_format)
     elif args.merge:
@@ -317,7 +322,7 @@ def main() -> None:
         merger.parseArgs(extra)
         merger.render(extra)
         data = merger.close()
-        with os.fdopen(sys.stdout.fileno(), "wb", closefd=False) if merger.output == "-" else open(merger.output, 'wb') as f:
+        with os.fdopen(sys.stdout.fileno(), "wb", closefd=False) if merger.output == "-" else Path(merger.output).open('wb') as f:
             f.write(data.getvalue())
     else:
         if args.generator:
