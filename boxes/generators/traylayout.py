@@ -156,6 +156,11 @@ to remove the floor for this compartment.
         edge = self.edges.get(edge, edge)
         edge(length)
 
+    @restore
+    def cornerAt(self, x, y, length, angle=0):
+        self.moveTo(x, y, angle)
+        self.polyline(length, 90, length)
+
     def prepare(self):
         if self.layout:
             self.parse(self.layout.split('\n'))
@@ -176,27 +181,52 @@ to remove the floor for this compartment.
                 self.hi = self.adjustSize(self.hi, e2=False)
 
         self.hi = self.hi or self.h
-        if self.hi > self.h:
-            raise ValueError("hi can't be bigger that h!")
         self.edges["s"] = boxes.edges.Slot(self, self.hi / 2.0)
         self.edges["C"] = boxes.edges.CrossingFingerHoleEdge(self, self.hi)
         self.edges["D"] = boxes.edges.CrossingFingerHoleEdge(self, self.hi, outset=self.thickness)
 
+    def wallLabelsCB(self, start, end, row, x=True):
+        if not self.labels:
+            return
+        sx = self.x if x else self.y
+        posx = 0
+        for pos in range(start, end):
+            posx += sx[pos] / 2
+            self.text(f"x {pos+1}/{row+1}" if x else f"y {row+1}/{pos+1}", posx, 0, color=Color.ANNOTATIONS, align="center", fontsize=2*self.thickness)
+            posx += sx[pos] / 2 + self.thickness
+
     def walls(self, move=None):
         lx = len(self.x)
         ly = len(self.y)
-        # t = self.thickness
-        # b = self.burn
-        # t2 = self.thickness / 2.0
+
+        le_f = re_f = ole_f = ore_f = "f"
+        le_F = re_F = ole_F = ore_F = "F"
+        if self.hi > self.h:
+            # if hi is bigger limit finger joints at the outside to h
+            le_f = boxes.edges.CompoundEdge(self, "ef", [self.hi-self.h, self.h])
+            re_f = boxes.edges.CompoundEdge(self, "fe", [self.h, self.hi-self.h])
+            le_F = boxes.edges.CompoundEdge(self, "eF", [self.hi-self.h, self.h])
+            re_F = boxes.edges.CompoundEdge(self, "Fe", [self.h, self.hi-self.h])
+        elif self.hi < self.h:
+            # if hi is smaller limit the fingerjoint in the outside walls to hi
+            ole_f = boxes.edges.CompoundEdge(self, "Ef", [self.h-self.hi, self.hi])
+            ore_f = boxes.edges.CompoundEdge(self, "fE", [self.hi, self.h-self.hi])
+            ole_F = boxes.edges.CompoundEdge(self, "EF", [self.h-self.hi, self.hi])
+            ore_F = boxes.edges.CompoundEdge(self, "FE", [self.hi, self.h-self.hi])
 
         self.ctx.save()
 
         # Horizontal Walls
         for y in range(ly + 1):
             if y == 0 or y == ly:
+                # limit finger holes to h on the outside
                 h = self.h
+                self.edges["C"].height = min(self.h, self.hi)
+                self.edges["D"].height = min(self.h, self.hi)
             else:
                 h = self.hi
+                self.edges["C"].height = self.hi
+                self.edges["D"].height = self.hi
 
             start = 0
             end = 0
@@ -230,24 +260,31 @@ to remove the floor for this compartment.
                 # remove last "slot"
                 lengths.pop()
                 edges.pop()
+                le = le_f if start == 0 and y not in (0, ly) else (ole_f if start > 0 and y in (0, ly) else "f")
+                re = re_f if end == lx and y not in (0, ly) else (ore_f if end < lx and y in (0, ly) else "f")
                 self.rectangularWall(sum(lengths), h, [
                     boxes.edges.CompoundEdge(self, edges, lengths),
-                    "f" if self.vWalls(end, y) else "e",
+                    re if self.vWalls(end, y) else "e",
                     "e",
-                    "f" if self.vWalls(start, y) else "e"],
+                    le if self.vWalls(start, y) else "e"],
+                                     callback=[lambda: self.wallLabelsCB(start, end, y)],
                                      move="right")
                 start = end
 
         self.ctx.restore()
-        self.rectangularWall(10, h, "ffef", move="up only")
+        self.rectangularWall(10, max(self.h, self.hi), "ffef", move="up only")
         self.ctx.save()
 
         # Vertical Walls
         for x in range(lx + 1):
             if x == 0 or x == lx:
                 h = self.h
+                self.edges["C"].height = min(self.h, self.hi)
+                self.edges["D"].height = min(self.h, self.hi)
             else:
                 h = self.hi
+                self.edges["C"].height = self.hi
+                self.edges["D"].height = self.hi
             start = 0
             end = 0
 
@@ -287,16 +324,21 @@ to remove the floor for this compartment.
                           "C": "e",
                           "D": "e"}[e] for e in reversed(edges)]
                 edges = ["e" if e == "s" else ("E" if e == "S" else e) for e in edges]
+                les = ["e", le_F, le_f] if start == 0 and x not in (0, lx) else (
+                    ["e", ole_F, ole_f] if start > 0 and x in (0, lx) else "eFf")
+                res = ["e", re_F, re_f] if end == ly and x not in (0, lx) else (
+                    ["e", ore_F, ore_f] if end < ly and x in (0, lx) else "eFf")
                 self.rectangularWall(sum(lengths), h, [
                     boxes.edges.CompoundEdge(self, edges, lengths),
-                    "eFf"[self.hWalls(x, end)],
+                    res[self.hWalls(x, end)],
                     boxes.edges.CompoundEdge(self, upper, list(reversed(lengths))),
-                    "eFf"[self.hWalls(x, start)]],
+                    les[self.hWalls(x, start)]],
+                                     callback=[lambda: self.wallLabelsCB(start, end, x, x=False)],
                                      move="right")
                 start = end
 
         self.ctx.restore()
-        self.rectangularWall(10, h, "ffef", move="up only")
+        self.rectangularWall(10, max(self.h, self.hi), "ffef", move="up only")
 
     def base_plate(self, callback=None, move=None):
         lx = len(self.x)
@@ -328,9 +370,16 @@ to remove the floor for this compartment.
                     e = "F"
                 else:
                     e = "e"
-
-                if y < ly and self.floors[y][x]:
-                    if y > 0 and self.floors[y - 1][x]:
+                if self.labels:
+                    self.text(
+                        f"x {x+1}/{y+1}",
+                        posx+self.x[x]/2,
+                        posy + (t if y > 0 else 0),
+                        color=Color.ANNOTATIONS,
+                        align=("center" if y>0 else "center top"),
+                        fontsize=2*self.thickness)
+                if self.floors[y][x]:
+                    if self.floors[y - 1][x]:
                         # Inside Wall
                         if self.hwalls[y][x]:
                             self.fingerHolesAt(posx, posy + t2, self.x[x], angle=0)
@@ -339,21 +388,22 @@ to remove the floor for this compartment.
                         self.edgeAt(e, posx + self.x[x],
                                     posy + w + b, self.x[x],
                                     -180)
-                        if x == 0 or not self.floors[y][x - 1]:
-                            self.edgeAt("e", posx - w, posy + w + b, w, 0)
-                        elif y == 0 or not self.floors[y - 1][x - 1]:
-                            self.edgeAt("e", posx - t, posy + w + b, t, 0)
-                        if x == lx - 1 or not self.floors[y][x + 1]:
-                            self.edgeAt("e", posx + self.x[x], posy + w + b, w, 0)
-                elif y > 0 and self.floors[y - 1][x]:
+
+                        if not self.floors[y - 1][x - 1] and not self.floors[y][x - 1]:
+                            self.cornerAt(posx, posy + w + b, w, 180) # top left corner
+                        if not self.floors[y - 1][x + 1] and not self.floors[y][x + 1]:
+                            self.cornerAt(posx + self.x[x] + w + b, posy, w, 90) # top right corner
+                        if not self.floors[y - 1][x - 1] and self.floors[y][x - 1]:
+                            self.edgeAt("e", posx - t, posy + w + b, t, 0) # top edge under wall
+                elif self.floors[y - 1][x]:
                     # Bottom Edge
                     self.edgeAt(e, posx, posy - b + t - w, self.x[x])
-                    if x == 0 or not self.floors[y-1][x - 1]:
-                        self.edgeAt("e", posx - w, posy + t - w - b, w)
-                    elif x == 0 or y == ly or not self.floors[y][x - 1]:
-                        self.edgeAt("e", posx - t, posy + t - w - b, t)
-                    if x == lx - 1 or y == 0 or not self.floors[y-1][x + 1]:
-                        self.edgeAt("e", posx + self.x[x], posy + t -w - b, w)
+                    if not self.floors[y - 1][x - 1] and not self.floors[y][x - 1]:
+                        self.cornerAt(posx - w -b, posy + t , w, -90) # bottom left corner
+                    if not self.floors[y - 1][x + 1] and not self.floors[y][x + 1]:
+                        self.cornerAt(posx + self.x[x], posy + t - w - b, w, 0) # bottom right corner
+                    if self.floors[y - 1][x - 1] and not self.floors[y][x - 1]:
+                        self.edgeAt("e", posx - t, posy + t - w - b, t) # bottom edge under wall
                 posx += self.x[x] + self.thickness
             posy += self.y[y - 1] + self.thickness
 
@@ -365,31 +415,31 @@ to remove the floor for this compartment.
                     e = "F"
                 else:
                     e = "e"
-                if x > 0 and self.floors[y][x - 1]:
-                    if x < lx and self.floors[y][x]:
+                if self.labels:
+                    self.text(
+                        f"y {x+1}/{y+1}",
+                        posx+ (t if x < lx else 0),
+                        posy+self.y[y]/2,
+                        color=Color.ANNOTATIONS,
+                        angle=-90,
+                        align=("center" if x < lx else "center top"),
+                        fontsize=2*self.thickness)
+                if self.floors[y][x - 1]:
+                    if self.floors[y][x]:
                         # Inside wall
                         if self.vwalls[y][x]:
                             self.fingerHolesAt(posx + t2, posy, self.y[y])
                     else:
                         # Right edge
                         self.edgeAt(e, posx + w + b, posy, self.y[y], 90)
-                        if y == 0 or not self.floors[y-1][x-1]:
-                            self.edgeAt("e", posx + w + b, posy + self.y[y], w, 90)
-                        elif x == lx or y == 0 or not self.floors[y - 1][x]:
-                            self.edgeAt("e", posx + w + b, posy + self.y[y], t, 90)
-                        if y == ly - 1 or not self.floors[y+1][x-1]:
-                            self.edgeAt("e", posx + w + b, posy - w, w, 90)
-                elif x < lx and self.floors[y][x]:
+                        if self.floors[y-1][x-1] and not self.floors[y - 1][x]:
+                            self.edgeAt("e", posx + w + b, posy + self.y[y], t, 90) # right edge under wall
+                elif self.floors[y][x]:
                     # Left edge
                     self.edgeAt(e, posx + t - w - b, posy + self.y[y], self.y[y], -90)
-                    if y == 0 or not self.floors[y - 1][x]:
-                        self.edgeAt("e", posx + t - w - b,
-                                    posy + self.y[y] + w, w, -90)
-                    elif x == 0 or y == 0 or not self.floors[y - 1][x - 1]:
+                    if self.floors[y - 1][x] and not self.floors[y - 1][x - 1]:
                         self.edgeAt("e", posx + t - w - b,
                                     posy + self.y[y] + t, t, -90)
-                    if y == ly - 1 or not self.floors[y + 1][x]:
-                        self.edgeAt("e", posx + t - w - b, posy, w, -90)
                 posy += self.y[y] + self.thickness
             if x < lx:
                 posx += self.x[x] + self.thickness
@@ -477,6 +527,12 @@ to remove the floor for this compartment.
         self.hwalls = hwalls
         self.vwalls = vwalls
         self.floors = floors
+        # Add row of no floor to the right and bottom
+        # to avoid special casing the borders
+        # Will also show up as index -1
+        for l in floors:
+            l.append(False)
+        floors.append([False] * (lx+1))
 
     def render(self) -> None:
         self.prepare()

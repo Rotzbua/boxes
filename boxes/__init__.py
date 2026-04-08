@@ -207,6 +207,33 @@ def argparseSections(s):
 
     return result
 
+def argparseInts(s):
+    """
+    Parse sections parameter
+
+    :param s: string to parse
+    """
+
+    result = []
+
+    s = re.split(r"\s|:", s)
+
+    try:
+        for part in s:
+            m = re.match(r"^(\d+\*(\d+))$", part)
+            if m:
+                n = int(m.group(1))
+                result.extend([int(m.group(1))] * n)
+                continue
+            result.append(int(part))
+    except ValueError:
+        raise argparse.ArgumentTypeError("Don't understand list of ints")
+
+    if not result:
+        result.append(0)
+
+    return result
+
 class ArgparseEdgeType:
     """argparse type to select from a set of edge types"""
 
@@ -356,21 +383,12 @@ class Boxes:
             "--thickness", action="store", type=float, default=3.0,
             help="thickness of the material (in mm) [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#thickness)")
         defaultgroup.add_argument(
-            "--output", action="store", type=str, default="box.svg",
-            help="name of resulting file")
+            "--burn", action="store", type=float, default=0.1,
+            help='burn correction (in mm)(bigger values for tighter fit) [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#burn)')
         defaultgroup.add_argument(
             "--format", action="store", type=str, default="svg",
             choices=self.formats.getFormats(),
             help="format of resulting file [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#format)")
-        defaultgroup.add_argument(
-            "--tabs", action="store", type=float, default=0.0,
-            help="width of tabs holding the parts in place (in mm)(not supported everywhere) [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#tabs)")
-        defaultgroup.add_argument(
-            "--qr_code", action="store", type=boolarg, default=False,
-            help="Add a QR Code with link or command line to the generated output")
-        defaultgroup.add_argument(
-            "--debug", action="store", type=boolarg, default=False,
-            help="print surrounding boxes for some structures [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#debug)")
         defaultgroup.add_argument(
             "--labels", action="store", type=boolarg, default=True,
             help="label the parts (where available)")
@@ -378,12 +396,18 @@ class Boxes:
             "--reference", action="store", type=float, default=100.0,
             help="print reference rectangle with given length (in mm)(zero to disable) [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#reference)")
         defaultgroup.add_argument(
+            "--tabs", action="store", type=float, default=0.0,
+            help="width of tabs holding the parts in place (in mm)(not supported everywhere) [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#tabs)")
+        defaultgroup.add_argument(
+            "--qr_code", action="store", type=boolarg, default=False,
+            help="Add a QR Code with link or command line to the generated output")
+        defaultgroup.add_argument(
             "--inner_corners", action="store", type=str, default="loop",
             choices=["loop", "corner", "backarc"],
             help="style for inner corners [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#inner-corners)")
         defaultgroup.add_argument(
-            "--burn", action="store", type=float, default=0.1,
-            help='burn correction (in mm)(bigger values for tighter fit) [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#burn)')
+            "--output", action="store", type=str, default="box.svg",
+            help="name of resulting file")
         def spacing_type(x):
             try:
                 return (float(x), 0.)
@@ -392,6 +416,9 @@ class Boxes:
         defaultgroup.add_argument(
             "--spacing", action="store", type=spacing_type, default="0.5",
             help='spacing around parts (multiples of thickness [: extra space in mm]) [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#spacing)')
+        defaultgroup.add_argument(
+            "--debug", action="store", type=boolarg, default=False,
+            help="print surrounding boxes for some structures [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#debug)")
 
     @contextmanager
     def saved_context(self):
@@ -478,6 +505,7 @@ class Boxes:
         * floats: x, y, h, hi
         * argparseSections: sx, sy, sh
         * ArgparseEdgeType: bottom_edge, top_edge
+          * pass default as single char or choices as string (first is default)
         * boolarg: outside
         * str (selection): nema_mount
         """
@@ -537,17 +565,25 @@ class Boxes:
                     "--hole_dD", action="store", type=argparseSections, default=default,
                     help="mounting hole diameter (shaft:head) in mm [\U0001F6C8](https://florianfesti.github.io/boxes/html/usermanual.html#mounting-holes)")
             elif arg == "bottom_edge":
+                choices = "Fhse"
                 if default is None: default = "h"
+                if len(default) > 1:
+                    choices = default
+                    default = choices[0]
                 self.argparser.add_argument(
                     "--bottom_edge", action="store",
-                    type=ArgparseEdgeType("Fhse"), choices=list("Fhse"),
+                    type=ArgparseEdgeType(choices), choices=list(choices),
                     default=default,
                     help="edge type for bottom edge")
             elif arg == "top_edge":
+                choices = "efFhcESŠikvLtGyY"
                 if default is None: default = "e"
+                if len(default) > 1:
+                    choices = default
+                    default = choices[0]
                 self.argparser.add_argument(
                     "--top_edge", action="store",
-                    type=ArgparseEdgeType("efFhcESŠikvLtGyY"), choices=list("efFhcESŠikvfLtGyY"),
+                    type=ArgparseEdgeType(choices), choices=list(choices),
                     default=default, help="edge type for top edge")
             elif arg == "outside":
                 if default is None: default = True
@@ -1244,10 +1280,11 @@ class Boxes:
 
         if not before:
             # restore position
+            self.ctx.stroke()
             self.ctx.restore()
             if self.labels and label:
                 self.text(label, x/2, y/2, align="middle center", color=Color.ANNOTATIONS, fontsize=4)
-            self.ctx.stroke()
+                self.ctx.stroke()
 
         for term in terms:
             if not term in moves:
@@ -2594,6 +2631,9 @@ class Boxes:
         if len(edges) != 3:
             raise ValueError("two or three edges required")
 
+        if num <= 0:
+            return
+
         r = min(r, x, y)
         a = math.atan2(y-r, float(x-r))
         alpha = math.degrees(a)
@@ -2662,7 +2702,7 @@ class Boxes:
         edges = [self.edges.get(e, e) for e in edges]
 
         overallwidth = w + edges[-1].spacing() + edges[1].spacing()
-        overallheight = max(h0, h1) + edges[0].spacing()
+        overallheight = max(h0, h1) + edges[0].spacing() + edges[2].spacing()
 
         if self.move(overallwidth, overallheight, move, before=True):
             return
@@ -2792,10 +2832,10 @@ class Boxes:
 
                 for direction in (0, 90, 180, 270):
                     if (a > 0 and
-                        angle <= direction and (angle + a) % 360 >= direction):
+                        angle <= direction and (angle + a) >= direction):
                         direction -= 90
                     elif (a < 0 and
-                          angle >= direction and (angle + a) % 360 <= direction):
+                          angle >= direction and (angle + a) <= direction):
                         direction -= 90
                     else:
                         continue

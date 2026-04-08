@@ -514,8 +514,9 @@ class Gears():
             outer_radius += self.options.spoke_width
         return pitch_radius, 2*outer_radius, 2*outer_radius
 
-    def gearCarrier(self, r, spoke_width, positions, mount_radius, mount_hole, circle=True, callback=None, move=None):
+    def gearCarrier(self, r, spoke_width, positions, mount_radius, mount_hole, center_hole=None, circle=True, callback=None, move=None):
         width = 2*r+spoke_width
+        center_hole = center_hole or mount_hole
 
         if self.boxes.move(width, width, move, before=True):
             return
@@ -530,7 +531,7 @@ class Gears():
         if callback:
             self.boxes.cc(callback, None)
         self.generate_spokes(r+0.5*spoke_width, spoke_width, positions, mount_radius, mount_hole, 1, "")
-        self.boxes.hole(0, 0, mount_hole)
+        self.boxes.hole(0, 0, center_hole)
 
         for angle in positions:
             self.boxes.ctx.save()
@@ -656,11 +657,10 @@ class Gears():
         elif not teeth_only:
             # it's a ring gear
             # which only has an outer ring where width = spoke width
-            r = outer_radius + spoke_width + self.boxes.burn
-            self.boxes.ctx.save()
-            self.boxes.moveTo(r, 0)
-            self.boxes.ctx.arc(-r, 0, r, 0, 2*pi)
-            self.boxes.ctx.restore()
+            r = outer_radius + spoke_width
+            with self.boxes.saved_context():
+                self.boxes.moveTo(r+b, 0, 90)
+                self.boxes.corner(360, r)
 
         # Add center
         if centercross:
