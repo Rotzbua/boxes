@@ -78,7 +78,6 @@ Currently there is no web front-end for this script.
 import argparse
 import copy
 import logging
-import os
 import re
 import sys
 import uuid
@@ -498,7 +497,7 @@ def main(args):
     for cut_file in args.cuts:
         output_prefix = args.prefix
         if output_prefix is None:
-            output_prefix = os.path.splitext(cut_file)[0]
+            output_prefix = Path(cut_file).stem
 
         with Path(cut_file).open() as ff:
             cut = yaml.safe_load(ff)
