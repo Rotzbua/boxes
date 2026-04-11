@@ -149,7 +149,6 @@ lint.ignore = [
 [tool.ruff.lint.per-file-ignores]
 "boxes/__init__.py" = ["PLC0415"]
 "boxes/edges.py" = ["PLC0415"]
-#"boxes/scripts/boxes_generator.py" = ["PTH122"]
 "documentation/src/conf.py" = ["DTZ005", "RUF003"]
 "setup.py" = ["ALL", "PTH", "S"]
 "tests/**/*" = ["S101"]
