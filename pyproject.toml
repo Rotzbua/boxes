@@ -115,35 +115,35 @@ lint.select = [
 lint.ignore = [
     "S101", # ToDo
     "S110", # ToDo
-    "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
+    "S314", # FixMe
     "S603", # ToDo
     "S606", # ToDo
-    "B007", # ToDo
+    "ARG003", # ToDo
     "B006", # ToDo
+    "B007", # ToDo
+    "B023", # ToDo
+    "B904", # ToDo
     "B905", # ToDo
     "C408", # ToDo
-    "B023", # ToDo
+    "FURB171", # FixMe
+    "LOG015", # ToDo
+    "PLC0415", # FixMe
     "RUF015", # ToDo
     "RUF021", # ToDo
-    "LOG015", # ToDo
-    "B904", # ToDo
-    "ARG003", # ToDo
-    "FURB171", # FixMe
-    "S314", # FixMe
-    "PLC0415", # FixMe
-    "FURB187", # false positive: Use of assignment of `reversed` on list
-    "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
-    "RUF059", # Unpacked variable is never used
-    "RUF005", # Consider instead of concatenation
-    "PGH003", # Use specific rule codes when ignoring type issues
-    "E501", #
-    "E741", #
-    "TC003", # Move standard library import into a type-checking block
-    "B024", # is an abstract base class, but it has no abstract methods or properties
-    "ARG001", # Unused function argument
-    "ARG002", # Unused method argument
     "A001", # Variable is shadowing a Python builtin
     "A002", # Function argument is shadowing a Python builtin
+    "ARG001", # Unused function argument
+    "ARG002", # Unused method argument
+    "B024", # is an abstract base class, but it has no abstract methods or properties
+    "E501", #
+    "E741", #
+    "FURB187", # false positive: Use of assignment of `reversed` on list
+    "PGH003", # Use specific rule codes when ignoring type issues
+    "RUF005", # Consider instead of concatenation
+    "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
+    "RUF059", # Unpacked variable is never used
+    "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
+    "TC003", # Move standard library import into a type-checking block
 ]
 
 [tool.ruff.lint.per-file-ignores]
