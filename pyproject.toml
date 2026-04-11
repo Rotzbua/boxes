@@ -8,7 +8,7 @@ name = "boxes"
 version = "1.2"
 requires-python = ">=3.10"
 description = "Boxes generator for laser cutters"
-maintainers = [ { name = "Florian Festi", email="florian@festi.info" } ]
+maintainers = [{ name = "Florian Festi", email = "florian@festi.info" }]
 readme = "README.rst"
 keywords = ["boxes", "box", "generator", "svg", "laser cutter"]
 license = "GPL-3.0-or-later"
@@ -24,11 +24,11 @@ classifiers = [# https://pypi.python.org/pypi?%3Aaction=list_classifiers
 
 [project.optional-dependencies]
 dev = [
-  "lxml>=6.0.2",
-  "mypy>=1.20.0",
-  "pre-commit>=4.5.1",
-  "pytest>=9.0.3",
-  "types-Markdown"
+    "lxml>=6.0.2",
+    "mypy>=1.20.0",
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.3",
+    "types-Markdown"
 ]
 doc = ["sphinx>=8.0.2"]
 
@@ -68,14 +68,13 @@ ignore_directives = [
 ]
 
 [tool.ruff]
-exclude = ["scripts/**/*"]
+exclude = ["scripts/*ipynb"]
 lint.select = [
     "A", # flake8-builtins
     #    "ANN", # flake8-annotations
     "ARG", # flake8-unused-arguments
     "B", # flake8-bugbear
     #      "C4",# flake8-comprehensions
-
     #      "C90", #mccabe
     #      "DTZ",# flake8-datetimez
     # "D",# pydocstyle
@@ -87,8 +86,7 @@ lint.select = [
     "I", # isort
     "ISC", # flake8-implicit-str-concat
     "LOG", # flake8-logging
-    #  # pep8-naming
-    #  #  "N",
+    # "N",  # pep8-naming
     #        "PERF", # Perflint
     "PGH", # pygrep-hooks
     #      "PIE",# flake8-pie
@@ -151,7 +149,7 @@ lint.ignore = [
 [tool.ruff.lint.per-file-ignores]
 "boxes/__init__.py" = ["PLC0415"]
 "boxes/edges.py" = ["PLC0415"]
-"boxes/scripts/boxes_generator.py" = ["PTH122"]
+#"boxes/scripts/boxes_generator.py" = ["PTH122"]
 "documentation/src/conf.py" = ["DTZ005", "RUF003"]
 "setup.py" = ["ALL", "PTH", "S"]
 "tests/**/*" = ["S101"]
