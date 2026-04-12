@@ -13,10 +13,9 @@ except ImportError:
     sys.path.append(Path(__file__).resolve().parent.parent.__str__())
     import boxes
 
-import boxes.generators
-
-
 import yaml
+
+import boxes.generators
 
 
 class TestSVG:

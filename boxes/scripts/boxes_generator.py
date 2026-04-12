@@ -75,28 +75,27 @@ layout: |
 
 Currently there is no web front-end for this script.
 """
-import yaml
-import copy
-import os
-import sys
-import logging
 import argparse
+import copy
+import logging
+import re
 import sys
 import uuid
-import os
-import re
-
 import xml.etree.ElementTree as ET
+from pathlib import Path
+
 import rectpack
-from rectpack import newPacker, PackingBin
+import yaml
+from rectpack import PackingBin, newPacker
 from svgpathtools import parse_path
 
 try:
     import boxes.generators
 except ImportError:
-    sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), "../.."))
+    sys.path.append(Path(__file__).resolve().parent.parent.__str__())
     import boxes.generators
 import boxes
+
 
 class ArgumentParserError(Exception): pass
 
@@ -202,8 +201,9 @@ def generate(cut, output_prefix, format="svg"):
         settings.update(box_settings.get("args", {}))
 
         if hasattr(box, "layout") and "layout" in settings:
-            if os.path.exists(settings["layout"]):
-                with open(settings["layout"]) as ff:
+            layoutFile = Path(settings["layout"])
+            if layoutFile.exists():
+                with layoutFile.open() as ff:
                     settings["layout"] = ff.read()
             else:
                 box.layout = settings["layout"]
@@ -240,9 +240,9 @@ def generate(cut, output_prefix, format="svg"):
         data = box.close()
 
         if box_settings.get("name") is not None:
-            output_base = os.path.basename(output_prefix)
-            output_dir = os.path.dirname(output_prefix)
-            output_file = os.path.join(output_dir, f"{output_base}_{box_settings['name']}_{box_type}_{ii}")
+            output_base = Path(output_prefix).name
+            output_dir = Path(output_prefix).parent
+            output_file = Path(output_dir) / f"{output_base}_{box_settings['name']}_{box_type}_{ii}"
         else:
             output_file = f"{output_prefix}_{box_type}_{ii}"
 
@@ -250,14 +250,14 @@ def generate(cut, output_prefix, format="svg"):
         if box_settings.get("count") is not None:
             for jj in range(int(box_settings.get("count"))):
                 logging.info("Writing %s_%s.%s", output_file, jj, format)
-                with open(f"{output_file}_{jj}.{format}", "wb") as ff:
+                with Path(f"{output_file}_{jj}.{format}", "wb").open() as ff:
                     ff.write(data.read())
                     data.seek(0)
                 generated_files.append(f"{output_file}_{jj}.{format}")
 
         else:
             logging.info("Writing %s.%s", output_file, format)
-            with open(f"{output_file}.{format}", "wb") as ff:
+            with Path(f"{output_file}.{format}", "wb").open() as ff:
                 ff.write(data.read())
             generated_files.append(f"{output_file}.{format}")
 
@@ -497,9 +497,9 @@ def main(args):
     for cut_file in args.cuts:
         output_prefix = args.prefix
         if output_prefix is None:
-            output_prefix = os.path.splitext(cut_file)[0]
+            output_prefix = Path(cut_file).stem
 
-        with open(cut_file) as ff:
+        with Path(cut_file).open() as ff:
             cut = yaml.safe_load(ff)
             generated_files.update( generate(cut, output_prefix, args.format) )
 

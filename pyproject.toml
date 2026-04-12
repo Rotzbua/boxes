@@ -8,32 +8,32 @@ name = "boxes"
 version = "1.2"
 requires-python = ">=3.10"
 description = "Boxes generator for laser cutters"
-maintainers = [ { name = "Florian Festi", email="florian@festi.info" } ]
+maintainers = [{ name = "Florian Festi", email = "florian@festi.info" }]
 readme = "README.rst"
 keywords = ["boxes", "box", "generator", "svg", "laser cutter"]
 license = "GPL-3.0-or-later"
-classifiers = [ # https://pypi.python.org/pypi?%3Aaction=list_classifiers
-  "Development Status :: 5 - Production/Stable",
-  "Environment :: Console",
-  "Environment :: Web Environment",
-  "Intended Audience :: Manufacturing",
-  "Programming Language :: Python :: 3",
-  "Topic :: Multimedia :: Graphics :: Editors :: Vector-Based",
-  "Topic :: Scientific/Engineering",
+classifiers = [# https://pypi.python.org/pypi?%3Aaction=list_classifiers
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: Web Environment",
+    "Intended Audience :: Manufacturing",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Graphics :: Editors :: Vector-Based",
+    "Topic :: Scientific/Engineering",
 ]
 
 [project.optional-dependencies]
 dev = [
-  "lxml>=6.0.2",
-  "mypy>=1.20.0",
-  "pre-commit>=4.5.1",
-  "pytest>=9.0.3",
-  "types-Markdown"
+    "lxml>=6.0.2",
+    "mypy>=1.20.0",
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.3",
+    "types-Markdown"
 ]
 doc = ["sphinx>=8.0.2"]
 
 [tool.setuptools.dynamic]
-dependencies = {file=["requirements.txt"]}
+dependencies = { file = ["requirements.txt"] }
 
 [project.scripts]
 boxes = "boxes.scripts.boxes_main:main"
@@ -62,7 +62,93 @@ warn_unused_ignores = true
 [tool.rstcheck]
 report_level = "ERROR"
 ignore_directives = [
-  "autoclass",
-  "automethod",
-  "automodule",
+    "autoclass",
+    "automethod",
+    "automodule",
 ]
+
+[tool.ruff]
+exclude = ["scripts/*ipynb"]
+lint.select = [
+    "A", # flake8-builtins
+    #    "ANN", # flake8-annotations
+    "ARG", # flake8-unused-arguments
+    "B", # flake8-bugbear
+    #      "C4",# flake8-comprehensions
+    #      "C90", #mccabe
+    #      "DTZ",# flake8-datetimez
+    # "D",# pydocstyle
+    #      "E",# pycodestyle errors
+    #      "F",# Pyflakes
+    "FA", # flake8-future-annotations
+    "FLY", # flynt
+    "FURB", # refurb
+    "I", # isort
+    "ISC", # flake8-implicit-str-concat
+    "LOG", # flake8-logging
+    # "N",  # pep8-naming
+    #        "PERF", # Perflint
+    "PGH", # pygrep-hooks
+    #      "PIE",# flake8-pie
+    # pylint
+    "PLC",
+    "PLE",
+    #  "PLR",
+    #  "PLW",
+    "PTH", # flake8-use-pathlib
+    "PYI", # flake8-pyi
+    #    "Q", # flake8-quotes
+    # "RET", # flake8-return
+    # "RET503", # ToDo Missing explicit `return` at the end of function able to return non-`None` value
+    "RSE", # flake8-raise
+    "RUF", # Ruff-specific rules
+    "S", # flake8-bandit
+    #          "SIM",# flake8-simplify
+    #  "SLF",# flake8-self
+    "SLOT", # flake8-slots
+    "T10", # flake8-debugger
+    "TC", # flake8-type-checking
+    #  "UP",# pyupgrade
+    #      "W",# pycodestyle warnings
+    "YTT", # flake8-2020
+]
+lint.ignore = [
+    "S101", # ToDo
+    "S110", # ToDo
+    "S314", # FixMe
+    "S603", # ToDo
+    "S606", # ToDo
+    "ARG003", # ToDo
+    "B006", # ToDo
+    "B007", # ToDo
+    "B023", # ToDo
+    "B904", # ToDo
+    "B905", # ToDo
+    "C408", # ToDo
+    "FURB171", # FixMe
+    "LOG015", # ToDo
+    "PLC0415", # FixMe
+    "RUF015", # ToDo
+    "RUF021", # ToDo
+    "A001", # Variable is shadowing a Python builtin
+    "A002", # Function argument is shadowing a Python builtin
+    "ARG001", # Unused function argument
+    "ARG002", # Unused method argument
+    "B024", # is an abstract base class, but it has no abstract methods or properties
+    "E501", #
+    "E741", #
+    "FURB187", # false positive: Use of assignment of `reversed` on list
+    "PGH003", # Use specific rule codes when ignoring type issues
+    "RUF005", # Consider instead of concatenation
+    "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
+    "RUF059", # Unpacked variable is never used
+    "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
+    "TC003", # Move standard library import into a type-checking block
+]
+
+[tool.ruff.lint.per-file-ignores]
+"boxes/__init__.py" = ["PLC0415"]
+"boxes/edges.py" = ["PLC0415"]
+"documentation/src/conf.py" = ["DTZ005", "RUF003"]
+"setup.py" = ["ALL", "PTH", "S"]
+"tests/**/*" = ["S101"]

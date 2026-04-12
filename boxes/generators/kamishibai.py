@@ -14,8 +14,9 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from boxes import *
-from boxes.lids import _TopEdge
 from boxes.edges import HingeSettings
+from boxes.lids import _TopEdge
+
 pass
 
 class Kamishibai(_TopEdge):
