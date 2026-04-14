@@ -14,9 +14,19 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from enum import StrEnum
 
 from boxes import BoolArg, Boxes, edges
 
+
+class FingerHole(StrEnum):
+    REGULAR = "regular"
+    DEEP = "deep"
+    CUSTOM = "custom"
+
+class OpeningDirection(StrEnum):
+    FRONT = "front"
+    RIGHT = "right"
 
 class InsetEdgeSettings(edges.Settings):
     """Settings for InsetEdge"""
@@ -75,6 +85,8 @@ Details of the lid and rails
 ![Details](static/samples/CardBox-detail.jpg)
 Whole box (early version still missing grip rail on the lid):
 """
+    openingdirection: OpeningDirection
+    fingerhole: FingerHole
 
     def __init__(self) -> None:
         Boxes.__init__(self)
@@ -82,12 +94,12 @@ Whole box (early version still missing grip rail on the lid):
         self.addSettingsArgs(edges.FingerJointSettings)
         self.buildArgParser(y=68, h=92, outside=False, sx="65*4")
         self.argparser.add_argument(
-            "--openingdirection", action="store", type=str, default="front",
-            choices=['front', 'right'],
+            "--openingdirection", action="store",
+            type=OpeningDirection, default=OpeningDirection.FRONT, choices=OpeningDirection,
             help="Direction in which the lid slides open. Lid length > Lid width recommended.")
         self.argparser.add_argument(
-            "--fingerhole", action="store", type=str, default="regular",
-            choices=['regular', 'deep', 'custom'],
+            "--fingerhole", action="store",
+            type=FingerHole, default=FingerHole.REGULAR, choices=FingerHole,
             help="Depth of cutout to grab the cards")
         self.argparser.add_argument(
             "--fingerhole_depth", action="store", type=float, default=20,
@@ -99,16 +111,14 @@ Whole box (early version still missing grip rail on the lid):
 
     @property
     def fingerholedepth(self):
-        if self.fingerhole == 'custom':
-            return self.fingerhole_depth
-        elif self.fingerhole == 'regular':
-            a = self.h/4
-            if a < 35:
-                return a
-            else:
-                return 35
-        elif self.fingerhole == 'deep':
-            return self.h-self.thickness-10
+        match self.fingerhole:
+            case FingerHole.CUSTOM:
+                return self.fingerhole_depth
+            case FingerHole.REGULAR:
+                a = self.h / 4
+                return min(a, 35)
+            case FingerHole.DEEP:
+                return self.h - self.thickness - 10
 
     #inner dimensions of surrounding box (disregarding inlays)
     @property
@@ -165,7 +175,7 @@ Whole box (early version still missing grip rail on the lid):
         p.char = "A"
         self.addPart(p)
 
-        if self.openingdirection == 'right':
+        if self.openingdirection == OpeningDirection.RIGHT:
             with self.saved_context():
                 self.rectangularWall(x, y-t*.2, "eFee", move="right", label="Lid")
                 self.rectangularWall(x, y, "ffff", callback=[self.divider_bottom],
@@ -209,7 +219,7 @@ Whole box (early version still missing grip rail on the lid):
             if self.add_lidtopper:
                 self.rectangularWall(x, y - 2.2*t, "eeee", move="right", label="Lid topper")
 
-        elif self.openingdirection == 'front':
+        elif self.openingdirection == OpeningDirection.FRONT:
             with self.saved_context():
                 self.rectangularWall(x - t * .2, y, "eeFe", move="right", label="Lid")
                 self.rectangularWall(x, y, "ffff", callback=[self.divider_bottom],
