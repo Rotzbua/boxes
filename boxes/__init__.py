@@ -200,7 +200,7 @@ def argparseSections(s):
                 continue
             result.append(float(part))
     except ValueError:
-        raise argparse.ArgumentTypeError("Don't understand sections string")
+        raise argparse.ArgumentTypeError("Don't understand sections string") from None
 
     if not result:
         result.append(0.0)

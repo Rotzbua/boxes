@@ -17,7 +17,6 @@ from __future__ import annotations
 
 import argparse
 import gettext
-import glob
 import html
 import io
 import mimetypes
@@ -27,6 +26,7 @@ import sys
 import threading
 import time
 import traceback
+from pathlib import Path
 from typing import Any, NoReturn
 from urllib.parse import quote, unquote_plus
 from wsgiref.simple_server import make_server
@@ -37,7 +37,7 @@ import qrcode
 try:
     import boxes.generators
 except ImportError:
-    sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), "../.."))
+    sys.path.append(Path(__file__).resolve().parent.parent.__str__())
     import boxes.generators
 import boxes
 
@@ -49,24 +49,24 @@ class FileChecker(threading.Thread):
         self.timestamps = {}
         self._stopped = False
         for path in files:
-            self.timestamps[path] = os.stat(path).st_mtime
+            self.timestamps[path] = Path(path).stat().st_mtime
         if checkmodules:
             self._addModules()
 
     def _addModules(self) -> None:
         for name, module in sys.modules.items():
-            path = getattr(module, "__file__", None)
+            path: str | None = getattr(module, "__file__", None)
             if not path:
                 continue
             if path not in self.timestamps:
-                self.timestamps[path] = os.stat(path).st_mtime
+                self.timestamps[path] = Path(path).stat().st_mtime
 
     def filesOK(self) -> bool:
         if self.checkmodules:
             self._addModules()
         for path, timestamp in self.timestamps.items():
             try:
-                if os.stat(path).st_mtime != timestamp:
+                if Path(path).stat().st_mtime != timestamp:
                     return False
             except FileNotFoundError:
                 return False
@@ -98,7 +98,7 @@ def filter_url(url, non_default_args):
             continue
         if a in non_default_args:
             new_args.append(arg)
-    if len(new_args):
+    if 0 < len(new_args):
         return f"{base}?{'&'.join(new_args)}"
     else:
         return f"{base}"
@@ -119,7 +119,11 @@ boxes.ArgumentParser = ThrowingArgumentParser  # type: ignore
 class BServer:
     lang_re = re.compile(r"([a-z]{2,3}(-[-a-zA-Z0-9]*)?)\s*(;\s*q=(\d\.?\d*))?")
 
-    def __init__(self, url_prefix="", static_url="static", static_path="../static/", legal_url="") -> None:
+    def __init__(self,
+                 url_prefix: str = "",
+                 static_url: str = "static",
+                 static_path: str = "../static/",
+                 legal_url: str = "") -> None:
         self.boxes = {b.__name__: b for b in boxes.generators.getAllBoxGenerators().values() if b.webinterface}
         self.groups = boxes.generators.ui_groups
         self.groups_by_name = boxes.generators.ui_groups_by_name
@@ -129,28 +133,35 @@ class BServer:
             self.groups_by_name.get(box.ui_group,
                                     self.groups_by_name["Misc"]).add(box)
 
-        if os.path.isabs(static_path):
-            self.staticdir = static_path
+        if Path(static_path).is_absolute():
+            self.staticdir = Path(static_path)
         else:
-            self.staticdir = os.path.join(os.path.dirname(__file__), '../static/')
-            if not os.path.isdir(self.staticdir):
-                self.staticdir = os.path.join(os.path.dirname(__file__), '..', '../static/')
-        self._languages = None
+            self.staticdir = Path(__file__).parent.parent / "static"
+            if not Path(self.staticdir).is_dir():
+                self.staticdir = Path(__file__).parent.parent.parent / "static"
+        self._languages: list[str] | None = None
         self._cache: dict[Any, Any] = {}
         self.url_prefix = url_prefix
         self.static_url = static_url
         self.legal_url = legal_url
 
-    def getLanguages(self, domain=None, localedir=None):
+    def getLanguages(self) -> list[str]:
         if self._languages is not None:
             return self._languages
-        self._languages = []
+
         domain = "boxes.py"
-        for localedir in ["locale", gettext._default_localedir]:
-            files = glob.glob(os.path.join(localedir, '*', 'LC_MESSAGES', '%s.mo' % domain))
-            self._languages.extend([file.split(os.path.sep)[-3] for file in files])
-        self._languages.sort()
-        return self._languages
+        languages = []
+        localeDirs = ["locale"]
+        gettext_default = getattr(gettext, '_default_localedir', None)
+        if gettext_default != '' or isinstance(gettext_default, str) or isinstance(gettext_default, Path):
+            localeDirs.append(str(gettext_default))
+        for localedir in localeDirs:
+            files = Path(localedir).glob(f'*/LC_MESSAGES/{domain}.mo')
+            languages.extend([file.parent.parent.name for file in files])
+        languages.sort()
+
+        self._languages = languages
+        return languages
 
     def getLanguage(self, args, accept_language):
         lang = None
@@ -521,11 +532,10 @@ class BServer:
 
     def serveStatic(self, environ, start_response):
         filename = environ["PATH_INFO"][len("/static/"):]
-        path = os.path.join(self.staticdir, filename)
-        if (not re.match(r"[a-zA-Z0-9_/-]+\.[a-zA-Z0-9]+", filename) or
-                not os.path.exists(path)):
+        staticFile = Path(self.staticdir) / filename
+        if not re.match(r"[a-zA-Z0-9_/-]+\.[a-zA-Z0-9]+", filename) or not staticFile.exists():
             if re.match(r"samples/.*-thumb.jpg", filename):
-                path = os.path.join(self.staticdir, "nothing.png")
+                staticFile = Path(self.staticdir) / "nothing.png"
             else:
                 start_response("404 Not Found", [('Content-type', 'text/plain')])
                 return [b"Not found"]
@@ -541,7 +551,7 @@ class BServer:
         else:
             start_response("200 OK", [('Content-type', f"{type_}; charset={encoding}")])
 
-        f = open(path, 'rb')
+        f = staticFile.open('rb')
         return environ['wsgi.file_wrapper'](f, 512 * 1024)
 
     def getURL(self, environ) -> str:
@@ -603,10 +613,10 @@ class BServer:
                 name = box.__name__
                 fn = f"samples/{name}-thumb.jpg"
                 thumbnail = f"{self.static_url}/{fn}"
-                static_filename = os.path.join(self.staticdir, fn)
+                static_filename = Path(self.staticdir) /  fn
                 alt = f"{_(name)}"
                 href = f"{name}{langparam}"
-                if not os.path.exists(static_filename):
+                if not static_filename.exists():
                     result.append(f"""  <span class="gallery_missing" id="search_id_{name}"><a href="{href}">{_(box.__doc__)}<br><br>{_(name)}</a></span>\n""")
                 else:
                     result.append(f"""  <span class="gallery" id="search_id_{name}"><a title="{_(name)} - {html.escape(_(box.__doc__))}" href="{href}"><img alt="{alt}" src="{thumbnail}"><br>{_(name)}</a></span>\n""")
@@ -754,7 +764,7 @@ def main() -> None:
     fc.start()
 
     httpd = make_server(args.host, args.port, boxserver.serve)
-    print(f"BoxesServer serving on http://{args.host if args.host else '*'}:{args.port}/...")
+    print(f"BoxesServer serving on http://{args.host or '*'}:{args.port}/...")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

@@ -1,12 +1,12 @@
-import logging
 import argparse
-import uuid
 import io
+import logging
 import re
-
+import uuid
 import xml.etree.ElementTree as ET
+
 import rectpack
-from rectpack import newPacker, PackingBin
+from rectpack import PackingBin, newPacker
 from svgpathtools import parse_path
 
 SVG_NS = "http://www.w3.org/2000/svg"
