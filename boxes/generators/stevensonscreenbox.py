@@ -15,7 +15,6 @@
 
 from dataclasses import dataclass
 
-pass
 import numpy as np
 
 from boxes import Boxes, Color, edges, restore

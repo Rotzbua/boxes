@@ -17,7 +17,6 @@ from boxes import *
 from boxes.edges import HingeSettings
 from boxes.lids import _TopEdge
 
-pass
 
 class Kamishibai(_TopEdge):
     """Kamishibai butai (japanese image theatre)"""

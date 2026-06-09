@@ -290,7 +290,6 @@ class Settings:
         """
         Check if all values are in the right range. Raise ValueError if needed.
         """
-        pass
 
     def __getattr__(self, name):
         if "values" in self.__dict__ and name in self.values:
