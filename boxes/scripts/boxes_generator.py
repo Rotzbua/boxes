@@ -78,11 +78,11 @@ Currently there is no web front-end for this script.
 import argparse
 import copy
 import logging
-import os
 import re
 import sys
 import uuid
 import xml.etree.ElementTree as ET
+from pathlib import Path
 
 import rectpack
 import yaml
@@ -92,7 +92,7 @@ from svgpathtools import parse_path
 try:
     import boxes.generators
 except ImportError:
-    sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), "../.."))
+    sys.path.append(Path(__file__).resolve().parent.parent.__str__())
     import boxes.generators
 import boxes
 
@@ -174,11 +174,12 @@ def generate_layout(box):
     layout += "+-" * countx + "+\n"
     return layout
 
-def generate(cut, output_prefix, format="svg"):
+
+def generate(cut, output_prefix: str, format: str = "svg") -> list[str]:
     """
-    Generate a single box
+    Generate a single box.
     """
-    generated_files = []
+    generated_files: list[str] = []
     defaults = cut.get("Defaults", {})
     for ii, box_settings in enumerate(cut.get("Boxes", [])):
         # Allow for skipping generation
@@ -193,7 +194,7 @@ def generate(cut, output_prefix, format="svg"):
         if box_cls is None:
             raise ValueError("invalid generator '%s'" % box_type)
 
-        # Instantitate the box object
+        # Instantiate the box object
         box = box_cls()
 
         # Create the settings for the generator
@@ -201,8 +202,9 @@ def generate(cut, output_prefix, format="svg"):
         settings.update(box_settings.get("args", {}))
 
         if hasattr(box, "layout") and "layout" in settings:
-            if os.path.exists(settings["layout"]):
-                with open(settings["layout"]) as ff:
+            layoutFile = Path(settings["layout"])
+            if layoutFile.exists():
+                with layoutFile.open() as ff:
                     settings["layout"] = ff.read()
             else:
                 box.layout = settings["layout"]
@@ -231,7 +233,7 @@ def generate(cut, output_prefix, format="svg"):
 
         # If the box requires a layout, support auto-generation
         if getattr(box, "layout", None) == "GENERATE":
-            box.layout = generate_layout(box)
+            box.layout = generate_layout(box)  # type: ignore
 
         # Render the box SVG
         box.open()
@@ -239,26 +241,27 @@ def generate(cut, output_prefix, format="svg"):
         data = box.close()
 
         if box_settings.get("name") is not None:
-            output_base = os.path.basename(output_prefix)
-            output_dir = os.path.dirname(output_prefix)
-            output_file = os.path.join(output_dir, f"{output_base}_{box_settings['name']}_{box_type}_{ii}")
+            output_base = Path(output_prefix).name
+            output_dir = Path(output_prefix).parent
+            output_file = str(Path(output_dir) / f"{output_base}_{box_settings['name']}_{box_type}_{ii}")
         else:
             output_file = f"{output_prefix}_{box_type}_{ii}"
 
         # Write the output
         if box_settings.get("count") is not None:
             for jj in range(int(box_settings.get("count"))):
-                logging.info("Writing %s_%s.%s", output_file, jj, format)
-                with open(f"{output_file}_{jj}.{format}", "wb") as ff:
+                file_name = f"{output_file}_{jj}.{format}"
+                logging.info(f"Writing {file_name}")
+                with Path(file_name).open("wb") as ff:
                     ff.write(data.read())
                     data.seek(0)
-                generated_files.append(f"{output_file}_{jj}.{format}")
-
+                generated_files.append(file_name)
         else:
-            logging.info("Writing %s.%s", output_file, format)
-            with open(f"{output_file}.{format}", "wb") as ff:
+            file_name = f"{output_file}.{format}"
+            logging.info(f"Writing {file_name}")
+            with Path(file_name).open("wb") as ff:
                 ff.write(data.read())
-            generated_files.append(f"{output_file}.{format}")
+            generated_files.append(file_name)
 
     return generated_files
 
@@ -496,9 +499,9 @@ def main(args):
     for cut_file in args.cuts:
         output_prefix = args.prefix
         if output_prefix is None:
-            output_prefix = os.path.splitext(cut_file)[0]
+            output_prefix = Path(cut_file).stem
 
-        with open(cut_file) as ff:
+        with Path(cut_file).open() as ff:
             cut = yaml.safe_load(ff)
             generated_files.update( generate(cut, output_prefix, args.format) )
 

@@ -19,6 +19,7 @@ import os
 import shutil
 import subprocess
 import tempfile
+from pathlib import Path
 
 from boxes.drawing import Context, LBRN2Surface, PSSurface, SVGSurface
 
@@ -99,12 +100,12 @@ class Formats:
                     if result.returncode:
                         # XXX show stderr output
                         raise ValueError("Conversion failed. pstoedit returned %i\n\n %s" % (result.returncode, result.stderr))
-                    with open(outfile, 'rb') as ff:
+                    with Path(outfile).open('rb') as ff:
                         data = io.BytesIO(ff.read())
                 finally:
                     os.close(fd2)
-                    os.unlink(outfile)
+                    Path(outfile).unlink()
             finally:
-                os.unlink(tmpfile)
+                Path(tmpfile).unlink()
 
         return data
