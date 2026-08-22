@@ -12,8 +12,17 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from enum import StrEnum
 
 from boxes import *
+
+
+class MountingHoles(StrEnum):
+    NONE = "none"
+    LEFT = "left"
+    RIGHT = "right"
+    TOP = "top"
+    BOTTOM = "bottom"
 
 
 class DrillGauge(Boxes):
@@ -22,6 +31,8 @@ class DrillGauge(Boxes):
     ui_group = "Misc"
 
     description = "Make sure to use a burn setting that is tight but does not require force!"
+
+    mounting_holes: MountingHoles
 
     def __init__(self) -> None:
         Boxes.__init__(self)
@@ -40,8 +51,8 @@ class DrillGauge(Boxes):
             choices=("left", "right"),
             help="Have the text left or right?")
         self.argparser.add_argument(
-            "--mounting_holes",  action="store", type=str, default="none",
-            choices=("none", "left", "right", "top", "bottom"),
+            "--mounting_holes",  action="store", type=MountingHoles, default=MountingHoles.NONE,
+            choices=MountingHoles,
             help="Add mounting holes")
 
     def _step45(self, s):

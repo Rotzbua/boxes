@@ -12,8 +12,14 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from enum import StrEnum
 
 from boxes import *
+
+class ClockNumberStyle(StrEnum):
+    NONE = "None"
+    ARABIC = "Arabic"
+    ROMAN = "Roman"
 
 class Clock(Boxes):
     """Clock (old style with clock hands)"""
@@ -25,6 +31,7 @@ A simple round clock for mounting a classical clock mechanism behind it, with th
 ![back](static/samples/Clock-2.jpg)
 ![side](static/samples/Clock-3.jpg)
 """
+    NumberStyle: ClockNumberStyle
 
     def __init__(self) -> None:
         Boxes.__init__(self)
@@ -50,8 +57,8 @@ A simple round clock for mounting a classical clock mechanism behind it, with th
             "--MinuteLines",  action="store", type=float, default=0.04,
             help="Length of the minute lines as fraction of the dial radius")
         self.argparser.add_argument(
-            "--NumberStyle",  action="store", type=str, default="Roman",
-            choices=("None", "Arabic", "Roman"),
+            "--NumberStyle", action="store", type=ClockNumberStyle, default=ClockNumberStyle.ROMAN,
+            choices=ClockNumberStyle,
             help="Style of the hour numbers")
         self.argparser.add_argument(
             "--FontSize",  action="store", type=float, default=0.12,
@@ -115,14 +122,12 @@ A simple round clock for mounting a classical clock mechanism behind it, with th
                     self.edge(self.MinuteLines*Ri)
                 else:
                     self.edge(self.HourLines*Ri)
-                    if self.NumberStyle != "None":
-                        self.moveTo(fontsize*0.7, 0, -i*6-180)
+                    if self.NumberStyle != ClockNumberStyle.NONE:
                         nr = int(14-(i/5))%12+1
-                        if self.NumberStyle == "Roman":
+                        if self.NumberStyle == ClockNumberStyle.ROMAN:
                             nr = self.roman(nr)
-                        else:
-                            nr = str(nr)
-                        self.text(nr, y=-0.1*fontsize, align="middle center",
+                        self.moveTo(fontsize*0.7, 0, -i*6-180)
+                        self.text(str(nr), y=-0.1*fontsize, align="middle center",
                                   fontsize=fontsize, color=Color.ETCHING)
         self.ctx.stroke()
         # move plate
