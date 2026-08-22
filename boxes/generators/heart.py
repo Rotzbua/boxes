@@ -12,9 +12,14 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from enum import StrEnum
 
 from boxes import *
 
+class TopLid(StrEnum):
+    CLOSED = "closed"
+    HOLE = "hole"
+    LID = "lid"
 
 class HeartBox(Boxes):
     """Box in the form of a heart"""
@@ -27,10 +32,15 @@ class HeartBox(Boxes):
         self.addSettingsArgs(edges.FingerJointSettings, finger=1.0,space=1.0)
         self.addSettingsArgs(edges.FlexSettings)
         self.buildArgParser(x=150, h=50)
+        self.top: TopLid = TopLid.CLOSED
         self.argparser.add_argument(
-            "--top",  action="store", type=str, default="closed",
-            choices=["closed", "hole", "lid",],
-            help="style of the top and lid")
+            "--top",
+            action="store",
+            type=TopLid,
+            choices=TopLid,
+            default=TopLid.CLOSED,
+            help="style of the top and lid"
+        )
 
     def CB(self):
         x = self.x
@@ -40,7 +50,7 @@ class HeartBox(Boxes):
         r = l/2. - t
         d = 2 *t
 
-        if self.top == "closed":
+        if self.top == TopLid.CLOSED:
             return
 
         for i in range(2):
@@ -50,7 +60,7 @@ class HeartBox(Boxes):
             l -= t
             r -= t
             d += t
-            if self.top == "hole":
+            if self.top == TopLid.HOLE:
                 return
 
     def render(self):
@@ -65,5 +75,5 @@ class HeartBox(Boxes):
         self.rectangularWall(0, h, "FFFF", move="up only")
         self.polygonWall(borders, callback=[self.CB], move="right")
         self.polygonWall(borders, move="mirror right")
-        if self.top == "lid":
+        if self.top == TopLid.LID:
             self.polygonWall([l+t, (180, r+t), 0, -90, 0, (180, r+t), l+t, 90], 'e')

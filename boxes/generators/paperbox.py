@@ -14,9 +14,15 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import math
+from enum import StrEnum
 
 from boxes import Boxes
 
+
+class Design(StrEnum):
+    AUTOMATIC = "automatic"
+    WIDEBOX = "widebox"
+    TUCKBOX = "tuckbox"
 
 class PaperBox(Boxes):
     """
@@ -38,13 +44,14 @@ A paper creaser (or bone folder) is also useful.
         Boxes.__init__(self)
         self.buildArgParser("x", "y", "h")
 
+        self.design: Design = Design.AUTOMATIC
         self.argparser.add_argument(
             "--design",
             action="store",
-            type=str,
-            default="automatic",
-            choices=("automatic", "widebox", "tuckbox"),
-            help="different design for paper consumption optimization. The tuckbox also has locking cut for its lid.",
+            type=Design,
+            default=Design.AUTOMATIC,
+            choices=Design,
+            help="Different design for paper consumption optimization. The tuckbox also has locking cut for its lid.",
         )
 
         self.argparser.add_argument(
@@ -92,12 +99,12 @@ A paper creaser (or bone folder) is also useful.
         )
 
     def render(self):
-        if self.design == "automatic":
-            self.design = "tuckbox" if self.h > self.y else "widebox"
+        if self.design == Design.AUTOMATIC:
+            self.design = Design.TUCKBOX if self.h > self.y else Design.WIDEBOX
 
         path = (
             self.tuckbox(self.x, self.y, self.h)
-            if self.design == "tuckbox"
+            if self.design == Design.TUCKBOX
             else self.widebox(self.x, self.y, self.h)
         )
 

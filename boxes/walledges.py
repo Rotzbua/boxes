@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import math
+from abc import abstractmethod, ABC
+from enum import StrEnum
 from typing import Any
 
 from boxes import Boxes, edges
@@ -8,51 +10,66 @@ from boxes import Boxes, edges
 from .edges import BaseEdge, Settings
 
 
-class _WallMountedBox(Boxes):
+class WallType(StrEnum):
+    PLAIN = "plain"
+    PLAIN_REINFORCED = "plain reinforced"
+    SLATWALL = "slatwall"
+    DINRAIL = "dinrail"
+    FRENCH_CLEAT = "french cleat"
+    SKADIS = "skadis"
+
+
+class _WallMountedBox(Boxes, ABC):
     ui_group = "WallMounted"
 
+    @abstractmethod
     def __init__(self) -> None:
         super().__init__()
-        self.addWallSettingsArgs()
 
-    def addWallSettingsArgs(self):
         self.addSettingsArgs(edges.FingerJointSettings)
         self.addSettingsArgs(WallSettings)
         self.addSettingsArgs(SlatWallSettings)
         self.addSettingsArgs(DinRailSettings)
         self.addSettingsArgs(FrenchCleatSettings)
         self.addSettingsArgs(SkadisSettings)
-        self.argparser.add_argument(
-            "--walltype",  action="store", type=str, default="plain",
-            choices=["plain", "plain reinforced", "slatwall", "dinrail",
-                     "french cleat", "skadis"],
-            help="Type of wall system to attach to")
 
-    def generateWallEdges(self):
-        if self.walltype.startswith("plain"):
+        self.walltype: WallType = WallType.PLAIN
+        self.argparser.add_argument(
+            "--walltype",
+            action="store",
+            type=WallType,
+            choices=WallType,
+            default=WallType.PLAIN,
+            help="Type of wall system to attach to"
+        )
+
+    def generateWallEdges(self) -> None:
+        #if self.walltype == WallType.PLAIN or self.walltype == WallType.PLAIN_REINFORCED:
+        # Better for inherit.
+        if self.walltype is not None and self.walltype.value.lower().startswith('plain'):
             s = WallSettings(
                 self.thickness, True,
                 **self.edgesettings.get("Wall", {}))
-        elif self.walltype == "slatwall":
+        elif self.walltype == WallType.SLATWALL:
             s = SlatWallSettings(
                 self.thickness, True,
                 **self.edgesettings.get("SlatWall", {}))
-        elif self.walltype == "dinrail":
+        elif self.walltype == WallType.DINRAIL:
             s = DinRailSettings(
                 self.thickness, True,
                 **self.edgesettings.get("DinRail", {}))
-        elif self.walltype == "french cleat":
+        elif self.walltype == WallType.FRENCH_CLEAT:
             s = FrenchCleatSettings(
                 self.thickness, True,
                 **self.edgesettings.get("FrenchCleat", {}))
-        elif self.walltype == "skadis":
+        elif self.walltype == WallType.SKADIS:
             s = SkadisSettings(
                 self.thickness, True,
                 **self.edgesettings.get("Skadis", {}))
 
         s.edgeObjects(self)
         self.wallHolesAt = self.edges["|"]
-        if self.walltype.endswith("reinforced"):
+        if self.walltype is not None and self.walltype.value.lower().endswith("reinforced"):
             self.edges["c"] = self.edges["d"]
             self.edges["C"] = self.edges["D"]
 
