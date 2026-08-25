@@ -41,16 +41,16 @@ def pdiff(p1, p2):
 
 
 class Surface:
-
-    scale = 1.0
-    invert_y = False
+    scale: float = 1.0
+    invert_y: bool = False
 
     def __init__(self) -> None:
-        self.parts: list[Any] = []
         self._p = self.new_part("default")
-        self.count = 0
+        self.count: int = 0
+        self.metadata: dict[str, Any] = {}
+        self.parts: list[Any] = []
 
-    def set_metadata(self, metadata):
+    def set_metadata(self, metadata: dict[str, Any]) -> None:
         self.metadata = metadata
 
     def flush(self):
@@ -83,11 +83,11 @@ class Surface:
             p.render(renderer)
         renderer.finish()
 
-    def transform(self, f, m, invert_y=False):
+    def transform(self, f, m, invert_y: bool = False) -> None:
         for p in self.parts:
             p.transform(f, m, invert_y)
 
-    def new_part(self, name="part"):
+    def new_part(self, name: str = "part") -> Part:
         if self.parts and len(self.parts[-1].pathes) == 0:
             return self._p
         p = Part(name)
@@ -193,7 +193,7 @@ class Path:
                         e.add(x_, y_)
         return e
 
-    def transform(self, f, m, invert_y=False):
+    def transform(self, f, m, invert_y: bool = False) -> None:
         self.params["lw"] *= f
         for c in self.path:
             C = c[0]
@@ -206,7 +206,7 @@ class Path:
                 if invert_y:
                     c[3] *= Affine.scale(1, -1)
 
-    def faster_edges(self, inner_corners):
+    def faster_edges(self, inner_corners: str) -> None:
         if inner_corners == "backarc":
             return
 
@@ -240,24 +240,24 @@ class Context:
 
         self._stack: list[Any] = []
         self._m = Affine.translation(0, 0)
-        self._xy = (0, 0)
+        self._xy = (0.0, 0.0)
         self._mxy = self._m * self._xy
-        self._lw = 0
+        self._lw = 0.0
         self._rgb = (0, 0, 0)
-        self._ff = "sans-serif"
-        self._fs = 10
+        self._ff: str | tuple[str, bool, bool] = "sans-serif"
+        self._fs = 10.0
         self._last_path = None
 
-    def _update_bounds_(self, mx, my):
-        self._bounds.update(mx, my)
+    def _update_bounds_(self, mx: float, my:float)->None:
+        self._bounds.update(mx, my)  # type: ignore[attr-defined]
 
-    def save(self):
+    def save(self) -> None:
         self._stack.append(
             (self._m, self._xy, self._lw, self._rgb, self._mxy, self._last_path)
         )
         self._xy = (0, 0)
 
-    def restore(self):
+    def restore(self) -> None:
         (
             self._m,
             self._xy,
@@ -269,25 +269,25 @@ class Context:
 
     ## transformations
 
-    def translate(self, x, y):
+    def translate(self, x: float, y: float) -> None:
         self._m *= Affine.translation(x, y)
         self._xy = (0, 0)
 
-    def scale(self, sx, sy):
+    def scale(self, sx: float, sy: float) -> None:
         self._m *= Affine.scale(sx, sy)
 
-    def rotate(self, r):
+    def rotate(self, r: float) -> None:
         self._m *= Affine.rotation(180 * r / math.pi)
 
-    def set_line_width(self, lw):
+    def set_line_width(self, lw: float) -> None:
         self._lw = lw
 
-    def set_source_rgb(self, r, g, b):
+    def set_source_rgb(self, r, g, b) -> None:
         self._rgb = (r, g, b)
 
     ## path methods
 
-    def _line_to(self, x, y):
+    def _line_to(self, x: float, y: float) -> None:
         self._add_move()
         x1, y1 = self._mxy
         self._xy = x, y
@@ -295,17 +295,17 @@ class Context:
         if not points_equal(x1, y1, x2, y2):
             self._dwg.append("L", x2, y2)
 
-    def _add_move(self):
+    def _add_move(self) -> None:
         self._dwg.move_to(*self._mxy)
 
-    def move_to(self, x, y):
+    def move_to(self, x: float, y: float) -> None:
         self._xy = (x, y)
         self._mxy = self._m * self._xy
 
-    def line_to(self, x, y):
+    def line_to(self, x: float, y: float) -> None:
         self._line_to(x, y)
 
-    def _arc(self, xc, yc, radius, angle1, angle2, direction):
+    def _arc(self, xc: float, yc: float, radius: float, angle1: float, angle2: float, direction) -> None:
         if abs(angle1 - angle2) < EPS or radius < EPS:
             return
         x1, y1 = radius * math.cos(angle1) + xc, radius * math.sin(angle1) + yc
@@ -336,13 +336,13 @@ class Context:
         self._xy = (x4, y4)
         self._mxy = (mx4, my4)
 
-    def arc(self, xc, yc, radius, angle1, angle2):
+    def arc(self, xc: float, yc: float, radius: float, angle1: float, angle2: float) -> None:
         self._arc(xc, yc, radius, angle1, angle2, 1)
 
-    def arc_negative(self, xc, yc, radius, angle1, angle2):
+    def arc_negative(self, xc: float, yc: float, radius: float, angle1: float, angle2: float) -> None:
         self._arc(xc, yc, radius, angle1, angle2, -1)
 
-    def curve_to(self, x1, y1, x2, y2, x3, y3):
+    def curve_to(self, x1: float, y1: float, x2: float, y2: float, x3: float, y3: float) -> None:
         # mx0,my0 = self._m*self._xy
         mx1, my1 = self._m * (x1, y1)
         mx2, my2 = self._m * (x2, y2)
@@ -352,24 +352,24 @@ class Context:
         self._xy = (x3, y3)
         self._mxy = (mx3, my3)
 
-    def stroke(self):
+    def stroke(self) -> None:
         # print('stroke stack-level=',len(self._stack),'lastpath=',self._last_path,)
         self._last_path = self._dwg.stroke(rgb=self._rgb, lw=self._lw)
         self._xy = (0, 0)
 
-    def fill(self):
+    def fill(self) -> None:
         self._xy = (0, 0)
         raise NotImplementedError
 
-    def set_font(self, style, bold=False, italic=False):
+    def set_font(self, style: str, bold: bool = False, italic: bool = False) -> None:
         if style not in ("serif", "sans-serif", "monospaced"):
             raise ValueError("Unknown font style")
         self._ff = (style, bold, italic)
 
-    def set_font_size(self, fs):
+    def set_font_size(self, fs: float) -> None:
         self._fs = fs
 
-    def show_text(self, text, **args):
+    def show_text(self, text, **args) -> None:
         params = {"ff": self._ff, "fs": self._fs, "lw": self._lw, "rgb": self._rgb}
         params.update(args)
         mx0, my0 = self._m * self._xy
@@ -381,7 +381,7 @@ class Context:
         # XXX ugly hack! Fix Boxes.text() !
         return (0, 0, 0.6 * fs * len(text), 0.65 * fs, fs * 0.1, 0)
 
-    def rectangle(self, x, y, width, height):
+    def rectangle(self, x: float, y:float, width:float, height:float) -> None:
 
         # todo: better check for empty path?
         self.stroke()
@@ -393,7 +393,7 @@ class Context:
         self.line_to(x, y)
         self.stroke()
 
-    def get_current_point(self):
+    def get_current_point(self) -> tuple[float, float]:
         return self._xy
 
     def flush(self):
@@ -402,7 +402,7 @@ class Context:
         # self.stroke()
 
     ## additional methods
-    def new_part(self):
+    def new_part(self) -> None:
         self._dwg.new_part()
 
 
@@ -753,8 +753,6 @@ showpage
         return data
 
 class LBRN2Surface(Surface):
-
-
     invert_y = False
     dbg = False
 
