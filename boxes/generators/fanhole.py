@@ -12,14 +12,23 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from enum import StrEnum
 
 from boxes import *
+
+
+class Style(StrEnum):
+    CW_SWIRL = "CW Swirl"
+    CCW_SWIRL = "CCW Swirl"
+    HOLE = "Hole"
 
 
 class FanHole(Boxes):
     """Hole pattern for mounting a fan"""
 
     ui_group = "Holes"
+
+    style: Style
 
     def __init__(self) -> None:
         Boxes.__init__(self)
@@ -40,8 +49,8 @@ class FanHole(Boxes):
             "--inner_disc",  action="store", type=float, default=.2,
             help="relative size of the inner disc")
         self.argparser.add_argument(
-            "--style",  action="store", type=str, default="CW Swirl",
-            choices=["CW Swirl", "CCW Swirl", "Hole"],
+            "--style",  action="store", type=Style, default=Style.CW_SWIRL,
+            choices=Style,
             help="Style of the fan hole")
 
 
@@ -98,10 +107,11 @@ class FanHole(Boxes):
                 self.hole(px, py, r_h)
         self.moveTo(d/2, d/2)
 
-        if self.style == "CW Swirl":
-            self.ctx.scale(-1, 1)
-            self.swirl(d/2, self.inner_disc, self.arms)
-        elif self.style == "CCW Swirl":
-            self.swirl(d/2, self.inner_disc, self.arms)
-        else: #Hole
-            self.hole(0, 0, d=d)
+        match self.style:
+            case Style.CW_SWIRL:
+                self.ctx.scale(-1, 1)
+                self.swirl(d/2, self.inner_disc, self.arms)
+            case Style.CCW_SWIRL:
+                self.swirl(d/2, self.inner_disc, self.arms)
+            case Style.HOLE:
+                self.hole(0, 0, d=d)

@@ -12,25 +12,38 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+from __future__ import annotations
+
+from enum import StrEnum
 
 from boxes import *
+
+
+class TopLid(StrEnum):
+    NONE = "none"
+    ANGLE_HOLE = "angled hole"
+    ANGLE_LID = "angled lid"
+    ANGLE_LID2 = "angled lid2"
 
 
 class AngledBox(Boxes):
     """Box with both ends cornered"""
 
     ui_group = "Box"
+    top: TopLid = TopLid.NONE
 
     def __init__(self) -> None:
         Boxes.__init__(self)
         self.addSettingsArgs(edges.FingerJointSettings)
         self.buildArgParser("x", "y", "h", "outside", "bottom_edge")
         self.argparser.add_argument(
-            "--n",  action="store", type=int, default=5,
+            "--n", action="store", type=int, default=5,
             help="number of walls at one side (1+)")
         self.argparser.add_argument(
-            "--top",  action="store", type=str, default="none",
-            choices=["none", "angled hole", "angled lid", "angled lid2"],
+            "--top", action="store",
+            type=TopLid,
+            choices=TopLid,
+            default=TopLid.NONE,
             help="style of the top and lid")
 
     def floor(self, x, y, n, edge='e', hole=None, move=None, callback=None, label=""):
@@ -84,9 +97,9 @@ class AngledBox(Boxes):
         if self.outside:
             x = self.adjustSize(x)
             y = self.adjustSize(y)
-            if self.top == "none":
+            if self.top == TopLid.NONE:
                 h = self.adjustSize(h, False)
-            elif "lid" in self.top and self.top != "angled lid":
+            elif "lid" in self.top.value.lower() and self.top != TopLid.ANGLE_LID:
                 h = self.adjustSize(h) - self.thickness
             else:
                 h = self.adjustSize(h)
@@ -107,16 +120,18 @@ class AngledBox(Boxes):
         with self.saved_context():
             if b != "e":
                 self.floor(x, y , n, edge='f', move="right", label="Bottom")
-            if self.top == "angled lid":
-                self.floor(x, y, n, edge='e', move="right", label="Lower Lid")
-                self.floor(x, y, n, edge='E', move="right", label="Upper Lid")
-            elif self.top in ("angled hole", "angled lid2"):
-                self.floor(x, y, n, edge='F', move="right", hole=True, label="Top Rim and Lid")
-                if self.top == "angled lid2":
+            match self.top:
+                case TopLid.ANGLE_HOLE:
+                    self.floor(x, y, n, edge='F', move="right", hole=True, label="Top Rim and Lid")
+                case TopLid.ANGLE_LID:
+                    self.floor(x, y, n, edge='e', move="right", label="Lower Lid")
+                    self.floor(x, y, n, edge='E', move="right", label="Upper Lid")
+                case TopLid.ANGLE_LID2:
+                    self.floor(x, y, n, edge='F', move="right", hole=True, label="Top Rim and Lid")
                     self.floor(x, y, n, edge='E', move="right", label="Upper Lid")
         self.floor(x, y , n, edge='F', move="up only")
 
-        fingers = self.top in ("angled lid2", "angled hole")
+        fingers = self.top in (TopLid.ANGLE_HOLE, TopLid.ANGLE_LID2)
 
         cnt = 0
         for j in range(2):
